@@ -1,0 +1,21 @@
+﻿<div class="blazored-toast @ToastSettings!.BaseClass @ToastSettings.AdditionalClasses">
+
+    
+
+    <div class="blazored-toast-body">
+        <div class="blazored-toast-header">
+            <h5 class="blazored-toast-heading">@ToastSettings.Heading</h5>
+
+            <span @onclick="@Close" class="closemodal">X</span>
+
+        </div>
+        <p class="blazored-toast-message">@ToastSettings.Message</p>
+    </div>
+
+    @if (ToastSettings.ShowProgressBar)
+    {
+        <div class="blazored-toast-progressbar">
+            <span style="width: @(_progress)%;"></span>
+        </div>
+    }
+</div>

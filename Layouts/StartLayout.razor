@@ -1,0 +1,26 @@
+﻿@if (Exited)
+{
+    <div>Goodbye</div>
+    return;
+}
+@if (ErrorMessage != "")
+{
+    <table>
+        <tr>
+            <td>
+                <h1 class="text-danger">There was an error in the app</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h1 class="text-danger">@ErrorMessage</h1>
+            </td>
+        </tr>
+    </table>
+    return;
+}
+@ChildContent
+@if (_messageOpened)
+{
+    <MessageBoxBlazor CloseClicked="ClosePopupAsync" Message="@_messageShown" />
+}

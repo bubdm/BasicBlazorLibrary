@@ -1,0 +1,9 @@
+﻿@if (Text == "")
+{
+    return;
+}
+<svg>
+    <text fill="@TextColor" x="50%" y="55%" font-size="@FontSize" text-anchor="middle" dominant-baseline="middle" class="maxSize @GetOtherClass()">
+        @Text
+    </text>
+</svg>

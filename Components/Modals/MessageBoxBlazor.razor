@@ -1,0 +1,25 @@
+﻿<SimpleCenteredModal>
+    <div class="blackdiv">
+        @{
+            var list = Messages();
+        }
+        @if (list.Count == 1)
+        {
+            @Message
+        }
+        else
+        {
+            @foreach (string message in list)
+            {
+                <div>
+                    @message
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <button @onclick="@CloseClicked" class="btn btn-primary">
+            Okay
+        </button>
+    </div>
+</SimpleCenteredModal>

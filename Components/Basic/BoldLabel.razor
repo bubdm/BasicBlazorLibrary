@@ -1,0 +1,20 @@
+﻿@if (StartsOnNextLine == false)
+{
+    <span style="@GetStyle" @attributes="InputAttributes">
+    @Text
+    @if (ChildContent != null)
+    {
+        @ChildContent
+    }
+    </span>
+}
+else
+{
+    <div style="@GetStyle" @attributes="InputAttributes">
+    @Text
+    @if (ChildContent != null)
+    {
+        @ChildContent
+    }
+    </div>
+}

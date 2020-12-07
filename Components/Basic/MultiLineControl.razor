@@ -1,0 +1,63 @@
+﻿@if (string.IsNullOrWhiteSpace(Value))
+{
+    return;
+}
+@if (Value.Contains('\t'))
+{
+    HasTabs = true;
+}
+else
+{
+    HasTabs = false;
+}
+@foreach (var line in Value.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+{
+    @if (HasTabs == false)
+    {
+        var tempList = line.Split("  ", StringSplitOptions.None).ToList();
+        var content = line.Split("  ", StringSplitOptions.RemoveEmptyEntries).SingleOrDefault();
+        if (content == null)
+        {
+            content = "";
+        }
+        if (tempList.Count == 1 && content != "")
+        {
+            @tempList.Last();
+        }
+        else
+        {
+            //try to make 2 less.
+            //tempList = tempList.Take(tempList.Count - 2).ToList();
+            HowMany = tempList.Count - 1;
+            for (int i = 0; i <= HowMany - 1; i++)
+            {
+                <SpaceControl />
+            }
+            @content;
+        }
+    }
+    else
+    {
+        var tempList = line.Split('\t', StringSplitOptions.None).ToList();
+        var content = line.Split('\t', StringSplitOptions.RemoveEmptyEntries).SingleOrDefault();
+        if (content == null)
+        {
+            content = "";
+        }
+        if (tempList.Count == 1 && tempList.Single() != "")
+        {
+            @tempList.Last();
+        }
+        else
+        {
+            HowMany = tempList.Count - 2;
+            for (int i = 0; i <= HowMany - 1; i++)
+            {
+                <SpaceControl />
+                <SpaceControl />
+            }
+            @content;
+        }
+    }
+    <br />
+}

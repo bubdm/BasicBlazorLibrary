@@ -1,0 +1,14 @@
+﻿<div class="main" style="width: @Width; height: @Height;">
+    <table>
+        @foreach (var item in Labels)
+        {
+            <tr>
+                <th>@item.Header:</th>
+                <td>@GetValue(item)
+                <SpaceControl />
+                <SpaceControl />
+                    </td>
+            </tr>
+        }
+    </table>
+</div>

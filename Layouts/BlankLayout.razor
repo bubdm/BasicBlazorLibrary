@@ -1,0 +1,9 @@
+﻿@inherits LayoutComponentBase
+@using BasicBlazorLibrary.Components.Toasts;
+<BlazoredToasts />
+@* for this version, go ahead and show a friendly message.
+    could always create another layout control that shows as runtime error.
+    *@
+<StartLayout ShowFriendlyError="true">
+    @Body
+</StartLayout>

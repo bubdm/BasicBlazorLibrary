@@ -1,0 +1,13 @@
+﻿@{
+    int x = 0;
+}
+@for (int r = 0; r < TotalRows; r++)
+{
+    @for (int c = 0; c < TotalColumns; c++)
+    {
+        int row = r + 1;
+        int column = c + 1;
+        @ChildContent!((row, column, x))
+        x++;
+    }
+}

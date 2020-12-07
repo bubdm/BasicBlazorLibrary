@@ -1,0 +1,23 @@
+﻿@if (Assembly == null)
+{
+    return;
+}
+@if (Transform != "" && ID == "")
+{
+    return;  //because if there is transforms, then needs id as well
+}
+@if (Transform == "")
+{
+    <svg>
+        <image id="@ID" x="@X" y="@Y" width="@Width" height="@Height" href="@GetLink()" />
+    </svg>
+}
+else
+{
+    <svg>
+        <defs>
+            <image id="@ID" x="@X" y="@Y" width="@Width" height="@Height" href="@GetLink()" />
+        </defs>
+        <use transform="@Transform" href="@GetFinalID" />
+    </svg>
+}
