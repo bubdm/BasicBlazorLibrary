@@ -1,0 +1,11 @@
+﻿@typeparam T
+@if (ChildContent == null)
+{
+    return;
+}
+@foreach (var item in RenderList)
+{
+    <div style="width: @ColumnWidth; display: inline-block">
+        @ChildContent(item)
+    </div>
+}

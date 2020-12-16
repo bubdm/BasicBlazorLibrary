@@ -1,0 +1,42 @@
+﻿@typeparam T
+
+@if (RenderList == null || ChildContent == null)
+{
+    return;
+}
+@*@if (Rows == 0 || Columns == 0)
+{
+    <div>
+        @if (Rows == 0)
+        {
+            <div>You need to specify how many rows</div>
+        }
+        else
+        {
+            <div>You need to specify how many columns</div>
+        }
+    </div>
+    return;
+}*@
+<GridContainer Inline="@Inline"
+               ColumnGap="@ColumnGap"
+               Columns="@GetColumns">
+    @{
+        int x;
+        int y;
+        x = 1;
+        y = 1;
+    }
+    @foreach (var item in RenderList)
+    {
+        <GridItem Column="x" Row="y">
+            @ChildContent(item)
+        </GridItem>
+        x++;
+        if (x > Columns)
+        {
+            x = 1;
+            y++;
+        }
+    }
+</GridContainer>
