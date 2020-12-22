@@ -1,7 +1,5 @@
-function copyText() {
-
-    var copyText = document.querySelector("textarea");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999)
-    document.execCommand("copy");
+export function clipboardCopy(text) {
+    navigator.clipboard.writeText(text).catch(function (error) {
+        alert(error);
+    });
 }

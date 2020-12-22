@@ -1,18 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <Version>1.0.1</Version>
   </PropertyGroup>
-
-  
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="CommonBasicStandardLibraries" Version="3.0.19" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.0" />
   </ItemGroup>
-
 </Project>
