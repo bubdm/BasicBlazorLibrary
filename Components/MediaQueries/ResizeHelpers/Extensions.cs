@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 namespace BasicBlazorLibrary.Components.MediaQueries.ResizeHelpers
 {
-    public class Extensions
+    public static class Extensions
     {
         public static IServiceCollection RegisterResizeListener(this IServiceCollection services)
         {
