@@ -3,7 +3,8 @@ using System;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.MediaQueries.ResizeHelpers
 {
-    public class ResizeListener : IResizeListener, IAsyncDisposable
+    //decided to not make people register.  just one more thing that would be needed.  i think this time, no need for it.
+    public class ResizeListener : IAsyncDisposable
     {
         public ResizeListener(IJSRuntime jS)
         {

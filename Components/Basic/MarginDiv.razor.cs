@@ -3,7 +3,6 @@ using System.Text;
 
 namespace BasicBlazorLibrary.Components.Basic
 {
-    //decided to not include class.  because i have found that if a person uses css issolation, then does not work.
     public partial class MarginDiv
     {
         [Parameter]
@@ -20,6 +19,11 @@ namespace BasicBlazorLibrary.Components.Basic
         public RenderFragment? ChildContent { get; set; }
         [Parameter]
         public string Style { get; set; } = "";
+
+        //found out there was a workaround to get css isolation to work in this case.
+
+        [Parameter]
+        public string Class { get; set; } = "";
         private string GetStyle()
         {
             string temps = Style;
