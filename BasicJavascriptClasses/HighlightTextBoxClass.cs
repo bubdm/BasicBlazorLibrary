@@ -11,7 +11,7 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         protected override string JavascriptFileName => "highlighter";
         public async Task PartialHighlightText(ElementReference? element, int startat)
         {
-            await ModuleTask.InvokeVoidAsync("highlighttext", element, startat);
+            await ModuleTask.InvokeVoidFromClassAsync("highlighttext", element, startat);
         }
     }
 }

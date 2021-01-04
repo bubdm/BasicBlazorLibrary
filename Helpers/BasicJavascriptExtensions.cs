@@ -14,15 +14,15 @@ namespace BasicBlazorLibrary.Helpers
             return js.GetLibraryModuleTask("basichelpers");
         }
 
-        public static async Task<int> GetContainerHeight(this IJSRuntime js, ElementReference element)
+        public static async Task<int> GetContainerHeight(this IJSRuntime js, ElementReference? element)
         {
             var moduleTask = js.GetModuleTask();
-            return await moduleTask.InvokeAsync<int>("getcontainerheight", element);
+            return await moduleTask.InvokeDisposeAsync<int>("getcontainerheight", element);
         }
         public static async Task<int> PixelsPerRem(this IJSRuntime js)
         {
             var moduleTask = js.GetModuleTask();
-            return await moduleTask.InvokeAsync<int>("convertRemToPixels", 1);
+            return await moduleTask.InvokeDisposeAsync<int>("convertRemToPixels", 1);
         }
     }
 }

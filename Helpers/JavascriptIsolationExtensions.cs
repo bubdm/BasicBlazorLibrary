@@ -1,5 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Helpers
 {
@@ -32,18 +33,33 @@ namespace BasicBlazorLibrary.Helpers
              "import", fullPath).AsTask());
             return output;
         }
-        public static async Task InvokeVoidAsync(this Lazy<Task<IJSObjectReference>> moduleTask, string identifier, params object?[] args)
+        //in this case, needs to dispose the stuff as well.
+        public static async Task InvokeVoidDisposeAsync(this Lazy<Task<IJSObjectReference>> moduleTask, string identifier, params object?[] args)
         {
             var module = await moduleTask.Value;
             await module.InvokeVoidAsync(identifier, args);
             await module.DisposeAsync(); //i think should dispose each time as well.
         }
-        public static async Task<T> InvokeAsync<T>(this Lazy<Task<IJSObjectReference>> moduleTask, string identifier, params object?[] args)
+        public static async Task<T> InvokeDisposeAsync<T>(this Lazy<Task<IJSObjectReference>> moduleTask, string identifier, params object?[] args)
         {
             var module = await moduleTask.Value;
             var output = await module.InvokeAsync<T>(identifier, args);
             await module.DisposeAsync();
             return output;
         }
+        //fromclass means it will not dispose.
+        public static async Task InvokeVoidFromClassAsync(this Lazy<Task<IJSObjectReference>> moduleTask, string identifier, params object?[] args)
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync(identifier, args);
+        }
+        public static async Task<T> InvokeFromClassAsync<T>(this Lazy<Task<IJSObjectReference>> moduleTask, string identifier, params object?[] args)
+        {
+            var module = await moduleTask.Value;
+            var output = await module.InvokeAsync<T>(identifier, args);
+            return output;
+        }
+
+
     }
 }

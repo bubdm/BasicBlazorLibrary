@@ -7,6 +7,11 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
 {
     public abstract class BaseStandardJavascriptClass : IAsyncDisposable
     {
+
+
+
+
+
         protected Lazy<Task<IJSObjectReference>> ModuleTask; //i think this is okay.  i have seen many cases where the first part of the name is the same.
         protected abstract bool IsLocal { get; } //this influences how it would create this module.
         protected abstract string JavascriptFileName { get; } //this is the javascript file being used by this class.

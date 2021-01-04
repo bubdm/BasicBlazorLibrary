@@ -7,7 +7,7 @@ namespace BasicBlazorLibrary.Helpers
         public static async Task CopyTextAsync(this IJSRuntime js, string text)
         {
             var moduleTask = js.GetLibraryModuleTask("clipboard");
-            await moduleTask.InvokeVoidAsync("clipboardCopy", text);
+            await moduleTask.InvokeVoidFromClassAsync("clipboardCopy", text);
 
         }
     }

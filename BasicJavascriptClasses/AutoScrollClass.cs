@@ -14,11 +14,11 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             {
                 return;
             }
-            await ModuleTask.InvokeVoidAsync("scrolltoelement", element);
+            await ModuleTask.InvokeVoidFromClassAsync("scrolltoelement", element);
         }
         public async Task SetScrollPosition(ElementReference? element, float position)
         {
-            await ModuleTask.InvokeVoidAsync("setscroll", element, position);
+            await ModuleTask.InvokeVoidFromClassAsync("setscroll", element, position);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             {
                 return;
             }
-            await ModuleTask.InvokeVoidAsync("start", DotNetObjectReference.Create(this), element);
+            await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this), element);
         }
         public Action? ArrowUp;
         public Action? ArrowDown;

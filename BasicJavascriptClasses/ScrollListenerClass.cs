@@ -22,7 +22,7 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             {
                 return; //just in case.
             }
-            await ModuleTask.InvokeVoidAsync("start", DotNetObjectReference.Create(this), element); //i am forced to use the dotnetobjectreferencecreate method 
+            await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this), element); //i am forced to use the dotnetobjectreferencecreate method 
         }
         protected override string JavascriptFileName => "scrolllistener";
     }
