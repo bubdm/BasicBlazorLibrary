@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Text;
 
-namespace BasicBlazorLibrary.Components.Basic
+namespace BasicBlazorLibrary.Components.Divs
 {
     public partial class MarginDiv
     {

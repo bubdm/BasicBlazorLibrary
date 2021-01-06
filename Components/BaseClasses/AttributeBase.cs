@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-namespace BasicBlazorLibrary.Components.Basic
+namespace BasicBlazorLibrary.Components.BaseClasses
 {
     public abstract class AttributeBase : ComponentBase
     {
@@ -23,9 +23,7 @@ namespace BasicBlazorLibrary.Components.Basic
             if (AdditionalAttributes != null &&
                     AdditionalAttributes.TryGetValue(text, out var id) &&
                     !string.IsNullOrEmpty(Convert.ToString(id)))
-            {
                 return id.ToString()!;
-            }
 
             return "";
         }

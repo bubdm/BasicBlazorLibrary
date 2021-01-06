@@ -1,6 +1,6 @@
 using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
-namespace BasicBlazorLibrary.Components.Basic
+namespace BasicBlazorLibrary.Components.Divs
 {
     public partial class HorizontalDiv
     {

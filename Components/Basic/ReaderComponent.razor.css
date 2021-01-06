@@ -1,0 +1,7 @@
+﻿.customscroll {
+    overflow-x: auto;
+}
+
+div:focus {
+    outline: none;
+}

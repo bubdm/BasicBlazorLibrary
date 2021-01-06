@@ -1,0 +1,43 @@
+﻿@using BasicBlazorLibrary.Components.BaseClasses
+@using BasicBlazorLibrary.Components.CssGrids
+@inherits JavascriptComponentBase
+@typeparam T
+@if (RenderList == null || ChildContent == null || DataContext == null)
+{
+    return;
+}
+@{
+    int x = 0;
+    _reference = default;
+}
+<div tabindex="0" @ref="_main" class="customscroll" style="width: @Width; height: @Height;">
+    <GridContainer>
+        @foreach (var item in RenderList)
+        {
+            int y;
+            int z;
+            y = x;
+            z = y + 1;
+            <GridItem Row="z">
+                @if (y == DataContext.ElementScrollTo)
+                {
+                    <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)" @ref="_reference">
+                        @ChildContent(item)
+                    </div>
+                }
+                else
+                {
+                    <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)">
+                        @ChildContent(item)
+                    </div>
+                }
+            </GridItem>
+
+
+            x++;
+        }
+    </GridContainer>
+
+
+
+</div>
