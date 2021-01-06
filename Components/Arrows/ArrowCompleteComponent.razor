@@ -1,0 +1,121 @@
+﻿@using BasicBlazorLibrary.Components.Divs
+@using System.Drawing
+@using BasicBlazorLibrary.Components.CssGrids 
+@if (CanStart() == false)
+{
+    return;
+}
+
+@if (ArrowCategory == EnumArrowCategory.All)
+{
+    <CanvasContainerDiv ViewPort="_containerViewPort" ContainerHeight="@GetContainerHeight" ContainerWidth="@GetContainerWidth">
+
+
+        <CanvasElementDiv Location="new PointF(100, 0)">
+            <ArrowUpComponent TargetHeight="@TargetHeight"
+                                   TargetWidth="@TargetWidth"
+                                   BackgroundColor="@BackgroundColor"
+                                   StrokeColor="@StrokeColor"
+                                   StrokeWidth="@StrokeWidth"
+                                   Clicked="UpClicked" />
+        </CanvasElementDiv>
+
+        <CanvasElementDiv Location="new PointF(100, 200)">
+            <ArrowDownComponent TargetHeight="@TargetHeight"
+                                     TargetWidth="@TargetWidth"
+                                     BackgroundColor="@BackgroundColor"
+                                     StrokeColor="@StrokeColor"
+                                     StrokeWidth="@StrokeWidth"
+                                     Clicked="DownClicked" />
+        </CanvasElementDiv>
+        <CanvasElementDiv Location="new PointF(0, 100)">
+            <ArrowLeftComponent TargetHeight="@TargetHeight"
+                                     TargetWidth="@TargetWidth"
+                                     BackgroundColor="@BackgroundColor"
+                                     StrokeColor="@StrokeColor"
+                                     StrokeWidth="@StrokeWidth"
+                                     Clicked="LeftClicked" />
+        </CanvasElementDiv>
+        <CanvasElementDiv Location="new PointF(200, 100)">
+            <ArrowRightComponent TargetHeight="@TargetHeight"
+                                      TargetWidth="@TargetWidth"
+                                      BackgroundColor="@BackgroundColor"
+                                      StrokeColor="@StrokeColor"
+                                      StrokeWidth="@StrokeWidth"
+                                      Clicked="RightClicked" />
+        </CanvasElementDiv>
+    </CanvasContainerDiv>
+    return;
+}
+else if (ArrowCategory == EnumArrowCategory.LeftRight)
+{
+    <GridContainer ColumnGap="@RowColumnGap" Columns="@GetCommonRowsColumns">
+        <GridItem>
+            <ArrowLeftComponent TargetHeight="@TargetHeight"
+                                     TargetWidth="@TargetWidth"
+                                     BackgroundColor="@BackgroundColor"
+                                     StrokeColor="@StrokeColor"
+                                     StrokeWidth="@StrokeWidth"
+                                     Clicked="LeftClicked" />
+        </GridItem>
+        <GridItem Column="2">
+            <ArrowRightComponent TargetHeight="@TargetHeight"
+                                      TargetWidth="@TargetWidth"
+                                      BackgroundColor="@BackgroundColor"
+                                      StrokeColor="@StrokeColor"
+                                      StrokeWidth="@StrokeWidth"
+                                      Clicked="RightClicked" />
+        </GridItem>
+    </GridContainer>
+}
+else if (ArrowCategory == EnumArrowCategory.UpDown)
+{
+    <GridContainer RowGap="@RowColumnGap" Rows="@GetCommonRowsColumns">
+        <GridItem>
+            <ArrowUpComponent TargetHeight="@TargetHeight"
+                                   TargetWidth="@TargetWidth"
+                                   BackgroundColor="@BackgroundColor"
+                                   StrokeColor="@StrokeColor"
+                                   StrokeWidth="@StrokeWidth"
+                                   Clicked="UpClicked" />
+        </GridItem>
+        <GridItem Row="2">
+            <ArrowDownComponent TargetHeight="@TargetHeight"
+                                     TargetWidth="@TargetWidth"
+                                     BackgroundColor="@BackgroundColor"
+                                     StrokeColor="@StrokeColor"
+                                     StrokeWidth="@StrokeWidth"
+                                     Clicked="DownClicked" />
+        </GridItem>
+    </GridContainer>
+}
+else if (ArrowCategory == EnumArrowCategory.LeftDownRight)
+{
+    <GridContainer ColumnGap="@RowColumnGap" Columns="@GetThreeColumns">
+        <GridItem>
+            <ArrowLeftComponent TargetHeight="@TargetHeight"
+                                     TargetWidth="@TargetWidth"
+                                     BackgroundColor="@BackgroundColor"
+                                     StrokeColor="@StrokeColor"
+                                     StrokeWidth="@StrokeWidth"
+                                     Clicked="LeftClicked" />
+        </GridItem>
+        <GridItem Column="2">
+            <ArrowDownComponent TargetHeight="@TargetHeight"
+                                     TargetWidth="@TargetWidth"
+                                     BackgroundColor="@BackgroundColor"
+                                     StrokeColor="@StrokeColor"
+                                     StrokeWidth="@StrokeWidth"
+                                     Clicked="DownClicked" />
+        </GridItem>
+        <GridItem Column="3">
+            <ArrowRightComponent TargetHeight="@TargetHeight"
+                                      TargetWidth="@TargetWidth"
+                                      BackgroundColor="@BackgroundColor"
+                                      StrokeColor="@StrokeColor"
+                                      StrokeWidth="@StrokeWidth"
+                                      Clicked="RightClicked" />
+        </GridItem>
+
+    </GridContainer>
+}
