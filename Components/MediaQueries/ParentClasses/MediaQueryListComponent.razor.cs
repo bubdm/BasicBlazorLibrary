@@ -1,7 +1,9 @@
 using BasicBlazorLibrary.Components.MediaQueries.ResizeHelpers;
+using BasicBlazorLibrary.Helpers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
 {
@@ -21,11 +23,38 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
         public EnumScreenOrientation ScreenOrientation { get; private set; } //only this can set it though.  others is read only.
         public EnumDeviceCategory DeviceCategory { get; private set; }
         public BrowserSize? BrowserInfo { get; private set; }
+        private bool OperatingSystemContainsKeyboard { get;  set; }
+        public bool HasKeyboard(EnumKeyboardCategory category)
+        {
+            switch (category)
+            {
+                case EnumKeyboardCategory.Real:
+                    return OperatingSystemContainsKeyboard;
+                case EnumKeyboardCategory.Emulation:
+                    if (DeviceCategory == EnumDeviceCategory.Desktop)
+                    {
+                        return true;
+                    }
+                    return false;
+                case EnumKeyboardCategory.ManuelKeyboard:
+                    return true;
+                case EnumKeyboardCategory.ManuelTouchscreen:
+                    return false;
+                default:
+                    return false;
+            }
+        }
+
         private bool _loading = true;
         protected override void OnInitialized()
         {
             _resize = new ResizeListener(JS!);
             _resize!.OnResized += MediaQueryListComponent_OnResized;
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            OperatingSystemContainsKeyboard = await JS!.HasKeyboard();
         }
 
         private void MediaQueryListComponent_OnResized(BrowserSize obj)

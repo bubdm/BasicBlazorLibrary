@@ -1,5 +1,6 @@
-﻿<CascadingValue IsFixed="true" Value="this">
-    <div style="height: @ContainerHeight; width: @ContainerWidth; background-color: @BackgroundColor" class="relative">
+﻿@inherits AttributeBase
+<CascadingValue IsFixed="true" Value="this">
+    <div @onclick="Submit" style="height: @ContainerHeight; width: @ContainerWidth; background-color: @BackgroundColor; @CssStyle" class="relative @CssClass">
         @if (ChildContent != null)
         {
             @ChildContent

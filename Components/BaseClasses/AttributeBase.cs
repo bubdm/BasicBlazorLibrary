@@ -16,6 +16,7 @@ namespace BasicBlazorLibrary.Components.BaseClasses
         /// 'class' attribute.
         /// </summary>
         protected string CssClass => StandardText("class");
+        protected string CssStyle => StandardText("style");
         protected string ID => StandardText("id");
         protected string PlaceHolder => StandardText("placeholder");
         protected string StandardText(string text)

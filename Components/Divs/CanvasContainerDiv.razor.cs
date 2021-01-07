@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace BasicBlazorLibrary.Components.Divs
 {
@@ -22,5 +23,18 @@ namespace BasicBlazorLibrary.Components.Divs
 
         [Parameter]
         public string BackgroundColor { get; set; } = cc.Transparent.ToWebColor();
+
+
+        [Parameter]
+        public EventCallback Clicked { get; set; }
+
+        private async Task Submit()
+        {
+            if (Clicked.HasDelegate)
+            {
+                await Clicked.InvokeAsync();
+            }
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿<div class="absolute" style="top: @_topText; left: @_leftText;">
+﻿@inherits AttributeBase
+<div class="absolute @CssClass" style="top: @_topText; left: @_leftText; @CssStyle">
     @if (ChildContent != null)
     {
         @ChildContent

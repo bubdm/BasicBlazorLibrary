@@ -6,6 +6,7 @@ namespace BasicBlazorLibrary.Components.Divs
     public partial class CanvasElementDiv
     {
 
+
         [CascadingParameter]
         public CanvasContainerDiv? Container { get; set; }
 
