@@ -1,0 +1,10 @@
+﻿.clickable {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.main {
+    overflow: auto;
+    width: 100vw;
+    white-space: nowrap;
+}

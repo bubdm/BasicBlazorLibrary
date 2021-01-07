@@ -1,0 +1,40 @@
+﻿.entirearea {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.blackmenu {
+    position: fixed;
+    justify-content: center;
+    background-color: black;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.topmodal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.startflex {
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+}
+
+.singleitem {
+    background-color: navy;
+}

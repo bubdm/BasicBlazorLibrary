@@ -1,23 +1,35 @@
 using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
-namespace BasicBlazorLibrary.Components.Basic
+using System;
+using System.Linq;
+using System.Net.Http;
+
+namespace BasicBlazorLibrary.Components.Tabs
 {
     public partial class TabPage
     {
+        //most of the time, this would be used.
+        //however, there is a navigation version of it as well.
+
         [CascadingParameter]
-        protected TabControl? Parent { get; set; } //hopefully good enough.
+        private ITabContainer? TabContainer { get; set; }
+
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
+
+
         [Parameter]
         public string Text { get; set; } = "";
+
         protected override void OnInitialized()
         {
-            if (Parent == null)
+            if (TabContainer == null)
             {
-                throw new BasicBlankException("TabPage must exist within a TabControl");
+                throw new BasicBlankException("Needs tab container");
             }
             base.OnInitialized();
-            Parent.AddPage(this);
+            TabContainer.AddPage(this);
         }
+
     }
 }

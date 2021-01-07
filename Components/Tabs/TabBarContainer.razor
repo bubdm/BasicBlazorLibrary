@@ -1,0 +1,14 @@
+﻿@using BasicBlazorLibrary.Components.NavigationMenus
+@inherits TabContainerBase<TabPage>
+@if (Pages.Count > 0 && Pages.First() is NavigationPage)
+{
+    <div>
+        If you are using navigation page, try using the NavigationTabContainer, not TabBarContainer.  Otherwise, causes too many hidden bugs
+    </div>
+    return;
+}
+<CascadingValue Value="this" IsFixed="true">
+    
+    <InternalBarHelper T="TabPage" Pages="Pages" />
+
+</CascadingValue>

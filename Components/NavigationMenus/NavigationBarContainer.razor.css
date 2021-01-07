@@ -1,0 +1,18 @@
+﻿.main {
+    width: 100vw;
+}
+
+.firstflex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.centerdiv {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.hidden {
+    display: none;
+}

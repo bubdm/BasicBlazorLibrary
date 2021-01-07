@@ -1,0 +1,12 @@
+﻿@typeparam T
+<div class="main" style="@GetMainStyle()">
+
+    @foreach (var item in Pages)
+    {
+        <div style="color: @GetLabelColorStyle(item); @GetOtherStyles()" @onclick="() => Container!.ActivatePage(item)" class="clickable">
+            @item.Text
+        </div>
+    }
+</div>
+
+@Container!.ChildContent

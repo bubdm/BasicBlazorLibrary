@@ -1,0 +1,5 @@
+﻿@using BasicBlazorLibrary.Components.Tabs
+@inherits TabContainerBase<NavigationPage>
+<CascadingValue Value="this" IsFixed="true">
+    <InternalBarHelper Pages="Pages" T="NavigationPage" />
+</CascadingValue>

@@ -1,0 +1,40 @@
+﻿@using System.Drawing
+@using BasicBlazorLibrary.Components.Divs
+<CascadingValue Value="this" IsFixed="true">
+    <div class="@GetFirstClass() main" style="padding: @Padding; font-size: @MainFontSize;  background-color: @MainBackgroundColor; color: @MainTextColor; ">
+        <div class="firstflex">
+            <div class="centerdiv">@Title</div>
+            <CanvasContainerDiv Clicked="() => _showMenu = true"
+                                ViewPort="_viewPort"
+                                ContainerHeight="@GetContainer"
+                                ContainerWidth="@GetContainer"
+                                style="cursor: pointer;">
+
+                <CanvasElementDiv Location="new PointF(15, 2)">
+                    <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
+
+                    </div>
+                </CanvasElementDiv>
+                <CanvasElementDiv Location="new PointF(15, 15)">
+                    <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
+
+                    </div>
+                </CanvasElementDiv>
+                <CanvasElementDiv Location="new PointF(15, 28)">
+                    <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
+
+                    </div>
+                </CanvasElementDiv>
+            </CanvasContainerDiv>
+        </div>
+    </div>
+    <MenuModal MenuList="MenuList"
+                              BackgroundColor="@MenuBackgroundColor"
+                              FontSize="@MenuFontSize"
+                              Height="@MenuHeight"
+                              Right="@MenuRight"
+                              TextColor="@MenuTextColor"
+                              Width="@MenuWidth"
+                              @bind-Visible="_showMenu" />
+    @ChildContent
+</CascadingValue>
