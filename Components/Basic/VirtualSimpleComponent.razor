@@ -26,9 +26,13 @@ the purpose of the first 2 divs is only to calculate the sizes of the different 
             {
                 int x = i + 1;
                 int index = i;
+                if (index < Items.Count)
+                {
                 <div @key="Items[index]" style="height: @LineHeight; width: 100%; position: absolute; top: @GetPosition(index)">
-                    @ChildContent!(Items[index])
+                    @ChildContent!(GetContent(index))
                 </div>
+                }
+
             }
         </div>
     }
