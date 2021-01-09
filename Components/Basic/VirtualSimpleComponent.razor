@@ -1,0 +1,35 @@
+﻿@typeparam TItem
+@* 
+was going to use the hidden div.  however, since this needs performance, not an option because makes slower since more blazor objects to work with.    
+this should be fine since i should not need to do anything with them.
+
+the purpose of the first 2 divs is only to calculate the sizes of the different controls so it can position them properly for virtual scrolling.
+*@
+<div @ref="_sampleElement" style="height: @LineHeight; position:absolute; top: -10000px; left: -10000px; ">
+
+</div>
+
+<div @ref="_sampleContainer" style="height: @GetContainerSize(); position: absolute; top: -10000px; left: -10000px;">
+
+</div>
+
+<div @ref="_mainScroll" style="overflow-x: auto; height: @ContainerHeight; width: @ContainerWidth;">
+    @if (_clientHeight > 0)
+    {
+        <div style="height: @GetContainerSize(); @GetBorders() position:relative; ">
+            @{
+                int fit = ElementsFit();
+                int starts = GetNextItem();
+                int upto = starts + fit;
+            }
+            @for (int i = starts; i < upto; i++)
+            {
+                int x = i + 1;
+                int index = i;
+                <div @key="Items[index]" style="height: @LineHeight; width: 100%; position: absolute; top: @GetPosition(index)">
+                    @ChildContent!(Items[index])
+                </div>
+            }
+        </div>
+    }
+</div>

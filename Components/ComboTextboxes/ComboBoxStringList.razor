@@ -1,0 +1,74 @@
+﻿@{
+    int x = 0;
+    _scrollreference = null;
+}
+<div style="width: @Width;">
+    <input @ref="_textreference" style="@GetTextStyle()" @bind-value="@Value" @bind-value:event="oninput" @onkeypress="@KeyPress" type="text" class="customtextbox" />
+</div>
+@if (Virtualized == false)
+{
+    <div class="customscroll" style="width: @Width; height: @Height;">
+        @foreach (var item in TextList!)
+        {
+            int y;
+            y = x;
+            @if (y == _service!.ElementScrollTo)
+            {
+                <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)" @ref="_scrollreference"
+                     onmouseover="this.style.background='@GetHoverColor(y)'"
+                     onmouseout="this.style.background='@GetBackgroundColor(y)'">
+                    <div style="@GetTextStyle()">
+                        @item
+                    </div>
+                </div>
+            }
+            else if (y == 0)
+            {
+                <div @onclick="() => ElementClicked(y)" @ref="_firstreference"
+                     onmouseover="this.style.background='@GetHoverColor(y)'"
+                     onmouseout="this.style.background='@GetBackgroundColor(y)'">
+                    <div style="@GetTextStyle()">
+                        @item
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)"
+                     onmouseover="this.style.background='@GetHoverColor(y)'"
+                     onmouseout="this.style.background='@GetBackgroundColor(y)'">
+                    <div style="@GetTextStyle()">
+                        @item
+                    </div>
+                </div>
+            }
+
+            x++;
+        }
+
+    </div>
+
+}
+else
+{
+    <VirtualSimpleComponent Items="TextList"
+                            HasSolidBlackBorders="true"
+                            Context="item"
+                            ContainerWidth="@Width"
+                            ContainerHeight="@Height"
+                            LineHeight="@LineHeight"
+                            @ref="_virtual">
+        @{ 
+            int y = TextList!.IndexOf(item);
+        }
+        <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)"
+             onmouseover="this.style.background='@GetHoverColor(y)'"
+             onmouseout="this.style.background='@GetBackgroundColor(y)'">
+            <div style="@GetTextStyle()">
+                @item
+            </div>
+        </div>
+    </VirtualSimpleComponent>
+
+
+}
