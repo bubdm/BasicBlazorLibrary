@@ -111,6 +111,15 @@ namespace BasicBlazorLibrary.Components.Basic
             {
                 output = Items.Count; //because you can't have more than the elements allowed.
             }
+            else if (output + 5 > Items.Count)
+            {
+                output = Items.Count;
+            }
+            else
+            {
+                output +=5; //to make for more smooth scrolling.
+            }
+            
             return output;
         }
         private string GetPosition(int element)
