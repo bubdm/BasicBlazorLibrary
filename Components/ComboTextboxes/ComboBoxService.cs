@@ -23,21 +23,16 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             _scrollHelper = new AutoScrollClass(js);
             _highlightHelper = new HighlightTextBoxClass(js);
             _keystroke = new KeystrokeClass(js);
-            _keystroke.ProcessBackSpace = () =>
+
+            _keystroke.AddAction(ConsoleKey.Backspace, () =>
             {
                 ElementHighlighted = -1; //leave the previous alone.
                 NeedsToScroll = false; //did not work but should do anyways.
                 ElementScrollTo = -1;
                 BackspacePressed?.Invoke();
-            };
-            _keystroke.ArrowUp = () =>
-            {
-                ArrowUp?.Invoke();
-            };
-            _keystroke.ArrowDown = () =>
-            {
-                ArrowDown?.Invoke();
-            };
+            });
+            _keystroke.AddArrowUpAction(() => ArrowUp?.Invoke());
+            _keystroke.AddArrowDownAction(() => ArrowDown?.Invoke());
         }
 
         public void DoHighlight(int value, bool alsoscroll)

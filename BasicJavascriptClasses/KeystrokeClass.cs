@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.BasicJavascriptClasses
 {
@@ -21,9 +22,34 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             }
             await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this), element);
         }
-        public Action? ArrowUp;
-        public Action? ArrowDown;
-        public Action? ProcessBackSpace { get; set; } //can be null.
+
+
+
+        public void AddAction(ConsoleKey key, Action action)
+        {
+            _actions.Add(key, action);
+        }
+
+        //was going to do fkey but i think its not necessary because you can just use consolekey.f anyways.
+        
+        public void AddArrowUpAction(Action action)
+        {
+            AddAction(ConsoleKey.UpArrow, action);
+        }
+        public void AddArrowDownAction(Action action)
+        {
+            AddAction(ConsoleKey.DownArrow, action);
+        }
+        //backspace is not common enough eiher.
+
+
+
+        private readonly Dictionary<ConsoleKey, Action> _actions = new Dictionary<ConsoleKey, Action>();
+
+
+        //public Action? ArrowUp;
+        //public Action? ArrowDown;
+        //public Action? ProcessBackSpace { get; set; } //can be null.
         [JSInvokable]
         public void KeyUp(int key)
         {
@@ -40,22 +66,27 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             }
             if (found)
             {
-                if (consoleKey == ConsoleKey.UpArrow)
+                if (_actions.ContainsKey(consoleKey) == false)
                 {
-                    ArrowUp?.Invoke();
                     return;
                 }
-                if (consoleKey == ConsoleKey.DownArrow)
-                {
-                    ArrowDown?.Invoke();
-                    return;
-                }
-                if (consoleKey == ConsoleKey.Backspace)
-                {
-                    ProcessBackSpace?.Invoke(); //i think if there is nothing, then maybe won't do anything.
-                                                //means another class can do something.  if there is a listener, something else has to handle it.
-                    return;
-                }
+                _actions[consoleKey].Invoke();
+                //if (consoleKey == ConsoleKey.UpArrow)
+                //{
+                //    ArrowUp?.Invoke();
+                //    return;
+                //}
+                //if (consoleKey == ConsoleKey.DownArrow)
+                //{
+                //    ArrowDown?.Invoke();
+                //    return;
+                //}
+                //if (consoleKey == ConsoleKey.Backspace)
+                //{
+                //    ProcessBackSpace?.Invoke(); //i think if there is nothing, then maybe won't do anything.
+                //                                //means another class can do something.  if there is a listener, something else has to handle it.
+                //    return;
+                //}
             }
         }
     }

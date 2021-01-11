@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.Basic
 {
-    public partial class ReaderComponent<T> : IAsyncDisposable
+    public partial class ReaderComponent<T>
     {
         /// <summary>
         /// this is needed because in order for the scrollbars to work properly should have the width and height of the area.
@@ -89,8 +89,9 @@ namespace BasicBlazorLibrary.Components.Basic
             _reference = null;
             _main = null;
             _keystroke = new KeystrokeClass(JS!);
-            _keystroke.ArrowUp = () => ArrowUp(false);
-            _keystroke.ArrowDown = () => ArrowDown(false);
+            _keystroke.AddArrowUpAction(() => ArrowUp(false));
+            _keystroke.AddArrowDownAction(() => ArrowDown(false));
+
             _autoScroll = new AutoScrollClass(JS!);
         }
         private CustomBasicList<T>? _previousList;
@@ -193,11 +194,6 @@ namespace BasicBlazorLibrary.Components.Basic
             _needsToScroll = false;
         }
 
-        public ValueTask DisposeAsync()
-        {
-            _keystroke!.ArrowUp = null;
-            _keystroke.ArrowDown = null;
-            return ValueTask.CompletedTask;
-        }
+        
     }
 }

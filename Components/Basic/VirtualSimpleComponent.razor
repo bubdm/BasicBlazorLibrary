@@ -13,10 +13,10 @@ the purpose of the first 2 divs is only to calculate the sizes of the different 
 
 </div>
 
-<div @ref="_mainScroll" style="overflow-x: auto; height: @ContainerHeight; width: @ContainerWidth;">
+<div @ref="_mainScroll" style="overflow-x: auto; @GetBorders() height: @ContainerHeight; width: @ContainerWidth;">
     @if (_clientHeight > 0)
     {
-        <div style="height: @GetContainerSize(); @GetBorders() position:relative; ">
+        <div style="height: @GetContainerSize();  position:relative; ">
             @{
                 int fit = ElementsFit();
                 int starts = GetNextItem();
@@ -28,9 +28,9 @@ the purpose of the first 2 divs is only to calculate the sizes of the different 
                 int index = i;
                 if (index < Items.Count)
                 {
-                <div @key="Items[index]" style="height: @LineHeight; width: 100%; position: absolute; top: @GetPosition(index)">
-                    @ChildContent!(GetContent(index))
-                </div>
+                    <div style="height: @LineHeight; width: 100%; position: absolute; top: @GetPosition(index)">
+                        @ChildContent!(GetContent(index))
+                    </div>
                 }
 
             }
