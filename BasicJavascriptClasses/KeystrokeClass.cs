@@ -12,8 +12,15 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
     /// </summary>
     public class KeystrokeClass : BaseLibraryJavascriptClass
     {
+        internal enum EnumOtherKeyCategory
+        {
+            None = 0,
+            Shift = 16,
+            Control = 17,
+            Alt = 18
+        }
         public KeystrokeClass(IJSRuntime js) : base(js) { }
-        protected override string JavascriptFileName => "keyup";
+        protected override string JavascriptFileName => "keystroke";
         public async Task InitAsync(ElementReference? element)
         {
             if (element == null)
@@ -22,16 +29,26 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             }
             await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this), element);
         }
-
-
-
         public void AddAction(ConsoleKey key, Action action)
         {
-            _actions.Add(key, action);
+            _simpleActions.Add(key, action);
         }
-
-        //was going to do fkey but i think its not necessary because you can just use consolekey.f anyways.
-        
+        public void AddShiftTab(Action action)
+        {
+            _shiftActions.Add(ConsoleKey.Tab, action);
+        }
+        public void AddShiftAction(ConsoleKey key, Action action)
+        {
+            _shiftActions.Add(key, action);
+        }
+        public void AddControlAction(ConsoleKey key, Action action)
+        {
+            _controlActions.Add(key, action);
+        }
+        public void AddAltAction(ConsoleKey key, Action action)
+        {
+            _altActions.Add(key, action);
+        }
         public void AddArrowUpAction(Action action)
         {
             AddAction(ConsoleKey.UpArrow, action);
@@ -40,19 +57,32 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         {
             AddAction(ConsoleKey.DownArrow, action);
         }
-        //backspace is not common enough eiher.
-
-
-
-        private readonly Dictionary<ConsoleKey, Action> _actions = new Dictionary<ConsoleKey, Action>();
-
-
-        //public Action? ArrowUp;
-        //public Action? ArrowDown;
-        //public Action? ProcessBackSpace { get; set; } //can be null.
+        private readonly Dictionary<ConsoleKey, Action> _simpleActions = new Dictionary<ConsoleKey, Action>();
+        private readonly Dictionary<ConsoleKey, Action> _shiftActions = new Dictionary<ConsoleKey, Action>();
+        private readonly Dictionary<ConsoleKey, Action> _altActions = new Dictionary<ConsoleKey, Action>();
+        private readonly Dictionary<ConsoleKey, Action> _controlActions = new Dictionary<ConsoleKey, Action>();
+        private EnumOtherKeyCategory _oldKey = EnumOtherKeyCategory.None;
+        private bool _needsreleased;
         [JSInvokable]
-        public void KeyUp(int key)
+        public void KeyDown(int key)
         {
+            if (_needsreleased)
+            {
+                return;
+            }
+            _oldKey = key switch
+            {
+                16 => EnumOtherKeyCategory.Shift,
+                17 => EnumOtherKeyCategory.Control,
+                18 => EnumOtherKeyCategory.Alt,
+                _ => EnumOtherKeyCategory.None
+            };
+            _needsreleased = true;
+        }
+        [JSInvokable]
+        public void KeyUp(int key) //shift is 16.
+        {
+            //16 is one.  well see about control or right shift.
             ConsoleKey consoleKey;
             bool found;
             try
@@ -66,27 +96,37 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             }
             if (found)
             {
-                if (_actions.ContainsKey(consoleKey) == false)
+                _needsreleased = false;
+                if (_oldKey == EnumOtherKeyCategory.Shift)
+                {
+                    if (_shiftActions.ContainsKey(consoleKey))
+                    {
+                        _shiftActions[consoleKey].Invoke();
+                        return;
+                    }
+                }
+                if (_oldKey == EnumOtherKeyCategory.Control)
+                {
+                    if (_controlActions.ContainsKey(consoleKey))
+                    {
+                        _controlActions[consoleKey].Invoke();
+                        return;
+                    }
+                }
+                if (_oldKey == EnumOtherKeyCategory.Alt)
+                {
+                    if (_altActions.ContainsKey(consoleKey))
+                    {
+                        _altActions[consoleKey].Invoke();
+                        return;
+                    }
+                }
+                if (_simpleActions.ContainsKey(consoleKey) == false)
                 {
                     return;
                 }
-                _actions[consoleKey].Invoke();
-                //if (consoleKey == ConsoleKey.UpArrow)
-                //{
-                //    ArrowUp?.Invoke();
-                //    return;
-                //}
-                //if (consoleKey == ConsoleKey.DownArrow)
-                //{
-                //    ArrowDown?.Invoke();
-                //    return;
-                //}
-                //if (consoleKey == ConsoleKey.Backspace)
-                //{
-                //    ProcessBackSpace?.Invoke(); //i think if there is nothing, then maybe won't do anything.
-                //                                //means another class can do something.  if there is a listener, something else has to handle it.
-                //    return;
-                //}
+                _simpleActions[consoleKey].Invoke();
+
             }
         }
     }
