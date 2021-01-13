@@ -4,7 +4,7 @@
 }
 <div style="width: @Width;">
     <input @ref="TextReference" 
-           style="@GetTextStyle()"
+           style="@GetTextStyle() background-color: @BackgroundColor;"
            @bind-value="@Value"
            @bind-value:event="oninput"
            @onkeypress="@KeyPress" 
@@ -15,7 +15,7 @@
 </div>
 @if (Virtualized == false)
 {
-    <div class="customscroll" style="width: @Width; height: @Height;">
+    <div class="customscroll" style="width: @Width; height: @Height; background-color: @BackgroundColor ;">
         @foreach (var item in TextList!)
         {
             int y;

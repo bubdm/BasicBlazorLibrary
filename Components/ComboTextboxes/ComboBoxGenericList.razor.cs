@@ -44,7 +44,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public string Placeholder { get; set; } = "";
         [Parameter]
         public string HoverColor { get; set; } = cc.LightGray.ToWebColor();
-
+        [Parameter]
+        public string BackgroundColor { get; set; } = cc.White.ToWebColor(); //so you change this as well.
         public ElementReference? TextReference => _combo!.TextReference;
 
         private ComboBoxStringList? _combo;

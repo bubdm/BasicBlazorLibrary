@@ -49,6 +49,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public int TabIndex { get; set; } = -1;
         [Parameter]
         public string Placeholder { get; set; } = "";
+        [Parameter]
+        public string BackgroundColor { get; set; } = cc.White.ToWebColor(); //so you change this as well.
 
         private string GetId()
         {
