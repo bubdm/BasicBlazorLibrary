@@ -48,7 +48,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         [Parameter]
         public int TabIndex { get; set; } = -1;
         [Parameter]
-        public string PlaceHolder { get; set; } = "";
+        public string Placeholder { get; set; } = "";
 
         private string GetId()
         {
