@@ -1,0 +1,38 @@
+﻿.topmodal {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: fixed;
+    z-index: 10;
+    /*decided to make this white so all other text that was there won't be there anymore for this.*/
+}
+
+.monthheader {
+    width: 100%;
+    text-align: center;
+    font-size: 3vw;
+}
+
+.daysofweek {
+    font-size: 3vw;
+    text-align: center;
+}
+
+.dayoncalendar {
+    border: solid black 1px;
+    font-size: 3vw;
+    text-align: center;
+}
+
+.smallheader {
+    font-size: 2vmin;
+    display: inline;
+}
+
+.textdisplay {
+    font-size: 2vmin;
+    margin: 2px;
+    width: 10vw;
+}

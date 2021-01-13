@@ -1,0 +1,16 @@
+﻿@using BasicBlazorLibrary.Components.ComboTextboxes
+@inherits EnterBase<string>
+<ComboBoxStringList TextList="TextList"
+                    ComboEnterPressed="ProcessEnter"
+                    FontSize="@FontSize"
+                    Height="@Height"
+                    HighlightColor="@HighlightColor"
+                    HoverColor="@HoverColor"
+                    LineHeight="@LineHeight"
+                    Placeholder="@Placeholder"
+                    RequiredFromList="@RequiredFromList"
+                    TabIndex="@TabIndex"
+                    @ref="_combo"
+                    TextColor="@TextColor"
+                    BackgroundColor="@BackgroundColor"
+                    @bind-Value="@_value" />

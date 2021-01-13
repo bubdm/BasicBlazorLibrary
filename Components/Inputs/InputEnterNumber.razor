@@ -1,0 +1,25 @@
+﻿@typeparam TValue
+@inherits EnterBase<TValue>
+@if (ValidateOnInput == false)
+{
+    <input type="number"
+           step="@_stepAttributeValue"
+           @bind="CurrentValue"
+           @ref="InputElement"
+           class="@CssClass"
+           id="@TabIndex"
+           placeholder="@Placeholder"
+           @attributes="AdditionalAttributes" />
+}
+else
+{
+    <input type="number"
+           step="@_stepAttributeValue"
+           @bind="CurrentValue"
+           @ref="InputElement"
+           class="@CssClass"
+           id="@TabIndex"
+           placeholder="@Placeholder"
+           @attributes="AdditionalAttributes"
+           @bind:event="oninput" />
+}

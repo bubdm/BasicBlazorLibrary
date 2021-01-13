@@ -1,0 +1,51 @@
+﻿@using BasicBlazorLibrary.Components.CssGrids
+@typeparam TValue
+@inherits HotkeyComponentBase
+@if (_invalid)
+{
+    <p>Please use a valid date format.  Generics was only used so the events can support both nullable and regular dates</p>
+    return;
+}
+@if (_todisplay == null)
+{
+    return;
+}
+<div class="topmodal">
+    <div tabindex="0" style="margin: 10px;"
+         @ref="MainElement">
+        <div class="smallheader">
+            F1 Focus On Textbox C To Clear
+        </div>
+        <input type="text"
+               @bind="@_realValue"
+               @ref="_text"
+               @onkeypress:preventDefault
+               class="textdisplay" />
+        <div class="smallheader">
+            F2 To Choose Current Date &nbsp;&nbsp;Enter On Text To Highlight New Date.&nbsp;&nbsp;Enter To Select Date And Close&nbsp;&nbsp;X To Close Without Choosing Date
+        </div>
+        <GridContainer Rows="@GetRows()" Columns="@GetColumns()">
+            <GridItem ColumnSpan="7">
+                <div class="monthheader">@_monthLabel</div>
+            </GridItem>
+            @{
+                int column = 0;
+            }
+            @foreach (var day in _dayList)
+            {
+                column++;
+                <GridItem Row="2" Column="column">
+                    <div class="daysofweek">@day</div>
+                </GridItem>
+            }
+            @foreach (var day in _dates)
+            {
+                <GridItem Row="day.Row" Column="day.Column">
+                    <div style="@GetColorStyle(day.Date)" @onclick="() => DayClicked(day.Date)" class="dayoncalendar">
+                        @day.Date.Day
+                    </div>
+                </GridItem>
+            }
+        </GridContainer>
+    </div>
+</div>

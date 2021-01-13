@@ -1,0 +1,9 @@
+﻿@inherits EnterBase<string>
+<input type="text"
+       @bind="CurrentValue"
+       @ref="InputElement"
+       id="@TabIndex"
+       class="@CssClass"
+       placeholder="@Placeholder"
+       @attributes="AdditionalAttributes"
+       @bind:event="oninput" />
