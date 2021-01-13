@@ -45,6 +45,20 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public string LineHeight { get; set; } = "1.5rem";
         [Parameter]
         public bool Virtualized { get; set; } = false;
+        [Parameter]
+        public int TabIndex { get; set; } = -1;
+        [Parameter]
+        public string PlaceHolder { get; set; } = "";
+
+        private string GetId()
+        {
+            if (TabIndex == -1)
+            {
+                return "";
+            }
+            return TabIndex.ToString();
+        }
+
 
         private VirtualSimpleComponent<string>? _virtual; //this is used so it can do the autoscroll.
         //in this case, has to use this one and not the other one.
@@ -55,7 +69,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             return $"font-size: {FontSize}; color: {TextColor};";
         }
         private string _firstText = "";
-        private ElementReference? _textreference;
+        //decided to make this public.  therefore, the validation version can use it to focus and selectall.
+        public ElementReference? TextReference;
         private ElementReference? _scrollreference;
         private ElementReference? _firstreference;
         private void PrivateUpdate(string value, bool laternewValue)
@@ -77,7 +92,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             _service.ArrowDown += ArrowDown;
             _service.ArrowUp += ArrowUp;
             _service.BackspacePressed += BackspacePressed;
-            _textreference = null;
+            TextReference = null;
             _scrollreference = null;
             _firstreference = null;
             _virtual = null;
@@ -144,14 +159,14 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             _service!.DoHighlight(index, true);
             await Task.Delay(10);
             PrivateUpdate(item, false);
-            await _service.PartialHighlightText(_textreference, _firstText.Length); //try this way.
+            await _service.PartialHighlightText(TextReference, _firstText.Length); //try this way.
         }
         private async Task ElementClicked(int x)
         {
             _service!.DoHighlight(x, false);
             PrivateUpdate(TextList![_service.ElementHighlighted], false);
             _firstText = Value;
-            await _textreference!.Value.FocusAsync(); //needs to focus on the control as well obviously.
+            await TextReference!.Value.FocusAsync(); //needs to focus on the control as well obviously.
         }
         private string GetHoverColor(int id)
         {
@@ -183,13 +198,13 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (_textreference == null)
+            if (TextReference == null)
             {
                 return;
             }
             if (firstRender)
             {
-                await _service!.InitializeAsync(_textreference); //this will start the listener.
+                await _service!.InitializeAsync(TextReference); //this will start the listener.
             }
             if (_service!.NeedsToScroll && _service.ElementScrollTo == -1) //-1 means needs to scroll to top.
             {

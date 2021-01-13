@@ -3,7 +3,15 @@
     _scrollreference = null;
 }
 <div style="width: @Width;">
-    <input @ref="_textreference" style="@GetTextStyle()" @bind-value="@Value" @bind-value:event="oninput" @onkeypress="@KeyPress" type="text" class="customtextbox" />
+    <input @ref="TextReference" 
+           style="@GetTextStyle()"
+           @bind-value="@Value"
+           @bind-value:event="oninput"
+           @onkeypress="@KeyPress" 
+           type="text"
+           id="@GetId()"
+           placeholder="@PlaceHolder"
+           class="customtextbox" />
 </div>
 @if (Virtualized == false)
 {

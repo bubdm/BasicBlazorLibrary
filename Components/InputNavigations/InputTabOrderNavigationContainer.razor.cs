@@ -26,21 +26,23 @@ namespace BasicBlazorLibrary.Components.InputNavigations
         private int _currentTab;
         private int _max;
         private int _min;
-
+        
         protected override void OnInitialized()
         {
             _clicker = new ClickInputHelperClass(JS!);
             _focusjs = new FocusClass(JS!);
             _clicker.InputClicked = (tabindex) =>
             {
-                LoseFocus();
+                if (tabindex != _currentTab)
+                {
+                    LoseFocus();
+                }
                 _currentTab = tabindex;
             };
 
             _clicker.OtherClicked = LoseFocus;
             base.OnInitialized();
         }
-
         private void LoseFocus()
         {
             if (OtherScreen == true)

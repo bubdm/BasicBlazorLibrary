@@ -16,6 +16,7 @@ namespace BasicBlazorLibrary.Components.BaseClasses
         protected virtual bool FocusOnFirst { get; set; }
 
         //protected bool CanStartup { get; set; } = true;
+        //somehow this is running twice now.
 
 
         protected async Task InitAsync()

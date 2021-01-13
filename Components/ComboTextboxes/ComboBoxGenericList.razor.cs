@@ -38,8 +38,22 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public string LineHeight { get; set; } = "1.5rem";
         [Parameter]
         public bool Virtualized { get; set; } = false;
+        [Parameter]
+        public int TabIndex { get; set; } = -1;
+        [Parameter]
+        public string PlaceHolder { get; set; } = "";
+        [Parameter]
+        public string HoverColor { get; set; } = cc.LightGray.ToWebColor();
+
+        public ElementReference? TextReference => _combo!.TextReference;
+
+        private ComboBoxStringList? _combo;
         private string _textDisplay = "";
         private readonly CustomBasicList<string> _list = new CustomBasicList<string>();
+        protected override void OnInitialized()
+        {
+            _combo = null;
+        }
         protected override void OnParametersSet()
         {
             _list.Clear();

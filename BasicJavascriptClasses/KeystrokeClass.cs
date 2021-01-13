@@ -21,13 +21,18 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         }
         public KeystrokeClass(IJSRuntime js) : base(js) { }
         protected override string JavascriptFileName => "keystroke";
+
+
+        private bool _didInit = false;
+
         public async Task InitAsync(ElementReference? element)
         {
-            if (element == null)
+            if (element == null || _didInit == true)
             {
                 return;
             }
             await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this), element);
+            _didInit = true;
         }
         public void AddAction(ConsoleKey key, Action action)
         {
