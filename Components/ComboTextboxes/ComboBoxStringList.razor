@@ -2,9 +2,9 @@
     int x = 0;
     _scrollreference = null;
 }
-<div style="width: @Width;">
+<div style="width: @Style.Width;">
     <input @ref="TextReference" 
-           style="@GetTextStyle() background-color: @BackgroundColor;"
+           style="@GetTextStyle() background-color: @Style.BackgroundColor;"
            @bind-value="@Value"
            @bind-value:event="oninput"
            @onkeypress="@KeyPress" 
@@ -15,8 +15,8 @@
 </div>
 @if (Virtualized == false)
 {
-    <div class="customscroll" style="width: @Width; height: @Height; background-color: @BackgroundColor ;">
-        @foreach (var item in TextList!)
+    <div class="customscroll" style="width: @Style.Width; height: @Style.Height; background-color: @Style.BackgroundColor ;">
+        @foreach (var item in ItemList!)
         {
             int y;
             y = x;
@@ -59,14 +59,13 @@
 }
 else
 {
-   
-
-    <VirtualSimpleComponent Items="TextList"
+    <VirtualSimpleComponent Items="ItemList"
                             HasSolidBlackBorders="true"
-                            ContainerWidth="@Width"
-                            ContainerHeight="@Height"
-                            LineHeight="@LineHeight"
+                            ContainerWidth="@Style.Width"
+                            ContainerHeight="@Style.Height"
+                            LineHeight="@Style.LineHeight"
                             Context="item"
+                            BackgroundColor="@Style.BackgroundColor"
                             @ref="_virtual">
         <div @onclick="() => ElementClicked(item.Index)" style="@GetColorStyle(item.Index)"
              onmouseover="this.style.background='@GetHoverColor(item.Index)'"

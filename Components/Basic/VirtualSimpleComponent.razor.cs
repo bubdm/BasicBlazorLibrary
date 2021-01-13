@@ -1,11 +1,13 @@
 using BasicBlazorLibrary.BasicJavascriptClasses;
 using BasicBlazorLibrary.Helpers;
+using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using CommonBasicStandardLibraries.CollectionClasses;
 using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
+using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.Basic
 {
 
@@ -36,6 +38,8 @@ namespace BasicBlazorLibrary.Components.Basic
         public string ContainerWidth { get; set; } = "100vw";
         [Parameter]
         public bool HasSolidBlackBorders { get; set; } = false;
+        [Parameter]
+        public string BackgroundColor { get; set; } = cc.White.ToWebColor();
         [Inject]
         private IJSRuntime? Js { get; set; } //still needs this because needs javascript
         private ScrollListenerClass? _listen;

@@ -1,39 +1,22 @@
+using BasicBlazorLibrary.Components.ComboTextboxes;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Globalization;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-namespace BasicBlazorLibrary.Components.ComboTextboxes
+using System.Threading.Tasks;
+namespace BasicBlazorLibrary.Components.Inputs
 {
-    public partial class ComboBoxEnums<TValue>
+    public partial class InputEnterComboEnumLists<TValue>
         where TValue : Enum
     {
-        [Parameter]
-        public TValue? Value { get; set; }
-        [Parameter]
-        public EventCallback<TValue> ValueChanged { get; set; }
-
-        [Parameter]
-        public EventCallback ComboEnterPressed { get; set; }
-
-        [Parameter]
-        public ComboStyleModel Style { get; set; } = new ComboStyleModel();
-        [Parameter]
-        public bool Virtualized { get; set; } = false;
-        [Parameter]
-        public string Placeholder { get; set; } = "";
-        public ElementReference? TextReference => _combo!.TextReference;
-
-        private ComboBoxStringList? _combo;
-
-
-        private string _textDisplay = "";
-        private TValue FirstValue { get; set; } = default!;
         private readonly CustomBasicList<string> _list = new();
+        private TValue FirstValue { get; set; } = default!;
+        private string _textDisplay = "";
+        private ComboBoxStringList? _combo;
         protected override void OnInitialized()
         {
             _combo = null;
+            //attempt to do this way. and use the string one.  would be better performance.
             var firsts = Enum.GetValues(typeof(TValue));
             foreach (var item in firsts)
             {
@@ -60,8 +43,11 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             {
                 _textDisplay = Value.ToString();
             }
-            base.OnParametersSet();
         }
+        [Parameter]
+        public ComboStyleModel Style { get; set; } = new ComboStyleModel();
+        [Parameter]
+        public bool Virtualized { get; set; } = false;
         private void TextChanged(string value)
         {
             var success = BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var parsedValue);
@@ -75,6 +61,13 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 //not ready to use forms yet
             }
             ValueChanged.InvokeAsync(parsedValue); //let the child recall this again.
+        }
+
+        //maybe no need for losefocus this time (?)
+
+        public override async Task FocusAsync()
+        {
+            await TabContainer.FocusAndSelectAsync(_combo!.TextReference);
         }
     }
 }

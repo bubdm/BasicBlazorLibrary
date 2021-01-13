@@ -1,10 +1,11 @@
 ﻿@using BasicBlazorLibrary.Components.ComboTextboxes
-@inherits EnterBase<string>
-<ComboBoxStringList ItemList="ItemList"
+@inherits EnterBase<int>
+<ComboBoxStringList ItemList="_list"
                     ComboEnterPressed="ProcessEnter"
+                    Value="@_textDisplay"
+                    ValueChanged="TextChanged"
+                    Style="Style"
                     Placeholder="@Placeholder"
                     RequiredFromList="@RequiredFromList"
                     TabIndex="@TabIndex"
-                    Style="Style"
-                    @ref="_combo"
-                    @bind-Value="@_value" />
+                    @ref="_combo" />

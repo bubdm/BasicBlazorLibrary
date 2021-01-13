@@ -13,7 +13,7 @@ the purpose of the first 2 divs is only to calculate the sizes of the different 
 
 </div>
 
-<div @ref="_mainScroll" style="overflow-x: auto; @GetBorders() height: @ContainerHeight; width: @ContainerWidth;">
+<div @ref="_mainScroll" style="overflow-x: auto; @GetBorders() background-color: @BackgroundColor; height: @ContainerHeight; width: @ContainerWidth;">
     @if (_clientHeight > 0)
     {
         <div style="height: @GetContainerSize();  position:relative; ">

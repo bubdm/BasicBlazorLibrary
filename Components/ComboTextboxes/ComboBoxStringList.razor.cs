@@ -1,5 +1,4 @@
 using BasicBlazorLibrary.Components.Basic;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -7,7 +6,6 @@ using Microsoft.JSInterop;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.ComboTextboxes
 {
     public partial class ComboBoxStringList : IAsyncDisposable
@@ -16,7 +14,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         [Inject]
         private IJSRuntime? JS { get; set; }
         [Parameter]
-        public CustomBasicList<string>? TextList { get; set; }
+        public CustomBasicList<string>? ItemList { get; set; }
         [Parameter]
         public string Value { get; set; } = "";
         [Parameter]
@@ -26,31 +24,22 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public EventCallback ComboEnterPressed { get; set; }
         [Parameter]
         public bool RequiredFromList { get; set; } = true; //if not required, then if you enter and its not on the list, then listindex would be -1 and you can still keep typing away.
+
         [Parameter]
-        public string HighlightColor { get; set; } = cc.Aqua.ToWebColor();
-        [Parameter]
-        public string HoverColor { get; set; } = cc.LightGray.ToWebColor();
-        [Parameter]
-        public string TextColor { get; set; } = cc.Black.ToWebColor();
-        [Parameter]
-        public string Width { get; set; } = "8vw"; //can adjust the defaults as needed.
-        [Parameter]
-        public string Height { get; set; } = "9vh"; //can adjust the defaults as needed.
-        [Parameter]
-        public string FontSize { get; set; } = "1rem";
+        public ComboStyleModel Style { get; set; } = new ComboStyleModel();
+
+       
         /// <summary>
         /// this is only used if virtualize so it knows the line height.  hint.  set to higher than fontsize or would get hosed.  this helps in margins.
         /// </summary>
-        [Parameter]
-        public string LineHeight { get; set; } = "1.5rem";
+        
         [Parameter]
         public bool Virtualized { get; set; } = false;
         [Parameter]
         public int TabIndex { get; set; } = -1;
         [Parameter]
         public string Placeholder { get; set; } = "";
-        [Parameter]
-        public string BackgroundColor { get; set; } = cc.White.ToWebColor(); //so you change this as well.
+        
 
         private string GetId()
         {
@@ -68,7 +57,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         
         private string GetTextStyle()
         {
-            return $"font-size: {FontSize}; color: {TextColor};";
+            return $"font-size: {Style.FontSize}; color: {Style.TextColor};";
         }
         private string _firstText = "";
         //decided to make this public.  therefore, the validation version can use it to focus and selectall.
@@ -120,7 +109,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             PrivateUpdate("", true);
             StateHasChanged();
             await Task.Delay(10);
-            PrivateUpdate(TextList![_service!.ElementHighlighted], false);
+            PrivateUpdate(ItemList![_service!.ElementHighlighted], false);
             _firstText = Value;
         }
         private async void KeyPress(KeyboardEventArgs keyboard)
@@ -144,7 +133,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 return;
             }
             _firstText += keyboard.Key;
-            var item = TextList!.FirstOrDefault(xxx => xxx.ToLower().StartsWith(_firstText.ToLower()));
+            var item = ItemList!.FirstOrDefault(xxx => xxx.ToLower().StartsWith(_firstText.ToLower()));
             if (string.IsNullOrWhiteSpace(item))
             {
                 if (RequiredFromList)
@@ -157,7 +146,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 StateHasChanged(); //this is needed
                 return; //try this way.
             }
-            var index = TextList.IndexOf(item);
+            var index = ItemList.IndexOf(item);
             _service!.DoHighlight(index, true);
             await Task.Delay(10);
             PrivateUpdate(item, false);
@@ -166,7 +155,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         private async Task ElementClicked(int x)
         {
             _service!.DoHighlight(x, false);
-            PrivateUpdate(TextList![_service.ElementHighlighted], false);
+            PrivateUpdate(ItemList![_service.ElementHighlighted], false);
             _firstText = Value;
             await TextReference!.Value.FocusAsync(); //needs to focus on the control as well obviously.
         }
@@ -174,9 +163,9 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         {
             if (id != _service!.ElementHighlighted)
             {
-                return HoverColor;
+                return Style.HoverColor;
             }
-            return HighlightColor;
+            return Style.HighlightColor;
         }
         private string GetBackgroundColor(int id)
         {
@@ -184,7 +173,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             {
                 return "white";
             }
-            return HighlightColor;
+            return Style.HighlightColor;
         }
         private string GetColorStyle(int id)
         {
@@ -192,11 +181,11 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             {
                 return ""; //because its not the correct one.
             }
-            return $"background-color: {HighlightColor};"; //for this, just use aqua.
+            return $"background-color: {Style.HighlightColor};"; //for this, just use aqua.
         }
         protected override void OnParametersSet() //refreshes again in this case.
         {
-            _service!.Reset(TextList!.Count); //maybe this will show it needs to scroll (?)
+            _service!.Reset(ItemList!.Count); //maybe this will show it needs to scroll (?)
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
