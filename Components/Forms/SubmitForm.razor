@@ -1,1 +1,10 @@
-﻿
+﻿<CascadingValue IsFixed="true" Value="this">
+    <CascadingValue IsFixed="false" Value="_fixedEditContext">
+        <div @key="_fixedEditContext!.GetHashCode()" @onkeydown="KeyDown">
+            @if (ChildContent != null)
+            {
+                @ChildContent(_fixedEditContext!)
+            }
+        </div>
+    </CascadingValue>
+</CascadingValue>

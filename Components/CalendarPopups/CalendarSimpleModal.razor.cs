@@ -117,6 +117,10 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
         private bool _invalid;
         protected override void OnParametersSet()
         {
+            if (_todisplay.Equals(DateToDisplay))
+            {
+                return;
+            }
             if (DateToDisplay == null)
             {
                 return;

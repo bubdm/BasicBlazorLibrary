@@ -1,18 +1,20 @@
-﻿@{
-    int x = 0;
-    _scrollreference = null;
+﻿@if (RequiredTab && TabIndex ==-1)
+{
+    <div>Required Tab.  Rethink</div>
+    return;
 }
-<div style="width: @Style.Width;">
-    <input @ref="TextReference" 
-           style="@GetTextStyle() background-color: @Style.BackgroundColor;"
-           @bind-value="@Value"
-           @bind-value:event="oninput"
-           @onkeypress="@KeyPress" 
-           type="text"
-           id="@GetId()"
-           placeholder="@Placeholder"
-           class="customtextbox" />
-</div>
+@{
+    int x = 0;
+    //cannot set this to null unfortunately at this moment.  otherwise, does not work server side.
+    //_scrollreference = null;
+}
+
+<ManuelTextBoxComponent Placeholder="@Placeholder"
+                        Style="Style"
+                        TabIndex="@TabIndex"
+                        @ref="_text"
+                        />
+
 @if (Virtualized == false)
 {
     <div class="customscroll" style="width: @Style.Width; height: @Style.Height; background-color: @Style.BackgroundColor ;">
@@ -32,7 +34,7 @@
             }
             else if (y == 0)
             {
-                <div @onclick="() => ElementClicked(y)" @ref="_firstreference"
+                <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)" @ref="_firstreference"
                      onmouseover="this.style.background='@GetHoverColor(y)'"
                      onmouseout="this.style.background='@GetBackgroundColor(y)'">
                     <div style="@GetTextStyle()">

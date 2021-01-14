@@ -1,0 +1,23 @@
+﻿@inherits JavascriptComponentBase
+<div style="width: @Style!.Width;">
+    @if (TabIndex > -1)
+    {
+        <input @ref="Text"
+               style="@GetTextStyle() background-color: @Style.BackgroundColor;"
+               @onkeypress="@PrivateKeyPressAsync"
+               type="text"
+               id="@TabIndex"
+               placeholder="@Placeholder"
+               class="customtextbox" />
+    }
+    else
+    {
+        <input @ref="Text"
+               style="@GetTextStyle() background-color: @Style.BackgroundColor;"
+               @onkeypress="@PrivateKeyPressAsync"
+               type="text"
+               placeholder="@Placeholder"
+               class="customtextbox" />
+    }
+
+</div>

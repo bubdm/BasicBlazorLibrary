@@ -13,17 +13,26 @@ namespace BasicBlazorLibrary.Components.Inputs
             _combo = null;
             base.OnInitialized(); //needs this.
         }
-        public override async Task FocusAsync()
+
+        protected override Task OnFirstRenderAsync()
         {
-            await TabContainer.FocusAndSelectAsync(_combo!.TextReference);
+            InputElement = _combo!.GetTextBox; //try this first before the others.
+            return Task.CompletedTask;
         }
-        public override void LoseFocus()
+
+        //public override async Task FocusAsync()
+        //{
+        //    await TabContainer.FocusAndSelectAsync(_combo!.GetTextBox);
+        //}
+
+        public override Task LoseFocusAsync()
         {
             if (_value != "" && RequiredFromList && ItemList.Any(xxx => xxx == _value) == false)
             {
                 _value = "";
             }
             CurrentValue = _value;
+            return Task.CompletedTask;
         }
         [Parameter]
         public CustomBasicList<string> ItemList { get; set; } = new CustomBasicList<string>();

@@ -8,7 +8,10 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
     internal class ComboBoxService
     {
         private readonly AutoScrollClass _scrollHelper;
-        private readonly HighlightTextBoxClass _highlightHelper;
+
+        //looks like this can't do anything with the textbox part now.  that now has to be completely separate.
+
+
         private readonly KeystrokeClass _keystroke;
         public event Action? ArrowUp;
         public event Action? ArrowDown;
@@ -21,7 +24,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public ComboBoxService(IJSRuntime js)
         {
             _scrollHelper = new AutoScrollClass(js);
-            _highlightHelper = new HighlightTextBoxClass(js);
+            //_highlightHelper = new HighlightTextBoxClass(js);
             _keystroke = new KeystrokeClass(js);
 
             _keystroke.AddAction(ConsoleKey.Backspace, () =>
@@ -89,10 +92,6 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             Previoushighlight = ElementHighlighted;
             ElementScrollTo = ElementHighlighted;
             NeedsToScroll = true;
-        }
-        public async Task PartialHighlightText(ElementReference? element, int startat)
-        {
-            await _highlightHelper.PartialHighlightText(element, startat);
         }
         public void Reset(int elements)
         {

@@ -2,8 +2,6 @@ using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Globalization;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 namespace BasicBlazorLibrary.Components.ComboTextboxes
 {
     public partial class ComboBoxEnums<TValue>
@@ -23,7 +21,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public bool Virtualized { get; set; } = false;
         [Parameter]
         public string Placeholder { get; set; } = "";
-        public ElementReference? TextReference => _combo!.TextReference;
+        public ElementReference? TextReference => _combo!.GetTextBox;
 
         private ComboBoxStringList? _combo;
 
@@ -67,12 +65,13 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             var success = BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var parsedValue);
             if (success == false)
             {
+                _textDisplay = "";
                 return; //don't even change our stuff.
             }
             if (parsedValue!.Equals(FirstValue))
             {
-                return; //because this means you chose the default or even none.  later can do something else (?).
-                //not ready to use forms yet
+                _textDisplay = "";
+                return; 
             }
             ValueChanged.InvokeAsync(parsedValue); //let the child recall this again.
         }

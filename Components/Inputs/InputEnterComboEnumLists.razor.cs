@@ -53,10 +53,12 @@ namespace BasicBlazorLibrary.Components.Inputs
             var success = BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var parsedValue);
             if (success == false)
             {
+                _textDisplay = "";
                 return; //don't even change our stuff.
             }
             if (parsedValue!.Equals(FirstValue))
             {
+                _textDisplay = "";
                 return; //because this means you chose the default or even none.  later can do something else (?).
                 //not ready to use forms yet
             }
@@ -64,10 +66,11 @@ namespace BasicBlazorLibrary.Components.Inputs
         }
 
         //maybe no need for losefocus this time (?)
-
-        public override async Task FocusAsync()
+        protected override Task OnFirstRenderAsync()
         {
-            await TabContainer.FocusAndSelectAsync(_combo!.TextReference);
+            InputElement = _combo!.GetTextBox;
+            return base.OnFirstRenderAsync();
         }
+       
     }
 }

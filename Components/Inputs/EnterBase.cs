@@ -27,7 +27,7 @@ namespace BasicBlazorLibrary.Components.Inputs
 
         [CascadingParameter]
         public InputTabOrderNavigationContainer TabContainer { get; set; }
-        public int TabIndex { get; set; }
+        public int TabIndex { get; set; } = -1;
         [Parameter]
         public string Placeholder { get; set; } = "";
 
@@ -36,27 +36,28 @@ namespace BasicBlazorLibrary.Components.Inputs
         protected KeystrokeClass KeyStrokeHelper;
 
 
-        private async void ProcessRegularTab()
-        {
-            LoseFocus();
-            await TabContainer.FocusNextAsync();
-        }
+        //private async void ProcessRegularTab()
+        //{
+        //    LoseFocus();
+        //    await TabContainer.FocusNextAsync();
+        //}
         private async void ProcessShiftTab()
         {
-            LoseFocus();
+            await LoseFocusAsync();
             await TabContainer.FocusPreviousAsync();
         }
         /// <summary>
         /// this is used for cases like the date picker where its going to either submit or go to another field.
         /// which means if there is anything to do in order to get the state proper for the object can be done.
         /// </summary>
-        public virtual void LoseFocus()
+        public virtual Task LoseFocusAsync()
         {
-
+            return Task.CompletedTask;
         }
+
         protected virtual async void ProcessEnter()
         {
-            LoseFocus();
+            await LoseFocusAsync();
             if (WasSubmit)
             {
                 await Form.HandleSubmitAsync();
@@ -69,15 +70,15 @@ namespace BasicBlazorLibrary.Components.Inputs
         {
             KeyStrokeHelper = new KeystrokeClass(TabContainer.JS);
             KeyStrokeHelper.AddShiftTab(ProcessShiftTab);
-            KeyStrokeHelper.AddAction(ConsoleKey.Tab, ProcessRegularTab);
+            KeyStrokeHelper.AddAction(ConsoleKey.Tab, ProcessEnter); //try this way.  since it should work the same way in both cases.
             KeyStrokeHelper.AddAction(ConsoleKey.Enter, ProcessEnter);
             TabContainer.AddFocusItem(this);
             //if others are needed, then after oninitialize, then do other parts.
             base.OnInitialized();
         }
 
-        //the combo uses another control.  therefore, make it overridable so the combo versions can do something different.
-        public virtual async Task FocusAsync()
+        //can no longer make it overridable.  has to instead override the firstrender to set the proper control.  otherwise, the tabs and shift-tabs don't work.
+        public async Task FocusAsync()
         {
             await TabContainer.FocusAndSelectAsync(InputElement);
         }
@@ -305,14 +306,20 @@ namespace BasicBlazorLibrary.Components.Inputs
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
+            if (firstRender && KeyStrokeHelper is not null)
             {
+                await OnFirstRenderAsync();
                 await KeyStrokeHelper.InitAsync(InputElement);
                 if (FocusFirst)
                 {
                     await TabContainer.FocusSpecificInputAsync(this); //so it can set properly.
                 }
             }
+        }
+
+        protected virtual Task OnFirstRenderAsync()
+        {
+            return Task.CompletedTask;
         }
 
         protected virtual void Dispose(bool disposing)
@@ -332,6 +339,6 @@ namespace BasicBlazorLibrary.Components.Inputs
             Dispose(disposing: true);
         }
 
-
+        
     }
 }

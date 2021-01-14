@@ -13,7 +13,7 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         protected override string JavascriptFileName => "selectalltext";
         public async Task FocusAsync(ElementReference? element)
         {
-            await element!.Value.FocusAsync();
+            //await element!.Value.FocusAsync();
             await ModuleTask.InvokeVoidFromClassAsync("selectall", element);
         }
     }

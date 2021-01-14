@@ -1,3 +1,4 @@
+using BasicBlazorLibrary.BasicJavascriptClasses;
 using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
 using System;
@@ -8,12 +9,19 @@ namespace BasicBlazorLibrary.Components.Inputs
     {
         private string _value = "";
         private DateTime? _dateChosen; //needs full control of when it puts to value (i prefer just doing the event notifications).
-        public override void LoseFocus()
+        //try to do without external component this time.
+
+        private TextBoxHelperClass? _helps;
+
+
+
+        public override async Task LoseFocusAsync()
         {
+            _value = await _helps!.GetValueAsync(InputElement);
             if (_value == "")
             {
                 CurrentValue = default;
-                SetText("");
+                //no need to clear because its already done.
                 return;
             }
             bool rets = _value.IsValidDate(out DateTime? date);
@@ -21,13 +29,40 @@ namespace BasicBlazorLibrary.Components.Inputs
             {
                 ToastPlatform.ShowError("Invalid Date");
                 CurrentValue = default;
-                SetText("");
+                await ClearTextAsync();
                 return;
             }
             _dateChosen = date;
             object temps = _dateChosen!;
-            CurrentValue = (TValue)temps; //hopefully this simple.
+            CurrentValue = (TValue)temps;
+            _previousValue = CurrentValue; //try this too.
+            //probably no need to do the update.
         }
+
+        //public override void LoseFocus()
+        //{
+        //    if (_value == "")
+        //    {
+        //        ToastPlatform.ShowError("Problem");
+        //    }
+        //    if (_value == "")
+        //    {
+        //        CurrentValue = default;
+        //        SetText("");
+        //        return;
+        //    }
+        //    bool rets = _value.IsValidDate(out DateTime? date);
+        //    if (rets == false)
+        //    {
+        //        ToastPlatform.ShowError("Invalid Date");
+        //        CurrentValue = default;
+        //        SetText("");
+        //        return;
+        //    }
+        //    _dateChosen = date;
+        //    object temps = _dateChosen!;
+        //    CurrentValue = (TValue)temps; //hopefully this simple.
+        //}
         private bool _invalid;
         private static string GetFormattedDate(DateTime date)
         {
@@ -39,6 +74,9 @@ namespace BasicBlazorLibrary.Components.Inputs
         protected override void OnInitialized()
         {
             base.OnInitialized(); //has to do this first.
+            _helps = new TextBoxHelperClass(TabContainer.JS!);
+
+
             KeyStrokeHelper.AddAction(ConsoleKey.C, () =>
             {
                 if (_dateChosen.HasValue == false)
@@ -50,23 +88,18 @@ namespace BasicBlazorLibrary.Components.Inputs
                 StateHasChanged(); //i think.
             });
         }
-        private async void SetText(string value)
-        {
-            await Task.Delay(10);
-            _value = value;
-            StateHasChanged();
-        }
         private async Task Cancelled()
         {
             _dateChosen = null;
-            _value = "";
+            await ClearTextAsync();
             TabContainer.OtherScreen = false;
             await TabContainer.FocusSpecificInputAsync(this); //so tab orders are proper.
         }
-        private void ChoseDate()
+        private async Task ChoseDate()
         {
             DateTime date = _dateChosen!.Value;
             _value = GetFormattedDate(date); //not sure if settext is needed or not (?)
+            await _helps!.SetNewValueAloneAsync(InputElement, _value); //try this way.
             TabContainer.OtherScreen = false;
             ProcessEnter();
         }
@@ -113,6 +146,15 @@ namespace BasicBlazorLibrary.Components.Inputs
                 _value = GetFormattedDate(_dateChosen.Value);
             }
             base.OnParametersSet();
+        }
+        private async Task ClearTextAsync()
+        {
+            await _helps!.ClearTextAsync(InputElement);
+            _value = "";
+        }
+        protected override async Task OnFirstRenderAsync()
+        {
+            await _helps!.SetInitTextAsync(InputElement, _value);
         }
     }
 }

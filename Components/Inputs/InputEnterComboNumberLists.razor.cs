@@ -1,9 +1,7 @@
 using BasicBlazorLibrary.Components.ComboTextboxes;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
 using System.Threading.Tasks;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 namespace BasicBlazorLibrary.Components.Inputs
 {
     public partial class InputEnterComboNumberLists
@@ -14,6 +12,7 @@ namespace BasicBlazorLibrary.Components.Inputs
         protected override void OnInitialized()
         {
             _combo = null;
+            base.OnInitialized();
         }
         protected override void OnParametersSet()
         {
@@ -24,9 +23,17 @@ namespace BasicBlazorLibrary.Components.Inputs
             });
             ItemList.Sort(); //i think this needs to sort as well.
             int index = ItemList.IndexOf(Value);
-            if (index == -1)
+            if (index == -1 && RequiredFromList)
             {
                 _textDisplay = "";
+            }
+            else if (index == -1 && Value == 0)
+            {
+                _textDisplay = ""; //i think it should not diplay 0.
+            }
+            else if (index == -1)
+            {
+                _textDisplay = Value.ToString(); //maybe this is it now.
             }
             else
             {
@@ -41,30 +48,37 @@ namespace BasicBlazorLibrary.Components.Inputs
         public ComboStyleModel Style { get; set; } = new ComboStyleModel();
         [Parameter]
         public bool Virtualized { get; set; } = false;
+        
+
         private void TextChanged(string value)
         {
+            //somehow when typing, not working for number lists.
             var index = _list.IndexOf(value);
             if (index == -1)
             {
                 if (RequiredFromList)
                 {
+                    _textDisplay = "";
                     return; //because not there.
                 }
                 bool rets = int.TryParse(value, out int aa);
                 if (rets == false)
                 {
+                    _textDisplay = "";
                     return;
                 }
+                //_textDisplay = aa.ToString();
                 ValueChanged.InvokeAsync(aa); //i think.
                 return;
             }
+            //_textDisplay = ItemList![index].ToString(); //just in case.
             ValueChanged.InvokeAsync(ItemList![index]); //hopefully this simple (?)
         }
         //maybe no need for losefocus this time (?)
-
-        public override async Task FocusAsync()
+        protected override Task OnFirstRenderAsync()
         {
-            await TabContainer.FocusAndSelectAsync(_combo!.TextReference);
+            InputElement = _combo!.GetTextBox;
+            return base.OnFirstRenderAsync();
         }
     }
 }

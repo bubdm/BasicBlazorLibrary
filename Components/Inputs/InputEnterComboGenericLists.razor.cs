@@ -13,11 +13,13 @@ namespace BasicBlazorLibrary.Components.Inputs
         protected override void OnInitialized()
         {
             _combo = null;
+            base.OnInitialized();
         }
         protected override void OnParametersSet()
         {
             _list.Clear();
-            ItemList.Sort(); //i think this too.
+
+            //looks like for the generic list, can't sort unfortunately.
             ItemList!.ForEach(item =>
             {
                 _list.Add(RetrieveValue!.Invoke(item));
@@ -36,8 +38,9 @@ namespace BasicBlazorLibrary.Components.Inputs
 
         [Parameter]
         public CustomBasicList<TValue> ItemList { get; set; } = new CustomBasicList<TValue>();
-        [Parameter]
-        public bool RequiredFromList { get; set; } = true; //if not required, then if you enter and its not on the list, then listindex would be -1 and you can still keep typing away.
+
+        //if model, then has to be required unfortunately.
+
         [Parameter]
         public ComboStyleModel Style { get; set; } = new ComboStyleModel();
         [Parameter]
@@ -50,15 +53,16 @@ namespace BasicBlazorLibrary.Components.Inputs
             var index = _list.IndexOf(value);
             if (index == -1)
             {
+                _textDisplay = ""; //i think.
                 return; //because not there.
             }
             ValueChanged.InvokeAsync(ItemList![index]); //hopefully this simple (?)
         }
         //maybe no need for losefocus this time (?)
-
-        public override async Task FocusAsync()
+        protected override Task OnFirstRenderAsync()
         {
-            await TabContainer.FocusAndSelectAsync(_combo!.TextReference);
+            InputElement = _combo!.GetTextBox;
+            return base.OnFirstRenderAsync();
         }
     }
 }

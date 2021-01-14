@@ -43,7 +43,7 @@ namespace BasicBlazorLibrary.Components.InputNavigations
             _clicker.OtherClicked = LoseFocus;
             base.OnInitialized();
         }
-        private void LoseFocus()
+        private async void LoseFocus()
         {
             if (OtherScreen == true)
             {
@@ -54,7 +54,7 @@ namespace BasicBlazorLibrary.Components.InputNavigations
                 return;
             }
             var input = _inputs.First(thisitem => thisitem.TabIndex == _currentTab);
-            input.LoseFocus();
+            await input.LoseFocusAsync();
             _currentTab = 0; //if there is a tab, then will show up later.
         }
 
@@ -69,8 +69,16 @@ namespace BasicBlazorLibrary.Components.InputNavigations
         {
             //because they can be disposed.
             _inputs.RemoveSpecificItem(input); //hopefully still works properly (?)
-            _max = _inputs.Max(thisitem => thisitem.TabIndex);
-            _min = _inputs.Min(thisitem => thisitem.TabIndex);
+            if (_inputs.Count == 0)
+            {
+                _max = 0;
+                _min = 0;
+            }
+            else
+            {
+                _max = _inputs.Max(thisitem => thisitem.TabIndex);
+                _min = _inputs.Min(thisitem => thisitem.TabIndex);
+            }  
         }
         public void ClearAllItems() //have the ability to clear all items again.  can help with performance.  give that as an option as well.
         {
@@ -150,6 +158,10 @@ namespace BasicBlazorLibrary.Components.InputNavigations
 
         public async Task FocusSpecificInputAsync(IFocusInput input)
         {
+            if (input.TabIndex == 0)
+            {
+                throw new BasicBlankException("TabIndex cannot be 0.  Find out what happened");
+            }
             await input.FocusAsync();
             _currentTab = input.TabIndex;
         }

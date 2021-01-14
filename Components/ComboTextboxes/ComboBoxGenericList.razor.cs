@@ -28,7 +28,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         [Parameter]
         public string Placeholder { get; set; } = "";
        
-        public ElementReference? TextReference => _combo!.TextReference;
+        public ElementReference? TextReference => _combo!.GetTextBox;
 
         private ComboBoxStringList? _combo;
         private string _textDisplay = "";
@@ -60,6 +60,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             var index = _list.IndexOf(value);
             if (index == -1)
             {
+                _textDisplay = "";
                 return; //because not there.
             }
             ValueChanged.InvokeAsync(ItemList![index]); //hopefully this simple (?)
