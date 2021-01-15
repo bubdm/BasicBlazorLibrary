@@ -48,11 +48,8 @@ namespace BasicBlazorLibrary.Components.Inputs
         public ComboStyleModel Style { get; set; } = new ComboStyleModel();
         [Parameter]
         public bool Virtualized { get; set; } = false;
-        
-
         private void TextChanged(string value)
         {
-            //somehow when typing, not working for number lists.
             var index = _list.IndexOf(value);
             if (index == -1)
             {
@@ -67,14 +64,11 @@ namespace BasicBlazorLibrary.Components.Inputs
                     _textDisplay = "";
                     return;
                 }
-                //_textDisplay = aa.ToString();
                 ValueChanged.InvokeAsync(aa); //i think.
                 return;
             }
-            //_textDisplay = ItemList![index].ToString(); //just in case.
-            ValueChanged.InvokeAsync(ItemList![index]); //hopefully this simple (?)
+            ValueChanged.InvokeAsync(ItemList![index]);
         }
-        //maybe no need for losefocus this time (?)
         protected override Task OnFirstRenderAsync()
         {
             InputElement = _combo!.GetTextBox;

@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.Inputs
 {
-    public partial class InputEnterComboEnumLists<TValue>
+    public partial class InputEnterComboEnum<TValue>
         where TValue : Enum
     {
         private readonly CustomBasicList<string> _list = new();

@@ -39,9 +39,17 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 _list.Add(item.ToString());
             });
             int index = ItemList.IndexOf(Value);
-            if (index == -1)
+            if (index == -1 && RequiredFromList)
             {
                 _textDisplay = "";
+            }
+            else if (index == -1 && Value == 0)
+            {
+                _textDisplay = ""; //i think it should not diplay 0.
+            }
+            else if (index == -1)
+            {
+                _textDisplay = Value.ToString(); //maybe this is it now.
             }
             else
             {
