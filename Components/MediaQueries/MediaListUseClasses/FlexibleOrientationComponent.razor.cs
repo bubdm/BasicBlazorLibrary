@@ -1,5 +1,6 @@
 using BasicBlazorLibrary.Components.MediaQueries.ParentClasses;
 using Microsoft.AspNetCore.Components;
+using aa = BasicBlazorLibrary.Components.CssGrids.Helpers;
 namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
 {
     public partial class FlexibleOrientationComponent
@@ -10,5 +11,6 @@ namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
         public RenderFragment? MainContent { get; set; }
         [Parameter]
         public RenderFragment? SideContent { get; set; }
+        private static string GetColumns => aa.RepeatMaximum(2);
     }
 }
