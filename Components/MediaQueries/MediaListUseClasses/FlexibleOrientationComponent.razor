@@ -7,21 +7,53 @@
 
 @if (MediaList.ScreenOrientation == ParentClasses.EnumScreenOrientation.Portrait)
 {
-    <GridContainer Rows="auto auto">
-        <GridItem>
-            @MainContent
-        </GridItem>
-        <GridItem Row="2">
-            @SideContent
-        </GridItem>
+
+    <GridContainer Rows="@GetRows(false)">
+        @if (HeaderContent != null)
+        {
+            <GridItem>
+                @HeaderContent
+            </GridItem>
+            <GridItem Row="2">
+                @MainContent
+            </GridItem>
+            <GridItem Row="3">
+                @SideContent
+            </GridItem>
+        }
+        else
+        {
+            <GridItem>
+                @MainContent
+            </GridItem>
+            <GridItem Row="2">
+                @SideContent
+            </GridItem>
+        }
     </GridContainer>
     return;
 }
-<GridContainer Columns="@GetColumns">
-    <GridItem>
-        @MainContent
-    </GridItem>
-    <GridItem Column="2">
-        @SideContent
-    </GridItem>
+<GridContainer Columns="@GetColumns" Rows="@GetRows(true)">
+
+    @if (HeaderContent != null)
+    {
+        <GridItem RowSpan="2">
+            @MainContent
+        </GridItem>
+        <GridItem Column="2" ColumnSpan="2" Row="1">
+            @HeaderContent
+        </GridItem>
+        <GridItem Column="2" Row="2">
+            @SideContent
+        </GridItem>
+    }
+    else
+    {
+        <GridItem>
+            @MainContent
+        </GridItem>
+        <GridItem Column="2">
+            @SideContent
+        </GridItem>
+    }
 </GridContainer>

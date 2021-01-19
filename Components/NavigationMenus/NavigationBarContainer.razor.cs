@@ -12,7 +12,11 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         public string Title { get; set; } = "";
         private bool _showBar = false; //anything can access it to change when necessary.
         [Parameter]
-        public RenderFragment? ChildContent { get; set; }
+        public RenderFragment? MainContent { get; set; }
+
+        [Parameter]
+        public RenderFragment? BarContent { get; set; }
+
         [Parameter]
         public string MainBackgroundColor { get; set; } = cc.Blue.ToWebColor();
         [Parameter]

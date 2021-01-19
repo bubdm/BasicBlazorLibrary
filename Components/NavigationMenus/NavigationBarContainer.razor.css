@@ -1,5 +1,5 @@
 ﻿.main {
-    width: 100vw;
+    width: 100%;
 }
 
 .firstflex {
@@ -8,11 +8,15 @@
 }
 
 .centerdiv {
-    margin-top: auto;
-    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .hidden {
     display: none;
+}
+.inline {
+    display: inline-block;
 }

@@ -1,0 +1,10 @@
+﻿@if (ChildContent == null)
+{
+    return;
+}
+<CascadingValue Value="this">
+    <svg @onclick="PrivateClicked"
+         x="@X" y="@Y" style="@GetSvgStyle()" viewBox="@GetViewBox()">
+        @ChildContent
+    </svg>
+</CascadingValue>
