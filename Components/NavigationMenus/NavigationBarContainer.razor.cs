@@ -18,6 +18,12 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         public RenderFragment? BarContent { get; set; }
 
         [Parameter]
+        public EventCallback BackClicked { get; set; }
+
+        [Parameter]
+        public string ArrowHeight { get; set; } = "70px"; //can see what makes sense for defaults.
+
+        [Parameter]
         public string MainBackgroundColor { get; set; } = cc.Blue.ToWebColor();
         [Parameter]
         public string MenuBackgroundColor { get; set; } = cc.Black.ToWebColor();
@@ -30,7 +36,7 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         [Parameter]
         public string Padding { get; set; } = "10px";
         [Parameter]
-        public string MainFontSize { get; set; } = "1.5rem";
+        public string MainFontSize { get; set; } = "1.5rem"; //this means its completely flexible for fontsize as well.
         [Parameter]
         public string CircleSize { get; set; } = "10px"; //so you can change this now as well.
         [Parameter]
