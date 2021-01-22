@@ -1,0 +1,15 @@
+﻿@inherits PopupContentBase
+@if (FullScreen == false && ProtectedHiddenFull == false)
+{
+    <div @onclick="PrivateBackgroundClicked" style="z-index: @ZIndex;  @GetHiddenStyle()">
+        <div @ref="_element" style="display: none;">
+            @GetAllContent
+        </div>
+    </div>
+}
+else
+{
+    <div @onclick="PrivateBackgroundClicked" style="@TopModalStyle() justify-content:center; align-items: center; ">
+        @GetAllContent
+    </div>
+}
