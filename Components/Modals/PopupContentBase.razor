@@ -1,0 +1,66 @@
+﻿@inherits PopupBase
+@code{
+    protected RenderFragment GetAllContent => __builder =>
+    {
+        <div style="padding: 2px; background-color: @BackgroundColor; width: @GetWidth;">
+            @if (HeaderTemplate != null)
+                {
+                    <div @onclick:stopPropagation="true">
+                        @HeaderTemplate
+                    </div>
+                }
+                else if (ShowHeader)
+                {
+                    @if (ShowCloseButton == false)
+                        {
+                            <div @onclick:stopPropagation="true" style="border-bottom: solid black 1px; font-weight: bold;">
+                                @HeaderTitle
+                            </div>
+                        }
+                        else
+                        {
+                            <div @onclick:stopPropagation="true" style="border-bottom: solid black 1px; z-index: @ZIndex; font-weight: bold; display: flex; justify-content: space-between; ">
+                                <div style="display: flex; font-size: 2rem; justify-content: center; align-items: center; ">
+                                    @HeaderTitle
+                                </div>
+                                <div @onclick="ClosePopup" style="display: inline-block; font-size: 2rem; cursor: pointer; ">
+                                    X
+                                </div>
+                            </div>
+                        }
+                    }
+            @if (Height != "")
+                {
+                    <div @onclick:stopPropagation="true" style="height: @Height; @ScrollStyle() @Style">
+                        @if (HeaderTemplate != null || FooterTemplate != null)
+                            {
+                            @Content
+                            }
+                            else
+                            {
+                            @ChildContent
+                            }
+                    </div>
+                }
+                else
+                {
+                    <div @onclick:stopPropagation="true" style="@ScrollStyle() @Style">
+                        @if (HeaderTemplate != null || FooterTemplate != null)
+                            {
+                            @Content
+                            }
+                            else
+                            {
+                            @ChildContent
+                            }
+                    </div>
+                }
+            @if (FooterTemplate != null)
+                {
+                    <div @onclick:stopPropagation="true" style="border-top: solid black 1px;">
+                        @FooterTemplate
+                    </div>
+                }
+        </div>
+    };
+}

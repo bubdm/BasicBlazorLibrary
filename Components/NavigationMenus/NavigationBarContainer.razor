@@ -5,14 +5,14 @@
     <div class="@GetFirstClass() main" style="padding: @Padding; font-size: @MainFontSize;  background-color: @MainBackgroundColor; color: @MainTextColor; ">
         <div class="firstflex">
             <div class="centerdiv">
-            @if (BackClicked.HasDelegate == true)
-            {
-                <div class="inline centerdiv" style="margin-right: 10px;">
-                    <ArrowLeftComponent Clicked="BackClicked" BackgroundColor="white" StrokeColor="black" TargetHeight="@ArrowHeight" />
-                </div>
-            }
+                @if (BackClicked.HasDelegate == true)
+                {
+                    <div class="inline centerdiv" style="margin-right: 10px;">
+                        <ArrowLeftComponent Clicked="BackClicked" BackgroundColor="white" StrokeColor="black" TargetHeight="@ArrowHeight" />
+                    </div>
+                }
 
-            @Title
+                @Title
             </div>
 
             <div class="centerdiv">
@@ -49,7 +49,12 @@
                         </CanvasContainerDiv>
                     </div>
                 }
-
+                @if (CloseClicked.HasDelegate)
+                {
+                    <div class="inline centerdiv;" style="font-size: @CloseHeight; cursor:pointer;" @onclick="()=> CloseClicked.InvokeAsync()" >
+                        X
+                    </div>
+                }
 
             </div>
 

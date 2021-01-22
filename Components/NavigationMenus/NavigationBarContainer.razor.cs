@@ -21,7 +21,14 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         public EventCallback BackClicked { get; set; }
 
         [Parameter]
+        public EventCallback CloseClicked { get; set; }
+
+        [Parameter]
         public string ArrowHeight { get; set; } = "70px"; //can see what makes sense for defaults.
+
+        //i think the color of the text should be the color of the arrows and even x.
+        [Parameter]
+        public string CloseHeight { get; set; } = "2rem";
 
         [Parameter]
         public string MainBackgroundColor { get; set; } = cc.Blue.ToWebColor();
