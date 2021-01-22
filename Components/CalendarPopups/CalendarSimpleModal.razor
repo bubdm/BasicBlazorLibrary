@@ -1,4 +1,5 @@
 ﻿@using BasicBlazorLibrary.Components.CssGrids
+@using BasicBlazorLibrary.Components.Modals 
 @typeparam TValue
 @inherits HotkeyComponentBase
 @if (_invalid)
@@ -10,7 +11,7 @@
 {
     return;
 }
-<div class="topmodal">
+<PopupFullScreen Visible="true">
     <div tabindex="0" style="margin: 10px;"
          @ref="MainElement">
         <div class="smallheader">
@@ -47,4 +48,4 @@
             }
         </GridContainer>
     </div>
-</div>
+</PopupFullScreen>

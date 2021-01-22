@@ -11,6 +11,10 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
 {
     public partial class CalendarSimpleModal<TValue>
     {
+        //this time, can't inherit from the base popup class because i need hotkey features.
+
+
+
         [Parameter]
         public EventCallback Cancelled { get; set; } //this means that it was cancelled.
         [Parameter]
