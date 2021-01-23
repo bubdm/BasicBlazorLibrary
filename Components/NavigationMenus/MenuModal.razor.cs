@@ -20,18 +20,6 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         [Parameter]
         public CustomBasicList<MenuItem> MenuList { get; set; } = new CustomBasicList<MenuItem>(); //can still show the list even with no items.
         
-        //private string GetFirstClass()
-        //{
-        //    if (Visible == false)
-        //    {
-        //        return "hidden";
-        //    }
-        //    return "";
-        //}
-        //private void ClickOutside()
-        //{
-        //    VisibleChanged.InvokeAsync(false); //had to be true or this click would not have worked.
-        //}
         private void ClickMenu(MenuItem menu)
         {
             ClosePopup();
