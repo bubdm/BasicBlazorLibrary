@@ -1,25 +1,27 @@
-﻿<SimpleCenteredModal>
-    <div class="blackdiv">
-        @{
-            var list = Messages();
-        }
-        @if (list.Count == 1)
+﻿<PopupCenteredFull ShowHeader="false"
+                   Visible="true"
+                   Width=""
+                   Height=""
+                   Style="padding: 5px;">
+    @{
+        var list = Messages();
+    }
+    @if (list.Count == 1)
+    {
+        @Message
+    }
+    else
+    {
+        @foreach (string message in list)
         {
-            @Message
+            <div>
+                @message
+            </div>
         }
-        else
-        {
-            @foreach (string message in list)
-            {
-                <div>
-                    @message
-                </div>
-            }
-        }
-    </div>
+    }
     <div>
         <button @onclick="@CloseClicked" class="btn btn-primary">
             Okay
         </button>
     </div>
-</SimpleCenteredModal>
+</PopupCenteredFull>
