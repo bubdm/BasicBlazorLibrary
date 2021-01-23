@@ -1,15 +1,32 @@
-﻿<div class="@GetFirstClass()">
+﻿@using BasicBlazorLibrary.Components.BaseClasses
+@using BasicBlazorLibrary.Components.Modals
+@inherits PopupBase
+<PopupCornered CornerPosition="EnumCornerPosition.TopRight"
+               @bind-Visible="Visible"
+               DisableBackgroundClick="false"
+               Margins="10px;"
+               BackgroundColor="black"
+               FullScreen="false"
+               ShowHeader="false"
+               Style="@GetMainStyle()"
+               Width="@Width"
+               Height="@Height">
+    @foreach (var item in MenuList)
+    {
+        <div class="clickable" @onclick="() => ClickMenu(item)">
+            @item.Text
+        </div>
+    }
+</PopupCornered>
+
+
+@*<div class="@GetFirstClass()">
     <div class="topmodal">
         <div @onclick="ClickOutside" class="entirearea">
 
         </div>
         <div @onclick:stopPropagation="true" style="@GetMainStyle()" class="blackmenu">
-            @foreach (var item in MenuList)
-            {
-                <div class="clickable" @onclick="() => ClickMenu(item)">
-                    @item.Text
-                </div>
-            }
+            
         </div>
     </div>
-</div>
+</div>*@

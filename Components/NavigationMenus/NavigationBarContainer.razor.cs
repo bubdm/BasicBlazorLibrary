@@ -53,8 +53,6 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         [Parameter]
         public string MenuWidth { get; set; } = "50vmin";
         [Parameter]
-        public string MenuRight { get; set; } = "2px";
-        [Parameter]
         public CustomBasicList<MenuItem> MenuList { get; set; } = new CustomBasicList<MenuItem>(); //can still show the list even with no items.
 
         [Parameter]

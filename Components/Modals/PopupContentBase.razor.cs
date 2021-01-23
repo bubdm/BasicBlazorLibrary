@@ -91,7 +91,16 @@ namespace BasicBlazorLibrary.Components.Modals
         [Parameter]
         public bool FullScreen { get; set; } = true; //can't be in the base class because there is one that is not full screen.
 
-        protected virtual string BackgroundColor => "white";
+        [Parameter]
+        public string BackgroundColor { get; set; } = "white"; //needs to allow any color for background color.  otherwise, shows white borders which is wrong.
+
+        [Parameter]
+        public string HeaderColor { get; set; } = "black"; //can change color if necessary since you have a choice for background color.
+
+        //if you choose black but has headers will be hosed unless you redo the border processes.
+
+
+        //protected virtual string BackgroundColor => "white";
 
         protected string GetHiddenStyle() //still needs to be protected so if not full screen, then can decide what it will do.
         {
