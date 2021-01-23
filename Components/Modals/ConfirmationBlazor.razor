@@ -1,4 +1,26 @@
-﻿<SimpleCenteredModal>
+﻿<PopupCenteredFull
+                   HeaderTitle="@Title"
+                   CloseButtonClick="Cancel"
+                   ShowCloseButton="true"
+                   Width=""
+                   Height=""
+                   Style="margin: 5px; user-select:none;"
+                   Visible="true"
+                   
+                   >
+    @Message
+    <div class="buttondiv">
+        <button class="btn btn-danger" @onclick="DoConfirm">
+            Yes
+        </button>
+        <button class="btn btn-primary" @onclick="Cancel">
+            No
+        </button>
+    </div>
+</PopupCenteredFull>
+
+
+@*<SimpleCenteredModal>
     <div class="titlediv">
         @Title
     </div>
@@ -13,4 +35,4 @@
             No
         </button>
     </div>
-</SimpleCenteredModal>
+</SimpleCenteredModal>*@

@@ -13,13 +13,13 @@
                 {
                     @if (ShowCloseButton == false)
                         {
-                            <div @onclick:stopPropagation="true" style="border-bottom: solid black 1px; font-weight: bold;">
+                            <div @onclick:stopPropagation="true" style="border-bottom: solid black 1px; user-select:none; font-weight: bold;">
                                 @HeaderTitle
                             </div>
                         }
                         else
                         {
-                            <div @onclick:stopPropagation="true" style="border-bottom: solid black 1px; z-index: @ZIndex; font-weight: bold; display: flex; justify-content: space-between; ">
+                            <div @onclick:stopPropagation="true" style="border-bottom: solid black 1px; user-select:none; font-weight: bold; display: flex; justify-content: space-between; ">
                                 <div style="display: flex; font-size: 2rem; justify-content: center; align-items: center; ">
                                     @HeaderTitle
                                 </div>
