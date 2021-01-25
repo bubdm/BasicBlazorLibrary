@@ -7,7 +7,6 @@
 
 @if (MediaList.ScreenOrientation == ParentClasses.EnumScreenOrientation.Portrait)
 {
-
     <GridContainer Rows="@GetRows(false)">
         @if (HeaderContent != null)
         {
@@ -34,18 +33,29 @@
     return;
 }
 <GridContainer Columns="@GetColumns" Rows="@GetRows(true)">
-
     @if (HeaderContent != null)
     {
-        <GridItem RowSpan="2">
+        <GridItem>
+            @MainContent
+        </GridItem>
+        <GridItem Column="2">
+            <div>
+                @HeaderContent
+            </div>
+            <div>
+                @SideContent
+            </div>
+        </GridItem>
+        @*<GridItem RowSpan="2">
             @MainContent
         </GridItem>
         <GridItem Column="2" ColumnSpan="2" Row="1">
             @HeaderContent
         </GridItem>
         <GridItem Column="2" Row="2">
+            <div>Help So far</div>
             @SideContent
-        </GridItem>
+        </GridItem>*@
     }
     else
     {

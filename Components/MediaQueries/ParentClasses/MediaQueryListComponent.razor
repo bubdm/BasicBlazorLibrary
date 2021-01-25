@@ -2,6 +2,9 @@
 {
     return;
 }
-<CascadingValue IsFixed="true" Value="this">
+@* 
+do not show this as isfixed.  because otherwise, when statehaschanged, then does not rerender the child components (wrong)
+*@
+<CascadingValue Value="this">
     @ChildContent
 </CascadingValue>

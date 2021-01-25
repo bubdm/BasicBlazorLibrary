@@ -18,7 +18,21 @@ namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
 
         
         //i think always the same.
-        private static string GetColumns => aa.RepeatMaximum(2);
+        //private static string GetColumns => aa.RepeatMaximum(2);
+
+        private string GetColumns
+        {
+            get
+            {
+                if (HeaderContent == null)
+                {
+                    return aa.RepeatMaximum(2);
+                }
+                //return "1fr 1fr"
+                return $"{aa.RepeatMaximum(1)} {aa.RepeatSpreadOut(1)}";
+            }
+        }
+
 
         //private static string GetColumns => $"{aa.RepeatMaximum(1)}{aa.RepeatSpreadOut(1)}";
 
@@ -46,11 +60,15 @@ namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
                 }
                 return aa.RepeatAuto(3);
             }
-            if (HeaderContent == null)
-            {
-                return "auto"; //i think
-            }
-            return aa.RepeatMaximum(2); //i think
+
+            return "auto"; //try this way.
+
+            //if (HeaderContent == null)
+            //{
+            //    return "auto"; //i think
+            //}
+            //return aa.RepeatMinimum(2);
+            //return aa.RepeatMaximum(2); //i think
         }
 
     }
