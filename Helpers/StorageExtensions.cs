@@ -49,5 +49,14 @@ namespace BasicBlazorLibrary.Helpers
             }
             return exts.Invoke<bool> ("localStorage.hasOwnProperty", key);
         }
+        public static async Task<bool> ContainsKeyAsync(this IJSRuntime js, string key)
+        {
+            return await js.InvokeAsync<bool>("localStorage.hasOwnProperty", key);
+            //if (js is not IJSInProcessRuntime exts)
+            //{
+            //    throw new BasicBlankException("js runtime not available");
+            //}
+            //return exts.Invoke<bool>("localStorage.hasOwnProperty", key);
+        }
     }
 }
