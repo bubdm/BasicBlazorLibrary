@@ -35,5 +35,9 @@ namespace BasicBlazorLibrary.Helpers
             bool output = await module.InvokeDisposeAsync<bool>("hasKeyboard");
             return output;
         }
+        public static async Task NavigateToOnAnotherTabAsync(this IJSRuntime js, string url)
+        {
+            await js.InvokeVoidAsync("open", url, "_blank");
+        }
     }
 }
