@@ -5,16 +5,14 @@
     <div class="@GetFirstClass() main" style="padding: @Padding; font-size: @MainFontSize;  background-color: @MainBackgroundColor; color: @MainTextColor; ">
         <div class="firstflex">
             <div class="centerdiv">
-                @if (BackClicked.HasDelegate == true)
+                @if (BackClicked.HasDelegate == true && ShowBack)
                 {
                     <div class="inline centerdiv" style="margin-right: 10px;">
                         <ArrowLeftComponent Clicked="BackClicked" BackgroundColor="white" StrokeColor="black" TargetHeight="@ArrowHeight" />
                     </div>
                 }
-
                 @Title
             </div>
-
             <div class="centerdiv">
                 <div>
                     @if (BarContent != null)
@@ -55,11 +53,7 @@
                         X
                     </div>
                 }
-
             </div>
-
-           
-            
         </div>
     </div>
     <MenuModal MenuList="MenuList"

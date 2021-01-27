@@ -19,6 +19,8 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
 
         [Parameter]
         public EventCallback BackClicked { get; set; }
+        [Parameter]
+        public bool ShowBack { get; set; } = true; //there can be cases where even though there is a backclick, there is a situation where it would not show it anyways.
 
         [Parameter]
         public EventCallback CloseClicked { get; set; }
