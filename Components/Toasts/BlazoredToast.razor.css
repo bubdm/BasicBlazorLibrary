@@ -128,7 +128,15 @@
     bottom: 0;
 }*/
 
-    @media (min-width: 576px) {
+
+@media (max-width: 600px) {
+    .blazored-toast {
+        width: 60vw;
+        border-radius: .25rem;
+    }
+}
+
+    @media (min-width: 601px) {
 
         /*.position-topleft {
             top: 2rem;

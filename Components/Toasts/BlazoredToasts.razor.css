@@ -23,6 +23,13 @@
     z-index: 100;
 }
 
+@media (max-width: 500px){
+    .blazored-toast {
+        width: 30rem;
+        border-radius: .25rem;
+    }
+}
+
 @media (min-width: 576px) {
 
     /*.position-topleft {
