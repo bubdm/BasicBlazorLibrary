@@ -21,13 +21,13 @@
             <GridItem Row="z">
                 @if (y == DataContext.ElementScrollTo)
                 {
-                    <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)" @ref="_reference">
+                    <div @onclick="() => ElementClicked(y)" class="customdiv" style="@GetColorStyle(y)" @ref="_reference">
                         @ChildContent(item)
                     </div>
                 }
                 else
                 {
-                    <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)">
+                    <div @onclick="() => ElementClicked(y)" class="customdiv" style="@GetColorStyle(y)">
                         @ChildContent(item)
                     </div>
                 }

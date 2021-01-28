@@ -5,3 +5,7 @@
 div:focus {
     outline: none;
 }
+.customdiv{
+    cursor:pointer;
+    user-select:none;
+}
