@@ -34,6 +34,9 @@ namespace BasicBlazorLibrary.Components.Modals
             _center = new CenterClass(JS!);
             base.OnInitialized();
         }
+
+        //private bool IsAnyPhone => Media!.DeviceSize == EnumDeviceSize.LargePhone || Media.DeviceSize == EnumDeviceSize.SmallPhone;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (Media is not null && Media.DeviceCategory == EnumDeviceCategory.Phone)

@@ -1,5 +1,6 @@
 using BasicBlazorLibrary.Components.MediaQueries.ResizeHelpers;
 using BasicBlazorLibrary.Helpers;
+using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
@@ -21,7 +22,23 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
         //[Inject]
         //private IResizeListener? ResizeListener { get; set; }
         public EnumScreenOrientation ScreenOrientation { get; private set; } //only this can set it though.  others is read only.
-        public EnumDeviceCategory DeviceCategory { get; private set; }
+        public EnumDeviceSize DeviceSize { get; private set; }
+
+        public EnumDeviceCategory DeviceCategory
+        {
+            get
+            {
+                return DeviceSize switch
+                {
+                    EnumDeviceSize.SmallPhone => EnumDeviceCategory.Phone,
+                    EnumDeviceSize.LargePhone => EnumDeviceCategory.Phone,
+                    EnumDeviceSize.SmallTablet => EnumDeviceCategory.Tablet,
+                    EnumDeviceSize.LargeTablet => EnumDeviceCategory.Tablet,
+                    EnumDeviceSize.Desktop => EnumDeviceCategory.Desktop,
+                    _ => throw new BasicBlankException("Nothing found"),
+                };
+            }
+        }
         public BrowserSize? BrowserInfo { get; private set; }
         private bool OperatingSystemContainsKeyboard { get;  set; }
         public bool HasKeyboard(EnumKeyboardCategory category)
@@ -31,7 +48,7 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
                 case EnumKeyboardCategory.Real:
                     return OperatingSystemContainsKeyboard;
                 case EnumKeyboardCategory.Emulation:
-                    if (DeviceCategory == EnumDeviceCategory.Desktop)
+                    if (DeviceSize == EnumDeviceSize.Desktop)
                     {
                         return true;
                     }
@@ -71,11 +88,20 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
                 ScreenOrientation = EnumScreenOrientation.Landscape;
                 largest = BrowserInfo.Width;
             }
-            DeviceCategory = largest switch
+            DeviceSize = largest switch
             {
-                >= 1500 => EnumDeviceCategory.Desktop,
-                >= 900 => EnumDeviceCategory.Tablet,
-                _ => EnumDeviceCategory.Phone
+
+                //can change allocations.  however, for now, decided to have in 5 categories.
+
+
+                >= 1500 => EnumDeviceSize.Desktop,
+                >= 1100 => EnumDeviceSize.LargeTablet, //otherwise, portrait for my tablet thinks its 
+                >= 900 => EnumDeviceSize.SmallTablet,
+                >= 600 => EnumDeviceSize.LargePhone,
+                _ => EnumDeviceSize.SmallPhone
+                //>= 1500 => EnumDeviceCategory.Desktop,
+                //>= 900 => EnumDeviceCategory.Tablet,
+                //_ => EnumDeviceCategory.Phone
             };
             _loading = false;
             StateHasChanged();
