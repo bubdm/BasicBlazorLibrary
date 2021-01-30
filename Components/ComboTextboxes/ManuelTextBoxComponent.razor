@@ -3,8 +3,8 @@
     @if (TabIndex > -1)
     {
         <input @ref="Text"
-               style="@GetTextStyle() background-color: @Style.BackgroundColor;"
-               @onkeypress="@PrivateKeyPressAsync"
+               style="@GetTextStyle() background-color: @Style.BackgroundColor; width: 100%;"
+               @onkeypress:preventDefault="true"
                type="text"
                id="@TabIndex"
                placeholder="@Placeholder"
@@ -13,8 +13,8 @@
     else
     {
         <input @ref="Text"
-               style="@GetTextStyle() background-color: @Style.BackgroundColor;"
-               @onkeypress="@PrivateKeyPressAsync"
+               style="@GetTextStyle() background-color: @Style.BackgroundColor; width: 100%;"
+               @onkeypress:preventDefault="true"
                type="text"
                placeholder="@Placeholder"
                class="customtextbox" />

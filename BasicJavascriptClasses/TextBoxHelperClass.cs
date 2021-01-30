@@ -1,6 +1,7 @@
 ﻿using BasicBlazorLibrary.Helpers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.BasicJavascriptClasses
 {
@@ -10,6 +11,19 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         {
         }
         protected override string JavascriptFileName => "text";
+
+
+        [JSInvokable]
+        public void KeyPress(string key)
+        {
+            OnKeyPress?.Invoke(key);
+        }
+        public async Task StartAsync(ElementReference? element)
+        {
+            await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this), element);
+        }
+
+        public event Action<string>? OnKeyPress;
 
         public async Task SetInitTextAsync(ElementReference? element, string value)
         {

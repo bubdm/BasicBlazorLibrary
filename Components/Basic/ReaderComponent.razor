@@ -6,6 +6,10 @@
 {
     return;
 }
+@if (RenderList.Count == 0)
+{
+    return; //try this too.
+}
 @{
     int x = 0;
     _reference = default;

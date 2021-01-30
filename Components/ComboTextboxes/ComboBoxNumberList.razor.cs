@@ -20,6 +20,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public bool Virtualized { get; set; } = false;
         [Parameter]
         public string Placeholder { get; set; } = "";
+        
 
         public ElementReference? TextReference => _combo!.GetTextBox;
 

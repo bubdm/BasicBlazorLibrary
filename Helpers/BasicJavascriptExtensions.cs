@@ -11,10 +11,41 @@ namespace BasicBlazorLibrary.Helpers
             return js.GetLibraryModuleTask("basichelpers");
         }
 
+        public static async Task<int> GetContainerTop(this IJSRuntime js, ElementReference? element)
+        {
+            var moduleTask = js.GetModuleTask();
+            double firstValue = await moduleTask.InvokeDisposeAsync<double>("getcontainertop", element);
+            int results = (int)firstValue;
+            return results;
+        }
+
+        public static async Task<int> GetContainerLeft(this IJSRuntime js, ElementReference? element)
+        {
+            var moduleTask = js.GetModuleTask();
+            double firstValue = await moduleTask.InvokeDisposeAsync<double>("getcontainerleft", element);
+            int results = (int)firstValue;
+            return results;
+        }
+
         public static async Task<int> GetContainerHeight(this IJSRuntime js, ElementReference? element)
         {
             var moduleTask = js.GetModuleTask();
             return await moduleTask.InvokeDisposeAsync<int>("getcontainerheight", element);
+        }
+        public static async Task<int> GetContainerWidth(this IJSRuntime js, ElementReference? element)
+        {
+            var moduleTask = js.GetModuleTask();
+            return await moduleTask.InvokeDisposeAsync<int>("getcontainerwidth", element);
+        }
+        public static async Task<int> GetParentHeight(this IJSRuntime js, ElementReference? element)
+        {
+            var moduleTask = js.GetModuleTask();
+            return await moduleTask.InvokeDisposeAsync<int>("getparentHeight", element);
+        }
+        public static async Task<int> GetParentWidth(this IJSRuntime js, ElementReference? element)
+        {
+            var moduleTask = js.GetModuleTask();
+            return await moduleTask.InvokeDisposeAsync<int>("getparentWidth", element);
         }
         public static async Task<int> PixelsPerRem(this IJSRuntime js)
         {

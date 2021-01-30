@@ -25,3 +25,21 @@ export function setvaluealone(element, value) {
 export function getValue(element) {
     return element.value;
 }
+
+export function start(dotnetRef, element) {
+    if (element == undefined || element == null) {
+        return;
+    }
+    //if using my hotkeys, then i am either on my own for tabs or needs a function to disable tabs.
+
+    element.addEventListener('keypress', function (evt) {
+        evt.preventDefault();
+        var value = String.fromCharCode(evt.keyCode);
+        if (evt.keyCode == 13) {
+            value = "Enter";
+        }
+        //else if (evt.keyCode == )
+        dotnetRef.invokeMethodAsync('KeyPress', value);
+    });
+
+}

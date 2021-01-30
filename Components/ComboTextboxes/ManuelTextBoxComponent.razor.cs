@@ -1,4 +1,5 @@
 using BasicBlazorLibrary.BasicJavascriptClasses;
+using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
@@ -30,18 +31,41 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
 
         //i think a delegate is fine.  only the combobox will use it anyways.
 
+        public async Task<string> GetValueAsync()
+        {
+            return await _helps!.GetValueAsync(Text);
+        }
+
         internal Action<TextModel>? KeyPress { get; set; }
 
-        private async Task PrivateKeyPressAsync(KeyboardEventArgs keyboard)
+        private async void PrivateKeyPress(string key)
         {
+            //this time, has to append
             string value = await _helps!.GetValueAsync(Text);
-            TextModel text = new TextModel(keyboard.Key, value);
+            if (key != "Enter")
+            {
+                value = $"{value}{key}"; //has to add
+            }
+
+
+
+            TextModel text = new TextModel(key, value);
             KeyPress?.Invoke(text);
         }
+
+        //private async Task PrivateKeyPressAsync(KeyboardEventArgs keyboard)
+        //{
+        //    string value = await _helps!.GetValueAsync(Text);
+        //    TextModel text = new TextModel(keyboard.Key, value);
+            
+        //    KeyPress?.Invoke(text);
+        //    await SetTextValueAloneAsync("Hello"); //try this way.
+        //}
         protected override void OnInitialized()
         {
             Text = null;
             _helps = new TextBoxHelperClass(JS!);
+            _helps.OnKeyPress += PrivateKeyPress;
             base.OnInitialized();
         }
         public async Task SetInitValueAsync(string value)
@@ -54,6 +78,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         }
         public async Task HighlightTextAsync(string value, int startAt)
         {
+            //await _helps!.SetNewValueAloneAsync(Text, "Eastern");
             await _helps!.SetNewValueAndHighlightAsync(Text, value, startAt);
         }
 
@@ -65,7 +90,14 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         {
             return false;
         }
-        
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await _helps!.StartAsync(Text);
+            }
+            
+        }
 
     }
 }
