@@ -2,9 +2,11 @@
 {
     return;
 }
-<CascadingValue Value="this">
-    <svg @onclick="PrivateClicked"
-         x="@X" y="@Y" style="@GetSvgStyle()" viewBox="@GetViewBox()">
-        @ChildContent
-    </svg>
-</CascadingValue>
+<svg @onclick="PrivateClicked"
+     x="@X" y="@Y" style="@GetSvgStyle()" viewBox="@GetViewBox()">
+    @ChildContent
+</svg>
+@* 
+    
+try to do without cascading.  if i somehow need it, can do.  but attempt to do without cascading if possible
+*@

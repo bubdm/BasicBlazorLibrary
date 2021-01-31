@@ -1,4 +1,4 @@
-﻿@using BasicBlazorLibrary.Components.Divs
+﻿@using BasicBlazorLibrary.Components.Layouts.Simple
 @using System.Drawing
 @using BasicBlazorLibrary.Components.CssGrids 
 @if (CanStart() == false)
@@ -8,43 +8,43 @@
 
 @if (ArrowCategory == EnumArrowCategory.All)
 {
-    <CanvasContainerDiv ViewPort="_containerViewPort" ContainerHeight="@GetContainerHeight" ContainerWidth="@GetContainerWidth">
+    <CanvasLayout ViewPort="_containerViewPort" ContainerHeight="@GetContainerHeight" ContainerWidth="@GetContainerWidth">
 
 
-        <CanvasElementDiv Location="new PointF(100, 0)">
+        <CanvasItem Location="new PointF(100, 0)">
             <ArrowUpComponent TargetHeight="@TargetHeight"
                                    TargetWidth="@TargetWidth"
                                    BackgroundColor="@BackgroundColor"
                                    StrokeColor="@StrokeColor"
                                    StrokeWidth="@StrokeWidth"
                                    Clicked="UpClicked" />
-        </CanvasElementDiv>
+        </CanvasItem>
 
-        <CanvasElementDiv Location="new PointF(100, 200)">
+        <CanvasItem Location="new PointF(100, 200)">
             <ArrowDownComponent TargetHeight="@TargetHeight"
                                      TargetWidth="@TargetWidth"
                                      BackgroundColor="@BackgroundColor"
                                      StrokeColor="@StrokeColor"
                                      StrokeWidth="@StrokeWidth"
                                      Clicked="DownClicked" />
-        </CanvasElementDiv>
-        <CanvasElementDiv Location="new PointF(0, 100)">
+        </CanvasItem>
+        <CanvasItem Location="new PointF(0, 100)">
             <ArrowLeftComponent TargetHeight="@TargetHeight"
                                      TargetWidth="@TargetWidth"
                                      BackgroundColor="@BackgroundColor"
                                      StrokeColor="@StrokeColor"
                                      StrokeWidth="@StrokeWidth"
                                      Clicked="LeftClicked" />
-        </CanvasElementDiv>
-        <CanvasElementDiv Location="new PointF(200, 100)">
+        </CanvasItem>
+        <CanvasItem Location="new PointF(200, 100)">
             <ArrowRightComponent TargetHeight="@TargetHeight"
                                       TargetWidth="@TargetWidth"
                                       BackgroundColor="@BackgroundColor"
                                       StrokeColor="@StrokeColor"
                                       StrokeWidth="@StrokeWidth"
                                       Clicked="RightClicked" />
-        </CanvasElementDiv>
-    </CanvasContainerDiv>
+        </CanvasItem>
+    </CanvasLayout>
     return;
 }
 else if (ArrowCategory == EnumArrowCategory.LeftRight)

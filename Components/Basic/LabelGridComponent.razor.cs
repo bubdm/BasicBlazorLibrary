@@ -6,6 +6,9 @@ namespace BasicBlazorLibrary.Components.Basic
 {
     public partial class LabelGridComponent
     {
+
+        //this can be a good place to use code generators in place of reflection.
+
         [Parameter]
         public CustomBasicList<LabelGridModel> Labels { get; set; } = new CustomBasicList<LabelGridModel>();
         [Parameter]

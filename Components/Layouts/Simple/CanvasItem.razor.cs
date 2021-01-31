@@ -1,14 +1,12 @@
 using BasicBlazorLibrary.Helpers;
 using Microsoft.AspNetCore.Components;
 using System.Drawing;
-namespace BasicBlazorLibrary.Components.Divs
+namespace BasicBlazorLibrary.Components.Layouts.Simple
 {
-    public partial class CanvasElementDiv
+    public partial class CanvasItem
     {
-
-
         [CascadingParameter]
-        public CanvasContainerDiv? Container { get; set; }
+        public CanvasLayout? Container { get; set; }
 
         [Parameter]
         public RenderFragment? ChildContent { get; set; }

@@ -1,6 +1,6 @@
 ﻿@using System.Drawing
 @using BasicBlazorLibrary.Components.Arrows 
-@using BasicBlazorLibrary.Components.Divs
+@using BasicBlazorLibrary.Components.Layouts.Simple
 <CascadingValue Value="this" IsFixed="true">
     <div class="@GetFirstClass() main" style="padding: @Padding; font-size: @MainFontSize;  background-color: @MainBackgroundColor; color: @MainTextColor; ">
         <div class="firstflex">
@@ -23,28 +23,31 @@
                 @if (MenuList.Count > 0)
                 {
                     <div class="inline centerdiv">
-                        <CanvasContainerDiv Clicked="() => _showMenu = true"
+                        <CanvasLayout Clicked="() => _showMenu = true"
                                             ViewPort="_viewPort"
                                             ContainerHeight="@GetContainer"
                                             ContainerWidth="@GetContainer"
                                             style="cursor: pointer;">
-
-                            <CanvasElementDiv Location="new PointF(15, 2)">
+                            @* 
+                                
+                            once stack layout is completed, could attempt to use the stack layout here.
+                                *@
+                            <CanvasItem Location="new PointF(15, 2)">
                                 <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
 
                                 </div>
-                            </CanvasElementDiv>
-                            <CanvasElementDiv Location="new PointF(15, 15)">
+                            </CanvasItem>
+                            <CanvasItem Location="new PointF(15, 15)">
                                 <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
 
                                 </div>
-                            </CanvasElementDiv>
-                            <CanvasElementDiv Location="new PointF(15, 28)">
+                            </CanvasItem>
+                            <CanvasItem Location="new PointF(15, 28)">
                                 <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
 
                                 </div>
-                            </CanvasElementDiv>
-                        </CanvasContainerDiv>
+                            </CanvasItem>
+                        </CanvasLayout>
                     </div>
                 }
                 @if (CloseClicked.HasDelegate)

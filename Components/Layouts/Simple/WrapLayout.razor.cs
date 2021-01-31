@@ -1,12 +1,8 @@
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Linq;
-using System.Net.Http;
-
-namespace BasicBlazorLibrary.Components.Basic
+namespace BasicBlazorLibrary.Components.Layouts.Simple
 {
-    public partial class WrapControl<T>
+    public partial class WrapLayout<T>
     {
         [Parameter]
         public CustomBasicList<T> RenderList { get; set; } = new CustomBasicList<T>();

@@ -2,7 +2,7 @@ using BasicBlazorLibrary.Components.MediaQueries.ParentClasses;
 using BasicBlazorLibrary.Helpers;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
-namespace BasicBlazorLibrary.Components.PageLayouts.Simple
+namespace BasicBlazorLibrary.Components.Layouts.Simple
 {
     public partial class LeftOverLayoutComponent
     {

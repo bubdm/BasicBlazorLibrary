@@ -1,15 +1,11 @@
-using Microsoft.AspNetCore.Components;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
-using System;
-using System.Linq;
-using System.Net.Http;
 using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using Microsoft.AspNetCore.Components;
 using System.Drawing;
 using System.Threading.Tasks;
-
-namespace BasicBlazorLibrary.Components.Divs
+using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+namespace BasicBlazorLibrary.Components.Layouts.Simple
 {
-    public partial class CanvasContainerDiv
+    public partial class CanvasLayout
     {
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
