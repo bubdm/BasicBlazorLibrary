@@ -134,12 +134,20 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             }
             _leftOverHeight = _mainHeight - _firstHeight - firstBottom - _lastHeight - lastBottom - bottomMargin;
         }
+        private bool _seconds;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
+                _seconds = true;
                 await CalculateOtherAsync();
                 StateHasChanged();
+            }
+            else if (_seconds)
+            {
+                await CalculateOtherAsync(); //looks like sometimes it needs a second time.
+                StateHasChanged();
+                _seconds = false;
             }
         }
         private string GetDisplay
