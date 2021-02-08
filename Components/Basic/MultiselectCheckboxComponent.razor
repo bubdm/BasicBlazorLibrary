@@ -1,0 +1,18 @@
+﻿@using BasicBlazorLibrary.Components.CssGrids 
+@typeparam TValue
+<GridContainer Columns="@GetColumns" ColumnGap="2px">
+    @foreach (var item in Data)
+    {
+        int index = Data.IndexOf(item);
+        int row = index + 1;
+        <GridItem Row="row">
+            <div style="cursor: pointer" @onclick="() => SelectUnselectItem(item)">
+                @RetrieveValue!(item)
+            </div>
+        </GridItem>
+        <GridItem Row="row" Column="2">
+            <input type="checkbox" style="zoom: 1.5" checked="@IsSelected(item)"
+                   @onchange="(args) => OnCheckboxChanged(item, args.Value!)" />
+        </GridItem>
+    }
+</GridContainer> 

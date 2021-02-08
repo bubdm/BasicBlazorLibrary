@@ -115,7 +115,10 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             sb.Append($"overflow-y: {VerticalScrollbar ?? "hidden"};");
             sb.Append($"opacity: {GetVisibleStyle};");
 
-
+            if (BackgroundColor != "transparent")
+            {
+                sb.Append($"background-color: {BackgroundColor};");
+            }
 
 
             if (Style != "")
