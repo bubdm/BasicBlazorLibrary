@@ -42,9 +42,8 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         [Parameter]
         public string VerticalScrollbar { get; set; } = "";
 
-
         [Parameter]
-        public string Length { get; set; } = "auto"; //this is used for the parent.
+        public string Length { get; set; } = "max-content"; //this is used for the parent.  i think it should default to the maximum content.  can change as needed though.  but default needs to be that.
 
         private int GetVisibleStyle
         {
