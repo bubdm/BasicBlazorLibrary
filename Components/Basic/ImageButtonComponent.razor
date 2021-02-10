@@ -1,0 +1,12 @@
+﻿@inherits JavascriptComponentBase
+@if (MainSource == "")
+{
+    <div>You must have at least the main source in order to use the control</div>
+    return;
+}
+@if (HoverSource == "")
+{
+    <img src="@HoverSource" @onclick="OnClick" />
+    return;
+}
+<img @ref="_element" style="cursor: pointer" @onclick="OnClick" @onmouseover="HoverAsync" @onmouseout="UnhoverAsync" src="@MainSource" />
