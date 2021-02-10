@@ -1,8 +1,6 @@
 using BasicBlazorLibrary.Components.Basic;
 using CommonBasicStandardLibraries.CollectionClasses;
-using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System;
 using System.Linq;
@@ -143,7 +141,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         }
         private string GetTextStyle()
         {
-            return $"font-size: {Style!.FontSize}; color: {Style.TextColor};";
+            return $"font-size: {Style!.FontSize}; color: {Style.ComboTextColor};";
         }
         private string GetHoverColor(int id)
         {
@@ -157,7 +155,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         {
             if (id != _service!.ElementHighlighted)
             {
-                return "white";
+                return Style.ComboBackgroundColor;
+                //return "white";
             }
             return Style.HighlightColor;
         }

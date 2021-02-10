@@ -1,9 +1,9 @@
 using BasicBlazorLibrary.BasicJavascriptClasses;
-using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
+using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Threading.Tasks;
+using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.ComboTextboxes
 {
     public partial class ManuelTextBoxComponent
@@ -26,10 +26,14 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
 
         private string GetTextStyle()
         {
-            return $"font-size: {Style!.FontSize}; color: {Style.TextColor};";
+            return $"font-size: {Style!.FontSize}; color: {Style.HeaderTextColor};";
         }
 
         //i think a delegate is fine.  only the combobox will use it anyways.
+
+
+        private string GetTextBackgroundColor => Style!.HeaderBackgroundColor == cc.Transparent.ToWebColor() ? "inherit" : Style.HeaderBackgroundColor;
+        
 
         public async Task<string> GetValueAsync()
         {

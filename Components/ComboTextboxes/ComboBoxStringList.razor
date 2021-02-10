@@ -17,7 +17,7 @@
 
 @if (Virtualized == false)
 {
-    <div class="customscroll" style="width: @Style.Width; height: @Style.Height; background-color: @Style.BackgroundColor ;">
+    <div class="customscroll" style="width: @Style.Width; height: @Style.Height; background-color: @Style.ComboBackgroundColor ;">
         @foreach (var item in ItemList!)
         {
             int y;
@@ -67,7 +67,7 @@ else
                             ContainerHeight="@Style.Height"
                             LineHeight="@Style.LineHeight"
                             Context="item"
-                            BackgroundColor="@Style.BackgroundColor"
+                            BackgroundColor="@Style.ComboBackgroundColor"
                             @ref="_virtual">
         <div @onclick="() => ElementClicked(item.Index)" style="@GetColorStyle(item.Index)"
              onmouseover="this.style.background='@GetHoverColor(item.Index)'"
