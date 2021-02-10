@@ -95,9 +95,22 @@ namespace BasicBlazorLibrary.Components.Modals
         public string BackgroundColor { get; set; } = "white"; //needs to allow any color for background color.  otherwise, shows white borders which is wrong.
 
         [Parameter]
+        public string BackgroundImage { get; set; } = ""; //allows the possibility of showing background image.
+
+        [Parameter]
         public string HeaderColor { get; set; } = "black"; //can change color if necessary since you have a choice for background color.
 
         //if you choose black but has headers will be hosed unless you redo the border processes.
+
+
+        private string GetBackgrounds()
+        {
+            if (BackgroundImage != "")
+            {
+                return $"background-image: url('{BackgroundImage}'); background-size: 100% 100%;";
+            }
+            return $"background-color: {BackgroundColor};";
+        }
 
 
         //protected virtual string BackgroundColor => "white";

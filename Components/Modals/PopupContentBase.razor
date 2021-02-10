@@ -2,7 +2,7 @@
 @code{
     protected RenderFragment GetAllContent => __builder =>
     {
-        <div style="padding: 2px; background-color: @BackgroundColor; color: @HeaderColor; width: @GetWidth;">
+        <div style="padding: 2px; @GetBackgrounds() color: @HeaderColor; width: @GetWidth;">
             @if (HeaderTemplate != null)
                 {
                     <div @onclick:stopPropagation="true">
