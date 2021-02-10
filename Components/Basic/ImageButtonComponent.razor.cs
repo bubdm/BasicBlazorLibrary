@@ -14,6 +14,8 @@ namespace BasicBlazorLibrary.Components.Basic
         [Parameter]
         public string HoverSource { get; set; } = "";
         [Parameter]
+        public string MarginLeft { get; set; } = "2px";
+        [Parameter]
         public EventCallback OnClick { get; set; }
 
         private ElementReference _element;

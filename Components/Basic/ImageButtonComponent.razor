@@ -6,7 +6,7 @@
 }
 @if (HoverSource == "")
 {
-    <img src="@HoverSource" @onclick="OnClick" />
+    <img src="@HoverSource" style="margin-left: @MarginLeft; cursor: pointer;" @onclick="OnClick" />
     return;
 }
-<img @ref="_element" style="cursor: pointer" @onclick="OnClick" @onmouseover="HoverAsync" @onmouseout="UnhoverAsync" src="@MainSource" />
+<img @ref="_element" style="cursor: pointer; margin-left: @MarginLeft" @onclick="OnClick" @onmouseover="HoverAsync" @onmouseout="UnhoverAsync" src="@MainSource" />
