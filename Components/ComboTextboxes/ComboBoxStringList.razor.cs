@@ -113,7 +113,6 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         {
             _service!.MoveDown();
             PrivateUpdate(ItemList![_service.ElementHighlighted], false);
-
             _firstText = Value;
             await _text!.SetTextValueAloneAsync(Value);
             await ContinueArrowProcessesAsync();
@@ -304,7 +303,11 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         }
         ValueTask IAsyncDisposable.DisposeAsync()
         {
-            _service!.ArrowDown -= ArrowDown;
+            if (_service == null)
+            {
+                return ValueTask.CompletedTask;
+            }
+            _service.ArrowDown -= ArrowDown;
             _service.ArrowUp -= ArrowUp;
             _service.BackspacePressed -= BackspacePressed;
             return ValueTask.CompletedTask;

@@ -53,8 +53,11 @@ namespace BasicBlazorLibrary.Components.InputNavigations
             {
                 return;
             }
-            var input = _inputs.First(thisitem => thisitem.TabIndex == _currentTab);
-            await input.LoseFocusAsync();
+            var input = _inputs.FirstOrDefault(thisitem => thisitem.TabIndex == _currentTab);
+            if (input != null)
+            {
+                await input.LoseFocusAsync();
+            }
             _currentTab = 0; //if there is a tab, then will show up later.
         }
 

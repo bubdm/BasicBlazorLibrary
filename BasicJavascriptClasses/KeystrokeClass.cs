@@ -21,18 +21,15 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         }
         public KeystrokeClass(IJSRuntime js) : base(js) { }
         protected override string JavascriptFileName => "keystroke";
-
-
         private bool _didInit = false;
-
         public async Task InitAsync(ElementReference? element)
         {
             if (element == null || _didInit == true)
             {
                 return;
             }
+            _didInit = true; //has to be before.  otherwise, can have bad timing (causing issues).
             await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this), element);
-            _didInit = true;
         }
         public void AddAction(ConsoleKey key, Action action)
         {
@@ -62,6 +59,15 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         {
             AddAction(ConsoleKey.DownArrow, action);
         }
+
+        public void RemoveAllActions()
+        {
+            _simpleActions.Clear();
+            _shiftActions.Clear();
+            _altActions.Clear();
+            _controlActions.Clear();
+        }
+
         private readonly Dictionary<ConsoleKey, Action> _simpleActions = new Dictionary<ConsoleKey, Action>();
         private readonly Dictionary<ConsoleKey, Action> _shiftActions = new Dictionary<ConsoleKey, Action>();
         private readonly Dictionary<ConsoleKey, Action> _altActions = new Dictionary<ConsoleKey, Action>();

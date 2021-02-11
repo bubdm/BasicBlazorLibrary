@@ -3,11 +3,12 @@ using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExt
 using CommonBasicStandardLibraries.CollectionClasses;
 using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Threading.Tasks;
 using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.Basic
 {
-    public partial class ReaderComponent<T>
+    public partial class ReaderComponent<T> : IAsyncDisposable
     {
 
         private record ScrollState(CustomBasicList<T>? List, int ElementScrollTo);
@@ -247,6 +248,13 @@ namespace BasicBlazorLibrary.Components.Basic
             _needsFocus = true;
             //await _main!.Value.FocusAsync();
         }
-        
+
+        public ValueTask DisposeAsync()
+        {
+            _keystroke!.RemoveAllActions();
+            return ValueTask.CompletedTask;
+            //_keystroke!.AddArrowUpAction(() => ArrowUp(false));
+            //_keystroke.AddArrowDownAction(() => ArrowDown(false));
+        }
     }
 }
