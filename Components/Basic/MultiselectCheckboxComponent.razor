@@ -1,5 +1,10 @@
 ﻿@using BasicBlazorLibrary.Components.CssGrids 
 @typeparam TValue
+@if (_state == EnumState.NotValid)
+{
+    <div>If you send in images for checkboxes, you must send in both check and unchecked</div>
+    return;
+}
 <GridContainer Columns="@GetColumns" ColumnGap="2px">
     @foreach (var item in Data)
     {
@@ -11,8 +16,24 @@
             </div>
         </GridItem>
         <GridItem Row="row" Column="2">
-            <input type="checkbox" style="zoom: 1.5" checked="@IsSelected(item)"
-                   @onchange="(args) => OnCheckboxChanged(item, args.Value!)" />
+            @if (_state == EnumState.Old)
+            {
+                <input type="checkbox" style="zoom: 1.5" checked="@IsSelected(item)"
+                       @onchange="(args) => OnCheckboxChanged(item, args.Value!)" />
+            }
+            else
+            {
+                string path;
+                if (IsSelected(item))
+                {
+                    path = CheckBoxedImage;
+                }
+                else
+                {
+                    path = UncheckedImage;
+                }
+                <img src="@path" @onclick="() => SelectUnselectItem(item)" />
+            }
         </GridItem>
     }
 </GridContainer> 
