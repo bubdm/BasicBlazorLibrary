@@ -77,6 +77,7 @@ namespace BasicBlazorLibrary.Components.Basic
             DataContext!.ElementHighlighted = x; //not sure if we need statehaschanged (?)
         }
 
+
         protected override void OnParametersSet()
         {
             ScrollState current = GetRecord;
@@ -91,11 +92,8 @@ namespace BasicBlazorLibrary.Components.Basic
                 return;
             }
             _needsToScroll = true; //if anything changes, then set this to true.
-            if (DataContext!.ElementScrollTo > -1)
-            {
-                DataContext.ElementHighlighted = DataContext.ElementScrollTo;
-            }
-            ResetValues();
+            PrepScrolling();
+           
             base.OnParametersSet();
         }
         protected override void OnInitialized()
@@ -109,6 +107,16 @@ namespace BasicBlazorLibrary.Components.Basic
             _keystroke.AddArrowDownAction(() => ArrowDown(false));
 
             _autoScroll = new AutoScrollClass(JS!);
+            PrepScrolling();
+        }
+
+        private void PrepScrolling()
+        {
+            if (DataContext!.ElementScrollTo > -1)
+            {
+                DataContext.ElementHighlighted = DataContext.ElementScrollTo;
+            }
+            ResetValues();
         }
 
         private ScrollState GetRecord => new ScrollState(RenderList, GetScrollTo);
