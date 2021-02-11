@@ -24,7 +24,9 @@
             y = x;
             @if (y == _service!.ElementScrollTo)
             {
-                <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)" @ref="_scrollreference"
+                <div @onclick="() => ElementClicked(y)"
+                     @ondblclick="() => ElementDoubleClicked(y)"
+                     style="@GetColorStyle(y)" @ref="_scrollreference"
                      onmouseover="this.style.background='@GetHoverColor(y)'"
                      onmouseout="this.style.background='@GetBackgroundColor(y)'">
                     <div style="@GetTextStyle()">
@@ -34,7 +36,9 @@
             }
             else if (y == 0)
             {
-                <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)" @ref="_firstreference"
+                <div @onclick="() => ElementClicked(y)"
+                     @ondblclick="() => ElementDoubleClicked(y)"
+                     style="@GetColorStyle(y)" @ref="_firstreference"
                      onmouseover="this.style.background='@GetHoverColor(y)'"
                      onmouseout="this.style.background='@GetBackgroundColor(y)'">
                     <div style="@GetTextStyle()">
@@ -45,6 +49,7 @@
             else
             {
                 <div @onclick="() => ElementClicked(y)" style="@GetColorStyle(y)"
+                     @ondblclick="() => ElementDoubleClicked(y)"
                      onmouseover="this.style.background='@GetHoverColor(y)'"
                      onmouseout="this.style.background='@GetBackgroundColor(y)'">
                     <div style="@GetTextStyle()">
@@ -69,7 +74,9 @@ else
                             Context="item"
                             BackgroundColor="@Style.ComboBackgroundColor"
                             @ref="_virtual">
-        <div @onclick="() => ElementClicked(item.Index)" style="@GetColorStyle(item.Index)"
+        <div @onclick="() => ElementClicked(item.Index)"
+             @ondblclick="() => ElementDoubleClicked(item.Index)"
+             style="@GetColorStyle(item.Index)"
              onmouseover="this.style.background='@GetHoverColor(item.Index)'"
              onmouseout="this.style.background='@GetBackgroundColor(item.Index)'"
              >

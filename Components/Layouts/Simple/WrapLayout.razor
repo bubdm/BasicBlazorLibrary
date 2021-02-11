@@ -5,7 +5,7 @@
 }
 @foreach (var item in RenderList)
 {
-    <div style="width: @ColumnWidth; display: inline-block">
+    <div style="width: @ColumnWidth; display: inline-block; margin: @Margins; @Style">
         @ChildContent(item)
     </div>
 }

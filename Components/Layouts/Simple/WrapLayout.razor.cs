@@ -10,5 +10,9 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         public RenderFragment<T>? ChildContent { get; set; }
         [Parameter]
         public string ColumnWidth { get; set; } = "100px"; //can be whatever you want.
+        [Parameter]
+        public string Margins { get; set; } = "2px";
+        [Parameter]
+        public string Style { get; set; } = "";
     }
 }

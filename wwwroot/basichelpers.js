@@ -20,8 +20,15 @@ export function getcontainerleft(element) {
     return offset;
 }
 export function getparentHeight(element) {
+    if (element == null) {
+        return 0;
+    }
     return element.parentElement.clientHeight;
 }
 export function getparentWidth(element) {
+    //return 0;
+    if (element == null) {
+        return 0;
+    }
     return element.parentElement.clientWidth;
 }

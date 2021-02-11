@@ -127,7 +127,15 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             _firstText = Value;
         }
 
-
+        private async Task ElementDoubleClicked(int x)
+        {
+            if (Style.AllowDoubleClick == false)
+            {
+                return; //ignore because not even allowed.
+            }
+            //this means act like you chose item.
+            await ComboEnterPressed.InvokeAsync(); //hopefully this simple.
+        }
 
         private async Task ElementClicked(int x)
         {
@@ -210,6 +218,9 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 _firstText = Value;
             }
         }
+
+        
+
         private async void OnKeyPress(TextModel model)
         {
             if (model.KeyPressed == "Enter")

@@ -11,7 +11,10 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public string ComboTextColor { get; set; } = cc.Black.ToWebColor();
         public string HeaderBackgroundColor { get; set; } = cc.White.ToWebColor();
         public string ComboBackgroundColor { get; set; } = cc.White.ToWebColor();
-        
+
+        public bool AllowDoubleClick { get; set; } = false; //so if you specify true, then double click would be to select without having to hit enter.
+        //this would be like raising the entered event. with the item selected.
+
 
         //public string TextColor { get; set; } = cc.Black.ToWebColor();
         //public string BackgroundColor { get; set; } = cc.White.ToWebColor(); //so you change this as well.

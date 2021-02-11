@@ -1,6 +1,8 @@
 using BasicBlazorLibrary.Components.MediaQueries.ParentClasses;
 using BasicBlazorLibrary.Helpers;
+using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.Layouts.Simple
 {
@@ -84,7 +86,9 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             _top = await JS!.GetContainerTop(MainElement);
             int firstWidth = Media!.BrowserInfo!.Width;
             int firstHeight = Media.BrowserInfo.Height;
-            int totalWidth = await JS!.GetParentWidth(MainElement);
+            int totalWidth;
+            totalWidth = await JS!.GetParentWidth(MainElement);
+            //throw new BasicBlankException(totalWidth.ToString());
             int totalHeight = await JS!.GetParentHeight(MainElement);
             int bottomMargin = BottomMargin;
             if (totalWidth == LeftMargin || totalWidth <= 0 || totalWidth > firstWidth)
