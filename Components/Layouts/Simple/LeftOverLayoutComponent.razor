@@ -1,4 +1,12 @@
 ﻿@inherits JavascriptComponentBase
+@if (TopContent == null && BottomContent == null && MainContent != null && SupportAutoScroll)
+{
+    <div @ref="MainElement" style="height: @GetMainHeight; margin-top: @GetFirstTop; margin-left: @GetFirstLeft; ">
+        @MainContent
+    </div>
+    return;
+}
+
 <div @ref="MainElement" style="opacity: @GetDisplay; height: @GetMainHeight; width: @GetMainWidth; margin-top: @GetFirstTop; margin-left: @GetFirstLeft; background-color: @FullBackgroundColor">
     @if (TopContent != null)
     {

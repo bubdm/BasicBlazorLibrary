@@ -21,6 +21,8 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         [Parameter]
         public RenderFragment? MainContent { get; set; }
         [Parameter]
+        public bool SupportAutoScroll { get; set; } = false; //if you need to support autoscroll, then set this to true.  there is some tradeoffs (no width set for the component).  its the risk i will have to take though.
+        [Parameter]
         public string MainBackgroundColor { get; set; } = "transparent";
         [Parameter]
         public string FullBackgroundColor { get; set; } = "transparent";
@@ -82,6 +84,10 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         }
         private async Task CalculateOtherAsync()
         {
+            if (MainElement == null)
+            {
+                return;
+            }
             _did = true;
             _top = await JS!.GetContainerTop(MainElement);
             int firstWidth = Media!.BrowserInfo!.Width;
@@ -113,7 +119,6 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             }
             _mainHeight = totalHeight - _top - BottomMargin;
             _mainWidth = totalWidth - LeftMargin - RightMargin;
-
             int firstBottom;
             int lastBottom;
             if (_firstElement != null)
