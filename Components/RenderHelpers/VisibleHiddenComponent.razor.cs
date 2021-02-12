@@ -27,5 +27,6 @@ namespace BasicBlazorLibrary.Components.RenderHelpers
             }
             return "visiblediv";
         }
+        private string GetDisplay => Visible ? "" : "none";
     }
 }
