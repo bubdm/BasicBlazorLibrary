@@ -1,0 +1,7 @@
+﻿@typeparam TValue
+@foreach (var item in Data)
+{
+    <div style="font-size: @FontSize; cursor: pointer;" @onclick="() => OnItemSelected.InvokeAsync(item)">
+        @ChildContent!(item)
+    </div>
+}

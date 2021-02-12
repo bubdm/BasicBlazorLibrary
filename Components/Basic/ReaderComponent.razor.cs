@@ -214,10 +214,7 @@ namespace BasicBlazorLibrary.Components.Basic
                 StateHasChanged();
             }
         }
-        //protected override bool ShouldRender()
-        //{
-        //    return false; //for now, no rerendering until i figure out what to do next.
-        //}
+        //looks like shouldrender does not help this time.
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (_needsFocus && _main != null)
@@ -245,6 +242,7 @@ namespace BasicBlazorLibrary.Components.Basic
             {
                 return; //try this way.  hopefully no never ending loop (?)
             }
+            Console.WriteLine("Autoscrolling.");
             await _autoScroll!.ScrollToElementAsync(_reference);
             _reference = null; //for next time (?)
             _needsToScroll = false;

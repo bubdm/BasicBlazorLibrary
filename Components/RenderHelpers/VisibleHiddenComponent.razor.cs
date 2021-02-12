@@ -19,14 +19,6 @@ namespace BasicBlazorLibrary.Components.RenderHelpers
         public bool Visible { get; set; } = true;
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
-        private string GetClass()
-        {
-            if (Visible == false)
-            {
-                return "hiddendiv";
-            }
-            return "visiblediv";
-        }
         private string GetDisplay => Visible ? "" : "none";
     }
 }

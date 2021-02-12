@@ -3,6 +3,7 @@ using BasicBlazorLibrary.Helpers;
 using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.Layouts.Simple
 {
@@ -88,14 +89,32 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             {
                 return;
             }
+            //int tempHeight = _mainHeight;
+            int totalHeight;
+
+            //if (SupportAutoScroll)
+            //{
+            //    _top = await JS!.GetContainerTop(MainElement);
+            //    totalHeight = await JS!.GetParentHeight(MainElement); //hopefully this won't cause a problem (?)
+            //    _mainHeight = totalHeight - _top - BottomMargin;
+
+            //    //_mainHeight = 600; //try this way for now.  can experiment further later.
+            //    return;
+            //}
             _did = true;
             _top = await JS!.GetContainerTop(MainElement);
+
+            
+
             int firstWidth = Media!.BrowserInfo!.Width;
             int firstHeight = Media.BrowserInfo.Height;
+
+           
+
             int totalWidth;
             totalWidth = await JS!.GetParentWidth(MainElement);
             //throw new BasicBlankException(totalWidth.ToString());
-            int totalHeight = await JS!.GetParentHeight(MainElement);
+            totalHeight = await JS!.GetParentHeight(MainElement);
             int bottomMargin = BottomMargin;
             if (totalWidth == LeftMargin || totalWidth <= 0 || totalWidth > firstWidth)
             {
@@ -117,7 +136,11 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             {
                 _top = 0;
             }
-            _mainHeight = totalHeight - _top - BottomMargin;
+            if (_mainHeight == 0 && SupportAutoScroll || SupportAutoScroll == false)
+            {
+                _mainHeight = totalHeight - _top - BottomMargin; //if autoscroll is needed, then do this way.  means after set, will never consider again.
+            }
+
             _mainWidth = totalWidth - LeftMargin - RightMargin;
             int firstBottom;
             int lastBottom;
@@ -142,6 +165,18 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
                 lastBottom = 0;
             }
             _leftOverHeight = _mainHeight - _firstHeight - firstBottom - _lastHeight - lastBottom - bottomMargin;
+
+            if (SupportAutoScroll)
+            {
+
+                //this means can be smaller but never larger (try that way).
+                //if (tempHeight > 0 && )
+
+                //Console.WriteLine(_mainHeight); //this part could be a little hosed.
+                //_mainHeight = 600;
+                return;
+            }
+
         }
         private bool _seconds;
         protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -1,11 +1,11 @@
 ﻿@inherits JavascriptComponentBase
-@if (TopContent == null && BottomContent == null && MainContent != null && SupportAutoScroll)
+@*@if (TopContent == null && BottomContent == null && MainContent != null && SupportAutoScroll)
 {
-    <div @ref="MainElement" style="height: @GetMainHeight; margin-top: @GetFirstTop; margin-left: @GetFirstLeft; ">
+    <div @ref="MainElement" style="height: @GetMainHeight;  ">
         @MainContent
     </div>
     return;
-}
+}*@
 
 <div @ref="MainElement" style="opacity: @GetDisplay; height: @GetMainHeight; width: @GetMainWidth; margin-top: @GetFirstTop; margin-left: @GetFirstLeft; background-color: @FullBackgroundColor">
     @if (TopContent != null)
@@ -15,7 +15,7 @@
         </div>
     }
     <div style="margin-top: @GetFirstBottomTop; height: @GetLeftOverHeight; background-color: @MainBackgroundColor">
-        @if (BuiltInScrollMain)
+        @if (BuiltInScrollMain && SupportAutoScroll == false)
         {
             <div style="width: 100%; height: 100%; overflow: auto;">
                 @MainContent
