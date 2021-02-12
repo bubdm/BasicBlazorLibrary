@@ -11,6 +11,7 @@ namespace BasicBlazorLibrary.Components.Basic
     public partial class ReaderComponent<T> : IAsyncDisposable
     {
 
+
         private record ScrollState(CustomBasicList<T>? List, int ElementScrollTo);
 
         /// <summary>
@@ -98,14 +99,12 @@ namespace BasicBlazorLibrary.Components.Basic
         }
         protected override void OnInitialized()
         {
-
-            _previousRecord = GetRecord;
             _reference = null;
+            _previousRecord = GetRecord;
             _main = null;
             _keystroke = new KeystrokeClass(JS!);
             _keystroke.AddArrowUpAction(() => ArrowUp(false));
             _keystroke.AddArrowDownAction(() => ArrowDown(false));
-
             _autoScroll = new AutoScrollClass(JS!);
             PrepScrolling();
         }
@@ -215,6 +214,10 @@ namespace BasicBlazorLibrary.Components.Basic
                 StateHasChanged();
             }
         }
+        //protected override bool ShouldRender()
+        //{
+        //    return false; //for now, no rerendering until i figure out what to do next.
+        //}
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (_needsFocus && _main != null)
@@ -243,6 +246,7 @@ namespace BasicBlazorLibrary.Components.Basic
                 return; //try this way.  hopefully no never ending loop (?)
             }
             await _autoScroll!.ScrollToElementAsync(_reference);
+            _reference = null; //for next time (?)
             _needsToScroll = false;
         }
         private bool _needsFocus;

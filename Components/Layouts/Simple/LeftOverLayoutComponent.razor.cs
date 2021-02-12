@@ -158,6 +158,7 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         {
             get
             {
+                //return "1"; //for now even though will have flickering.
                 if (_did == true)
                 {
                     return "1";

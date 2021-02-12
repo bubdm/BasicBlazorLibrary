@@ -2,18 +2,16 @@
 @using BasicBlazorLibrary.Components.CssGrids
 @inherits JavascriptComponentBase
 @typeparam T
-@if (RenderList == null || ChildContent == null || DataContext == null)
+@{
+    int x = 0;
+    //_reference = default;
+    //Console.WriteLine("set to null");
+}
+@if (RenderList == null || ChildContent == null || DataContext == null || RenderList.Count == 0)
 {
     return;
 }
-@if (RenderList.Count == 0)
-{
-    return; //try this too.
-}
-@{
-    int x = 0;
-    _reference = default;
-}
+
 <div tabindex="0" @ref="_main" class="customscroll" style="width: @Width; height: @Height;">
     <GridContainer>
         @foreach (var item in RenderList)

@@ -1,5 +1,5 @@
 ﻿.customscroll {
-    overflow-x: auto;
+    overflow:auto;
 }
 
 div:focus {
