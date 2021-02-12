@@ -18,6 +18,21 @@ namespace BasicBlazorLibrary.Components.Tabs
         public RenderFragment? ChildContent { get; set; }
 
 
+
+        //private string GetDisplay
+        //{
+        //    get
+        //    {
+        //        string output = TabContainer!.ActivePage == this ? "1" : "0";
+        //        Console.WriteLine(output);
+        //        Console.WriteLine(Text);
+        //        return output;
+        //    }
+        //}
+
+
+        private string GetDisplay => TabContainer!.ActivePage == this ? "" : "none";
+
         [Parameter]
         public string Text { get; set; } = "";
 
