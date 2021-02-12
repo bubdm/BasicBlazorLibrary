@@ -11,6 +11,8 @@ namespace BasicBlazorLibrary.Components.BaseClasses
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
         TabPage? ITabContainer.ActivePage => _page;
+        [Parameter]
+        public bool CollapsePages { get; set; }
 
         protected void AddPage(T tabPage)
         {

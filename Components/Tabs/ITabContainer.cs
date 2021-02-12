@@ -4,5 +4,6 @@
     {
         void AddPage(TabPage page);
         TabPage? ActivePage { get; }
+        bool CollapsePages { get; set; }
     }
 }

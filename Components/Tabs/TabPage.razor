@@ -1,3 +1,11 @@
-﻿<div style="display: @GetDisplay; ">
+﻿@if (TabContainer!.CollapsePages)
+{
+    <div style="display: @GetDisplay; ">
+        @ChildContent
+    </div>
+    return;
+}
+@if (TabContainer!.ActivePage == this)
+{
     @ChildContent
-</div>
+}
