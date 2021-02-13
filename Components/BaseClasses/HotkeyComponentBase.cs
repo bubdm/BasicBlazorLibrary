@@ -14,7 +14,10 @@ namespace BasicBlazorLibrary.Components.BaseClasses
         protected ElementReference? MainElement { get; set; }
         protected KeystrokeClass? Key;
         protected virtual bool FocusOnFirst { get; set; }
-
+        /// <summary>
+        /// this is needed because you could have a base class that has to inherit from the hotkey class but its sub class may not need any.
+        /// </summary>
+        protected virtual bool NeedsHotKeys { get; } = true;
         //protected bool CanStartup { get; set; } = true;
         //somehow this is running twice now.
 
@@ -31,18 +34,23 @@ namespace BasicBlazorLibrary.Components.BaseClasses
                 await MainElement.Value.FocusAsync();
             }
         }
-
-        
-
-
         protected override void OnInitialized()
         {
+            if (NeedsHotKeys == false)
+            {
+                return;
+            }
             MainElement = null;
+            
             Key = new KeystrokeClass(JS!);
             base.OnInitialized();
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            if (NeedsHotKeys == false)
+            {
+                return;
+            }
             if (firstRender)
             {
                 await InitAsync();
