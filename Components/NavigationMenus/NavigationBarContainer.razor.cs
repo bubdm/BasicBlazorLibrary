@@ -86,6 +86,8 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         public void ChangeBar(bool display)
         {
             _showBar = display;
+            //was able to get to the root of the problem
+            //lesson.  if one is using it, then can't use bind second time.  otherwise, causes problems.
             StateHasChanged();
         }
     }

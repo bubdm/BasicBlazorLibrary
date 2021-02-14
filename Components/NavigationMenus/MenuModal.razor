@@ -1,8 +1,11 @@
 ﻿@using BasicBlazorLibrary.Components.BaseClasses
 @using BasicBlazorLibrary.Components.Modals
 @inherits PopupBase
+
+
 <PopupCornered CornerPosition="EnumCornerPosition.TopRight"
-               @bind-Visible="Visible"
+               Visible="Visible"
+               VisibleChanged="VisibleChanged"
                DisableBackgroundClick="false"
                Margins="10px;"
                BackgroundColor="black"
