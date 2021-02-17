@@ -102,7 +102,14 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             //    return;
             //}
             _did = true;
-            _top = await JS!.GetContainerTop(MainElement);
+            try
+            {
+                _top = await JS!.GetContainerTop(MainElement);
+            }
+            catch (Exception)
+            {
+                return; //try this way now (?)
+            }
 
             
 

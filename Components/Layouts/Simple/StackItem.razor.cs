@@ -44,7 +44,8 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
 
         [Parameter]
         public string Length { get; set; } = "max-content"; //this is used for the parent.  i think it should default to the maximum content.  can change as needed though.  but default needs to be that.
-
+        [Parameter]
+        public bool AlignEnd { get; set; } //if true, will do what is necessary to align to the end.
         private int GetVisibleStyle
         {
             get
@@ -118,7 +119,10 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             {
                 sb.Append($"background-color: {BackgroundColor};");
             }
-
+            if (AlignEnd)
+            {
+                sb.Append("display: flex; justify-content: flex-end;");
+            }
 
             if (Style != "")
             {
