@@ -60,9 +60,10 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         [Parameter]
         public bool AlwaysShowBar { get; set; } = false;
 
-        [Parameter]
-        public bool FullPage { get; set; } //if full page, then will enable scrollable support.
-        //doing it this way means i don't have to come up with another name or break the existing control.
+      
+
+        //for now, no more fullpage.   did not work as expected anyways.  until further notice, has to manually specify the sizes if scrolling is needed.
+
 
 
 
