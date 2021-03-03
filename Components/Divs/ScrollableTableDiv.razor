@@ -1,0 +1,21 @@
+﻿@typeparam TValue
+<div style="overflow-y: auto">
+    <table>
+        <thead>
+            <tr>
+                @foreach (var item in Headers)
+                {
+                    <th style="background-color: @BackgroundColor">@item</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ItemList)
+            {
+                <tr>
+                    @ChildContent!(item)
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

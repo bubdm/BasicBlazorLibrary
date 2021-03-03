@@ -55,12 +55,18 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         [Parameter]
         public string MenuWidth { get; set; } = "50vmin";
         [Parameter]
-        public CustomBasicList<MenuItem> MenuList { get; set; } = new CustomBasicList<MenuItem>(); //can still show the list even with no items.
+        public CustomBasicList<MenuItem> MenuList { get; set; } = new (); //can still show the list even with no items.
 
         [Parameter]
         public bool AlwaysShowBar { get; set; } = false;
 
-        private SizeF _viewPort = new SizeF(40, 40);
+        [Parameter]
+        public bool FullPage { get; set; } //if full page, then will enable scrollable support.
+        //doing it this way means i don't have to come up with another name or break the existing control.
+
+
+
+        private SizeF _viewPort = new (40, 40);
         private string GetContainer
         {
             get

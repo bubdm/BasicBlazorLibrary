@@ -2,6 +2,78 @@
 @using BasicBlazorLibrary.Components.Arrows 
 @using BasicBlazorLibrary.Components.Layouts.Simple
 <CascadingValue Value="this" IsFixed="true">
+
+    @if (FullPage == false)
+    {
+
+        <div class="@GetFirstClass() main" style="padding: @Padding; font-size: @MainFontSize;  background-color: @MainBackgroundColor; color: @MainTextColor; ">
+            <div class="firstflex">
+                <div class="centerdiv">
+                    @if (BackClicked.HasDelegate == true && ShowBack)
+                    {
+                        <div class="inline centerdiv" style="margin-right: 10px;">
+                            <ArrowLeftComponent Clicked="BackClicked" BackgroundColor="white" StrokeColor="black" TargetHeight="@ArrowHeight" />
+                        </div>
+                    }
+                    @Title
+                </div>
+                <div class="centerdiv">
+                    <div>
+                        @if (BarContent != null)
+                        {
+                            @BarContent
+                        }
+                    </div>
+                    @if (MenuList.Count > 0)
+                    {
+                        <div class="inline centerdiv">
+                            <CanvasLayout Clicked="() => _showMenu = true"
+                                          ViewPort="_viewPort"
+                                          ContainerHeight="@GetContainer"
+                                          ContainerWidth="@GetContainer"
+                                          style="cursor: pointer;">
+                                @*
+
+                                    once stack layout is completed, could attempt to use the stack layout here.
+                                *@
+                                <CanvasItem Location="new PointF(15, 2)">
+                                    <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
+
+                                    </div>
+                                </CanvasItem>
+                                <CanvasItem Location="new PointF(15, 15)">
+                                    <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
+
+                                    </div>
+                                </CanvasItem>
+                                <CanvasItem Location="new PointF(15, 28)">
+                                    <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
+
+                                    </div>
+                                </CanvasItem>
+                            </CanvasLayout>
+                        </div>
+                    }
+                    @if (CloseClicked.HasDelegate)
+                    {
+                        <div class="inline centerdiv;" style="font-size: @CloseHeight; cursor:pointer;" @onclick="()=> CloseClicked.InvokeAsync()">
+                            X
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <MenuModal MenuList="MenuList"
+                   BackgroundColor="@MenuBackgroundColor"
+                   FontSize="@MenuFontSize"
+                   Height="@MenuHeight"
+                   TextColor="@MenuTextColor"
+                   Width="@MenuWidth"
+                   @bind-Visible="_showMenu" />
+        @MainContent
+        return;
+    }
+<div style="display: grid; height: 100vh">
     <div class="@GetFirstClass() main" style="padding: @Padding; font-size: @MainFontSize;  background-color: @MainBackgroundColor; color: @MainTextColor; ">
         <div class="firstflex">
             <div class="centerdiv">
@@ -24,14 +96,14 @@
                 {
                     <div class="inline centerdiv">
                         <CanvasLayout Clicked="() => _showMenu = true"
-                                            ViewPort="_viewPort"
-                                            ContainerHeight="@GetContainer"
-                                            ContainerWidth="@GetContainer"
-                                            style="cursor: pointer;">
-                            @* 
-                                
-                            once stack layout is completed, could attempt to use the stack layout here.
-                                *@
+                                      ViewPort="_viewPort"
+                                      ContainerHeight="@GetContainer"
+                                      ContainerWidth="@GetContainer"
+                                      style="cursor: pointer;">
+                            @*
+
+                                once stack layout is completed, could attempt to use the stack layout here.
+                            *@
                             <CanvasItem Location="new PointF(15, 2)">
                                 <div style="width: @CircleSize; height: @CircleSize; background-color: @CircleColor; border-radius: 50%;">
 
@@ -52,7 +124,7 @@
                 }
                 @if (CloseClicked.HasDelegate)
                 {
-                    <div class="inline centerdiv;" style="font-size: @CloseHeight; cursor:pointer;" @onclick="()=> CloseClicked.InvokeAsync()" >
+                    <div class="inline centerdiv;" style="font-size: @CloseHeight; cursor:pointer;" @onclick="()=> CloseClicked.InvokeAsync()">
                         X
                     </div>
                 }
@@ -60,11 +132,14 @@
         </div>
     </div>
     <MenuModal MenuList="MenuList"
-                              BackgroundColor="@MenuBackgroundColor"
-                              FontSize="@MenuFontSize"
-                              Height="@MenuHeight"
-                              TextColor="@MenuTextColor"
-                              Width="@MenuWidth"
-                              @bind-Visible="_showMenu" />
+               BackgroundColor="@MenuBackgroundColor"
+               FontSize="@MenuFontSize"
+               Height="@MenuHeight"
+               TextColor="@MenuTextColor"
+               Width="@MenuWidth"
+               @bind-Visible="_showMenu" />
     @MainContent
+</div>
+
+
 </CascadingValue>

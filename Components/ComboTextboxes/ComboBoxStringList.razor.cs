@@ -126,7 +126,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             _firstText = Value;
         }
 
-        private async Task ElementDoubleClicked(int x)
+        private async Task ElementDoubleClicked()
         {
             if (Style.AllowDoubleClick == false)
             {
@@ -264,7 +264,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 StateHasChanged(); //this is needed
                 return; //try this way.
             }
-            var index = ItemList.IndexOf(item);
+            var index = ItemList!.IndexOf(item);
             _service!.DoHighlight(index, true); //i think this was missing now.
             await _text!.HighlightTextAsync(item, _firstText.Length);
             PrivateUpdate(item, false); //try this way just in case (?)
