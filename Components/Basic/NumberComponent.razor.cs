@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-
 namespace BasicBlazorLibrary.Components.Basic
 {
     public partial class NumberComponent
@@ -18,6 +14,10 @@ namespace BasicBlazorLibrary.Components.Basic
         public string Class { get; set; } = "";
         [Parameter]
         public string Style { get; set; } = "";
+
+        [Parameter]
+        public string Width { get; set; } = "75px";
+
         //this is oninput always though.
 
         private int CurrentValue
