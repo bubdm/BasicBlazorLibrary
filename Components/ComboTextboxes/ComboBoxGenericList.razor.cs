@@ -30,7 +30,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
 
         private ComboBoxStringList? _combo;
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new CustomBasicList<string>();
+        private readonly CustomBasicList<string> _list = new ();
         protected override void OnInitialized()
         {
             _combo = null;
