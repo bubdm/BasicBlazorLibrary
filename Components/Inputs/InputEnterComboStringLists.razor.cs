@@ -10,8 +10,17 @@ namespace BasicBlazorLibrary.Components.Inputs
         private ComboBoxStringList? _combo;
         protected override void OnInitialized()
         {
+            _value = CurrentValue; //try this way.
             _combo = null;
             base.OnInitialized(); //needs this.
+        }
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+        }
+        protected override void AfterCurrentChanged()
+        {
+            _value = CurrentValue;
         }
 
         protected override Task OnFirstRenderAsync()

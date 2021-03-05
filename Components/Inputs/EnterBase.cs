@@ -134,10 +134,12 @@ namespace BasicBlazorLibrary.Components.Inputs
                     Value = value;
                     _ = ValueChanged.InvokeAsync(value);
                     EditContext.NotifyFieldChanged(FieldIdentifier);
+                    AfterCurrentChanged();
                 }
             }
         }
 
+        protected virtual void AfterCurrentChanged() {}
 
         /// <summary>
         /// Gets or sets the current value of the input, represented as a string.

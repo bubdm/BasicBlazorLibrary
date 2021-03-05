@@ -186,14 +186,17 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
 
         protected override async Task OnParametersSetAsync()
         {
-            if (TabIndex != -1)
-            {
-                return;
-            }
+            //has to attempt to do even for tabindex.  especially since otherwise, does not update when they autoupdate.
+
+
+            //if (TabIndex != -1)
+            //{
+            //    return;
+            //}
             if (_didFirst)
             {
                 string value = await _text!.GetValueAsync();
-                if (value == "" && Value != "")
+                if (value == "" && Value != "" || value != Value)
                 {
                     await _text.SetInitValueAsync(Value);
                     var index = ItemList!.IndexOf(Value);
@@ -209,6 +212,13 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                     //_service!.ElementScrollTo == -1;
                     PrivateUpdate("", false); //i think.
                 }
+                //else if (Value != value)
+                //{
+                //    await _text.SetInitValueAsync(Value);
+                //    var index = ItemList!.IndexOf(Value);
+                //    _service!.DoHighlight(index, true); //i think this was missing now.
+                //    _firstText = Value;
+                //}
             }
             else if (Value != "")
             {
