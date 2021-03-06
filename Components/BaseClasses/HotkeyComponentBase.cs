@@ -20,14 +20,13 @@ namespace BasicBlazorLibrary.Components.BaseClasses
         protected virtual bool NeedsHotKeys { get; } = true;
         //protected bool CanStartup { get; set; } = true;
         //somehow this is running twice now.
-
-
         protected async Task InitAsync()
         {
             if (MainElement.HasValue == false)
             {
-                throw new BasicBlankException("No main element was set.  The child class has to set up the main element.  Otherwise, unable to use hotkeys.  Try to make sure its not even used until needed.");
+                return; //has to do this way now.
             }
+            _didInit = true;
             await Key!.InitAsync(MainElement);
             if (FocusOnFirst)
             {
@@ -45,13 +44,15 @@ namespace BasicBlazorLibrary.Components.BaseClasses
             Key = new KeystrokeClass(JS!);
             base.OnInitialized();
         }
+        //there are cases where the main element may not be set until later.  so has to accomodate that scenario.
+        private bool _didInit;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (NeedsHotKeys == false)
             {
                 return;
             }
-            if (firstRender)
+            if (_didInit == false)
             {
                 await InitAsync();
                 
