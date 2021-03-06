@@ -156,6 +156,10 @@ namespace BasicBlazorLibrary.Components.InputNavigations
 
         public async Task FocusAndSelectAsync(ElementReference? element) //this needs the element reference.  that is all this cares about this time.  this provides a way to implement it.
         {
+            if (element == null)
+            {
+                return; //if not created yet because its more dynamic, then ignore.
+            }
             await _focusjs!.FocusAsync(element);
         }
 
@@ -178,8 +182,8 @@ namespace BasicBlazorLibrary.Components.InputNavigations
                 await FocusCurrentAsync();
             });
         }
-
-        private async Task FocusCurrentAsync()
+        //this way can be done later.
+        public async Task FocusCurrentAsync()
         {
             await _inputs.First(thisitem => thisitem.TabIndex == _currentTab).FocusAsync();
         }
