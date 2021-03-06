@@ -9,7 +9,10 @@ namespace BasicBlazorLibrary.Components.Inputs
     {
         private ComboBoxStringList? _combo;
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new CustomBasicList<string>();
+        private readonly CustomBasicList<string> _list = new ();
+
+        
+
         protected override void OnInitialized()
         {
             _combo = null;
@@ -47,7 +50,8 @@ namespace BasicBlazorLibrary.Components.Inputs
         public bool Virtualized { get; set; } = false;
         [Parameter]
         public Func<TValue, string>? RetrieveValue { get; set; }
-
+        [Parameter]
+        public EventCallback ComboEnterPressed { get; set; }
         private void TextChanged(string value)
         {
             var index = _list.IndexOf(value);

@@ -21,7 +21,7 @@ namespace BasicBlazorLibrary.Components.InputNavigations
 
         private ClickInputHelperClass? _clicker;
         private FocusClass? _focusjs;
-        private readonly CustomBasicList<IFocusInput> _inputs = new CustomBasicList<IFocusInput>();
+        private readonly CustomBasicList<IFocusInput> _inputs = new ();
         //i like the idea of this one having the class needed for selecting items.
         private int _currentTab;
         private int _max;

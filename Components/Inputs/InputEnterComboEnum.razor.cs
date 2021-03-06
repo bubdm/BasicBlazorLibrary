@@ -48,6 +48,8 @@ namespace BasicBlazorLibrary.Components.Inputs
         public ComboStyleModel Style { get; set; } = new ComboStyleModel();
         [Parameter]
         public bool Virtualized { get; set; } = false;
+        [Parameter]
+        public EventCallback ComboEnterPressed { get; set; }
         private void TextChanged(string value)
         {
             var success = BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var parsedValue);
