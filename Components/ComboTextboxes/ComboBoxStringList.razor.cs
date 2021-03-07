@@ -118,8 +118,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             await ContinueArrowProcessesAsync();
         }
         private async Task ContinueArrowProcessesAsync()
-        {
-            PrivateUpdate("", true);
+        {//no need to set to blank first anymore since it reaches to javascript now.
             StateHasChanged();
             await Task.Delay(10);
             PrivateUpdate(ItemList![_service!.ElementHighlighted], false);
