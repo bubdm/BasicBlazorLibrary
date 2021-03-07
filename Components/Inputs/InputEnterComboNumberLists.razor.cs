@@ -74,6 +74,10 @@ namespace BasicBlazorLibrary.Components.Inputs
         protected override Task OnFirstRenderAsync()
         {
             InputElement = _combo!.GetTextBox;
+            _combo.ElementFocused = () =>
+            {
+                TabContainer.ResetFocus(this);
+            };
             return base.OnFirstRenderAsync();
         }
     }

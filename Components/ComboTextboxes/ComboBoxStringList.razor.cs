@@ -134,6 +134,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             //this means act like you chose item.
             await ComboEnterPressed.InvokeAsync(); //hopefully this simple.
         }
+        public Action? ElementFocused { get; set; }
 
         private async Task ElementClicked(int x)
         {
@@ -143,6 +144,9 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             await _text!.SetTextValueAloneAsync(Value);
             //await _text!.set
             await _text.Text!.Value.FocusAsync(); //i think we need this.
+            ElementFocused?.Invoke();
+            //needs to let the 
+
             //await _text!.FocusAsync(); //needs to focus on the control as well obviously.
         }
         private string GetTextStyle()

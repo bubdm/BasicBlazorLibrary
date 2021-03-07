@@ -162,7 +162,10 @@ namespace BasicBlazorLibrary.Components.InputNavigations
             }
             await _focusjs!.FocusAsync(element);
         }
-
+        public void ResetFocus(IFocusInput input)
+        {
+            _currentTab = input.TabIndex; //you already set focus otherwise.
+        }
         public async Task FocusSpecificInputAsync(IFocusInput input)
         {
             if (input.TabIndex == 0)
@@ -183,7 +186,7 @@ namespace BasicBlazorLibrary.Components.InputNavigations
             });
         }
         //this way can be done later.
-        public async Task FocusCurrentAsync()
+        public async Task FocusCurrentAsync() //good news is if i exited, no runtime error.  the bad news is no setting focus.
         {
             await _inputs.First(thisitem => thisitem.TabIndex == _currentTab).FocusAsync();
         }

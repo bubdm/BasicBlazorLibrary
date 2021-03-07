@@ -12,6 +12,7 @@ namespace BasicBlazorLibrary.Components.Inputs
         {
             _value = CurrentValue; //try this way.
             _combo = null;
+
             base.OnInitialized(); //needs this.
         }
         protected override void OnParametersSet()
@@ -26,6 +27,10 @@ namespace BasicBlazorLibrary.Components.Inputs
         protected override Task OnFirstRenderAsync()
         {
             InputElement = _combo!.GetTextBox; //try this first before the others.
+            _combo.ElementFocused = () =>
+            {
+                TabContainer.ResetFocus(this);
+            };
             return Task.CompletedTask;
         }
 
