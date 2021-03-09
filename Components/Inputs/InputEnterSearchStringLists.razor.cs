@@ -1,18 +1,19 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using BasicBlazorLibrary.Components.ComboTextboxes;
+using BasicBlazorLibrary.Components.SimpleSearchBoxes;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.Inputs
 {
-    public partial class InputEnterComboStringLists
+    public partial class InputEnterSearchStringLists
     {
-        private ComboBoxStringList? _combo;
+        private SearchStringList? _search;
         protected override void OnInitialized()
         {
             _value = CurrentValue; //try this way.
-            _combo = null;
+            _search = null;
 
             base.OnInitialized(); //needs this.
         }
@@ -27,8 +28,8 @@ namespace BasicBlazorLibrary.Components.Inputs
 
         protected override Task OnFirstRenderAsync()
         {
-            InputElement = _combo!.GetTextBox; //try this first before the others.
-            _combo.ElementFocused = () =>
+            InputElement = _search!.GetTextBox; //try this first before the others.
+            _search.ElementFocused = () =>
             {
                 TabContainer.ResetFocus(this);
             };
@@ -58,7 +59,7 @@ namespace BasicBlazorLibrary.Components.Inputs
         [Parameter]
         public bool Virtualized { get; set; } = false;
         [Parameter]
-        public EventCallback ComboEnterPressed { get; set; }
+        public EventCallback SearchEnterPressed { get; set; }
         private string _value = "";
     }
 }

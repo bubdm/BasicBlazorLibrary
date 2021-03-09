@@ -1,3 +1,4 @@
+using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -16,7 +17,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public EventCallback ComboEnterPressed { get; set; }
 
         [Parameter]
-        public ComboStyleModel Style { get; set; } = new ComboStyleModel();
+        public AutoCompleteStyleModel Style { get; set; } = new AutoCompleteStyleModel();
         [Parameter]
         public bool Virtualized { get; set; } = false;
         [Parameter]

@@ -2,9 +2,9 @@ using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
-namespace BasicBlazorLibrary.Components.ComboTextboxes
+namespace BasicBlazorLibrary.Components.SimpleSearchBoxes
 {
-    public partial class ComboBoxGenericList<TValue>
+    public partial class SearchGenericList<TValue>
     {
         [Parameter]
         public CustomBasicList<TValue>? ItemList { get; set; }
@@ -18,23 +18,21 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public Func<TValue, string>? RetrieveValue { get; set; }
 
         [Parameter]
-        public EventCallback ComboEnterPressed { get; set; }
+        public EventCallback SearchEnterPressed { get; set; }
 
         [Parameter]
         public AutoCompleteStyleModel Style { get; set; } = new AutoCompleteStyleModel();
         [Parameter]
-        public bool Virtualized { get; set; } = false;
-        [Parameter]
         public string Placeholder { get; set; } = "";
-       
-        public ElementReference? TextReference => _combo!.GetTextBox;
 
-        private ComboBoxStringList? _combo;
+        public ElementReference? TextReference => _search!.GetTextBox;
+
+        private SearchStringList? _search;
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new ();
+        private readonly CustomBasicList<string> _list = new();
         protected override void OnInitialized()
         {
-            _combo = null;
+            _search = null;
         }
         protected override void OnParametersSet()
         {

@@ -1,0 +1,13 @@
+﻿@using BasicBlazorLibrary.Components.SimpleSearchBoxes
+@typeparam TValue
+@inherits EnterBase<TValue>
+<SearchStringList ItemList="_list"
+                    Value="@_textDisplay"
+                    ValueChanged="TextChanged"
+                    Style="Style"
+                    Placeholder="@Placeholder"
+                    RequiredFromList="true"
+                    RequiredTab="true"
+                    TabIndex="@TabIndex"
+                    SearchEnterPressed="SearchEnterPressed"
+                    @ref="_search" />

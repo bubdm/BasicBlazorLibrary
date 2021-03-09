@@ -1,3 +1,4 @@
+using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 namespace BasicBlazorLibrary.Components.ComboTextboxes
@@ -13,7 +14,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         [Parameter]
         public EventCallback ComboEnterPressed { get; set; }
         [Parameter]
-        public ComboStyleModel Style { get; set; } = new ComboStyleModel();
+        public AutoCompleteStyleModel Style { get; set; } = new AutoCompleteStyleModel();
         [Parameter]
         public bool RequiredFromList { get; set; } = true;
         [Parameter]
@@ -27,7 +28,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         private ComboBoxStringList? _combo;
 
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new CustomBasicList<string>();
+        private readonly CustomBasicList<string> _list = new();
         protected override void OnInitialized()
         {
             _combo = null;

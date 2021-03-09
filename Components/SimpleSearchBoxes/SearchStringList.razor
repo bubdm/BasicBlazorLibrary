@@ -1,4 +1,5 @@
-﻿@using BasicBlazorLibrary.Components.AutoCompleteHelpers
+﻿@inherits JavascriptComponentBase
+@using BasicBlazorLibrary.Components.AutoCompleteHelpers
 @if (RequiredTab && TabIndex ==-1)
 {
     <div>Required Tab.  Rethink</div>
@@ -9,17 +10,14 @@
     //cannot set this to null unfortunately at this moment.  otherwise, does not work server side.
     //_scrollreference = null;
 }
-
 <ManuelTextBoxComponent Placeholder="@Placeholder"
                         Style="Style"
                         TabIndex="@TabIndex"
                         @ref="_text"
                         />
 
-@if (Virtualized == false)
-{
-    <div class="customscroll" style="width: @Style.Width; height: @Style.Height; background-color: @Style.ComboBackgroundColor ;">
-        @foreach (var item in ItemList!)
+<div class="customscroll" style="width: @Style.Width; height: @Style.Height; background-color: @Style.ComboBackgroundColor ;">
+        @foreach (var item in _displayList!)
         {
             int y;
             y = x;
@@ -63,30 +61,3 @@
         }
 
     </div>
-
-}
-else
-{
-    <VirtualSimpleComponent Items="ItemList"
-                            HasSolidBlackBorders="true"
-                            ContainerWidth="@Style.Width"
-                            ContainerHeight="@Style.Height"
-                            LineHeight="@Style.LineHeight"
-                            Context="item"
-                            BackgroundColor="@Style.ComboBackgroundColor"
-                            @ref="_virtual">
-        <div @onclick="() => ElementClicked(item.Index)"
-             @ondblclick="() => ElementDoubleClicked()"
-             style="@GetColorStyle(item.Index)"
-             onmouseover="this.style.background='@GetHoverColor(item.Index)'"
-             onmouseout="this.style.background='@GetBackgroundColor(item.Index)'"
-             >
-            <div style="@GetTextStyle()">
-                @item.Element
-            </div>
-        </div>
-        
-    </VirtualSimpleComponent>
-
-
-}

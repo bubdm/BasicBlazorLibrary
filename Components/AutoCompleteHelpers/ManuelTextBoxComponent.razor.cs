@@ -4,44 +4,30 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
-namespace BasicBlazorLibrary.Components.ComboTextboxes
+namespace BasicBlazorLibrary.Components.AutoCompleteHelpers
 {
     public partial class ManuelTextBoxComponent
     {
         //this is not cascading this time.  therefore, something will reference this object and run methods on it.
-
         private TextBoxHelperClass? _helps;
-
-
         public ElementReference? Text;
-
-        //private ElementReference? _element;
-
         [Parameter]
-        public ComboStyleModel? Style { get; set; } = new ComboStyleModel();
+        public AutoCompleteStyleModel? Style { get; set; } = new AutoCompleteStyleModel();
         [Parameter]
         public int TabIndex { get; set; } = -1;
         [Parameter]
         public string Placeholder { get; set; } = "";
-
         private string GetTextStyle()
         {
             return $"font-size: {Style!.FontSize}; color: {Style.HeaderTextColor};";
         }
-
-        //i think a delegate is fine.  only the combobox will use it anyways.
-
-
+        //i think a delegate is fine. only one control will use it anyways.  this is used for now the combo or the simple search.  however, there can be other autocomplete boxes in the future.
         private string GetTextBackgroundColor => Style!.HeaderBackgroundColor == cc.Transparent.ToWebColor() ? "inherit" : Style.HeaderBackgroundColor;
-        
-
         public async Task<string> GetValueAsync()
         {
             return await _helps!.GetValueAsync(Text);
         }
-
-        internal Action<TextModel>? KeyPress { get; set; }
-
+        public Action<TextModel>? KeyPress { get; set; }
         private async void PrivateKeyPress(string key)
         {
             //this time, has to append
@@ -53,18 +39,9 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
 
 
 
-            TextModel text = new TextModel(key, value);
+            TextModel text = new(key, value);
             KeyPress?.Invoke(text);
         }
-
-        //private async Task PrivateKeyPressAsync(KeyboardEventArgs keyboard)
-        //{
-        //    string value = await _helps!.GetValueAsync(Text);
-        //    TextModel text = new TextModel(keyboard.Key, value);
-            
-        //    KeyPress?.Invoke(text);
-        //    await SetTextValueAloneAsync("Hello"); //try this way.
-        //}
         protected override void OnInitialized()
         {
             Text = null;
@@ -82,10 +59,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         }
         public async Task HighlightTextAsync(string value, int startAt)
         {
-            //await _helps!.SetNewValueAloneAsync(Text, "Eastern");
             await _helps!.SetNewValueAndHighlightAsync(Text, value, startAt);
         }
-
         public async Task SetTextValueAloneAsync(string value)
         {
             await _helps!.SetNewValueAloneAsync(Text, value);
@@ -100,8 +75,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             {
                 await _helps!.StartAsync(Text);
             }
-            
-        }
 
+        }
     }
 }

@@ -1,22 +1,23 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using BasicBlazorLibrary.Components.ComboTextboxes;
+using BasicBlazorLibrary.Components.SimpleSearchBoxes;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.Inputs
 {
-    public partial class InputEnterComboGenericLists<TValue>
+    public partial class InputEnterSearchGenericLists<TValue>
     {
-        private ComboBoxStringList? _combo;
+        private SearchStringList? _search;
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new ();
+        private readonly CustomBasicList<string> _list = new();
 
-        
+
 
         protected override void OnInitialized()
         {
-            _combo = null;
+            _search = null;
             base.OnInitialized();
         }
         protected override void OnParametersSet()
@@ -52,7 +53,7 @@ namespace BasicBlazorLibrary.Components.Inputs
         [Parameter]
         public Func<TValue, string>? RetrieveValue { get; set; }
         [Parameter]
-        public EventCallback ComboEnterPressed { get; set; }
+        public EventCallback SearchEnterPressed { get; set; }
         private void TextChanged(string value)
         {
             var index = _list.IndexOf(value);
@@ -66,8 +67,8 @@ namespace BasicBlazorLibrary.Components.Inputs
         //maybe no need for losefocus this time (?)
         protected override Task OnFirstRenderAsync()
         {
-            InputElement = _combo!.GetTextBox;
-            _combo.ElementFocused = () =>
+            InputElement = _search!.GetTextBox;
+            _search.ElementFocused = () =>
             {
                 TabContainer.ResetFocus(this);
             };

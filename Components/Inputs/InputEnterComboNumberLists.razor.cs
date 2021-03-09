@@ -1,3 +1,4 @@
+using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using BasicBlazorLibrary.Components.ComboTextboxes;
 using CommonBasicStandardLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
@@ -45,7 +46,7 @@ namespace BasicBlazorLibrary.Components.Inputs
         [Parameter]
         public bool RequiredFromList { get; set; } = true; //if not required, then if you enter and its not on the list, then listindex would be -1 and you can still keep typing away.
         [Parameter]
-        public ComboStyleModel Style { get; set; } = new ComboStyleModel();
+        public AutoCompleteStyleModel Style { get; set; } = new AutoCompleteStyleModel();
         [Parameter]
         public bool Virtualized { get; set; } = false;
         [Parameter]
