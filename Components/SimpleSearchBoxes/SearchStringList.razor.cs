@@ -24,10 +24,22 @@ namespace BasicBlazorLibrary.Components.SimpleSearchBoxes
         private CustomBasicList<string> _displayList = new(); //start out with showing 0 items.
         //i propose first showing the entire list.
 
-
-
+        private string _value = "";
         [Parameter]
-        public string Value { get; set; } = "";
+        public string Value //may have to do this way now.
+        {
+            get => _value;
+            set
+            {
+                if (_value != value)
+                {
+                    _value = value;
+                    UpdateValuesAsync();
+                }
+            }
+        }
+
+        //public string Value { get; set; } = "";
         [Parameter]
         public EventCallback<string> ValueChanged { get; set; } //to support bindings.
         [Parameter]
@@ -194,15 +206,8 @@ namespace BasicBlazorLibrary.Components.SimpleSearchBoxes
             return $"background-color: {Style.HighlightColor};"; //for this, just use aqua.
         }
 
-        protected override async Task OnParametersSetAsync()
+        private async void UpdateValuesAsync()
         {
-            //has to attempt to do even for tabindex.  especially since otherwise, does not update when they autoupdate.
-
-
-            //if (TabIndex != -1)
-            //{
-            //    return;
-            //}
             if (_didFirst)
             {
                 string value = await _text!.GetValueAsync();
@@ -238,7 +243,9 @@ namespace BasicBlazorLibrary.Components.SimpleSearchBoxes
             }
         }
 
+        
 
+        //bad news is it somehow does the onparameters set before onkeypress (not sure why).
 
         private async void OnKeyPress(TextModel model)
         {

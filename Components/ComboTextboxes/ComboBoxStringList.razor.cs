@@ -15,8 +15,20 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         private IJSRuntime? JS { get; set; }
         [Parameter]
         public CustomBasicList<string>? ItemList { get; set; }
+        private string _value = "";
         [Parameter]
-        public string Value { get; set; } = "";
+        public string Value //may have to do this way now.
+        {
+            get => _value;
+            set
+            {
+                if (_value != value)
+                {
+                    _value = value;
+                    UpdateValuesAsync();
+                }
+            }
+        }
         [Parameter]
         public EventCallback<string> ValueChanged { get; set; } //to support bindings.
         //if listindex is needed, requires rethinking.
@@ -188,15 +200,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             //Console.WriteLine("On Parameters Set");
         }
 
-        protected override async Task OnParametersSetAsync()
+        private async void UpdateValuesAsync()
         {
-            //has to attempt to do even for tabindex.  especially since otherwise, does not update when they autoupdate.
-
-
-            //if (TabIndex != -1)
-            //{
-            //    return;
-            //}
             if (_didFirst)
             {
                 string value = await _text!.GetValueAsync();
@@ -232,7 +237,6 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             }
         }
 
-        
 
         private async void OnKeyPress(TextModel model)
         {
