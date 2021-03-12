@@ -75,10 +75,13 @@ namespace BasicBlazorLibrary.Layouts
                     throw new BasicBlankException(message);
                 }
             });
+            //in .net 6 or maybe even with photino, if the method is already implemented, then can ignore this part.
 
             UIPlatform.ExitApp = () =>
             {
                 Exited = true;
+                aa.ShowSuccess("Should close out because you are finished with everything.  Please close out manually");
+                //try this way.
                 StateHasChanged();
             };
 

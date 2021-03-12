@@ -1,0 +1,33 @@
+﻿@typeparam TValue
+@if (_loading)
+{
+    return;
+}
+@if (_status == EnumStatus.NoneToBegin)
+{
+    @if (NoneContent != null)
+    {
+        <div>
+            @NoneContent
+        </div>
+        return;
+    }
+    <div>There was no work to begin with</div>
+    return;
+}
+@if (_status == EnumStatus.Completed)
+{
+    if (CompletedContent != null)
+    {
+        <div>
+            @CompletedContent
+        </div>
+        return;
+    }
+    <div>You completed the work</div>
+    return;
+}
+<div>
+    @WorkTitle #: @UpTo   Total @ItemList.Count
+</div>
+@WorkContent!(ItemList[_index])
