@@ -69,18 +69,14 @@ namespace BasicBlazorLibrary.Components.Basic
                 _didChange = false;
                 return;
             }
+            _status = EnumStatus.Progress; //has to be here.
             _index = 0;
-            if (OnContinueOn.HasDelegate)
-            {
-                await OnContinueOn.InvokeAsync(ItemList.First());
-                _loading = false;
-                _didChange = false;
-                return;
-            }
-            //hopefully this simple.
-            _status = EnumStatus.Progress;
             _loading = false;
             _didChange = false;
+            if (OnContinueOn.HasDelegate)
+            {
+                await OnContinueOn.InvokeAsync(ItemList.First());   
+            }
         }
         public async Task NextOneAsync()
         {
