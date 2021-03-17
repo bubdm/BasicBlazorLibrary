@@ -1,1 +1,1 @@
-﻿<input type="text" class="@Class" style="@Style" @bind="CurrentValue" @bind:event="oninput" />
+﻿<input type="text" @onclick:stopPropagation="true" @onclick:preventDefault="true" class="@Class" style="@Style" @bind="CurrentValue" @bind:event="oninput" />

@@ -4,6 +4,7 @@
 {
     <input type="number"
            step="@_stepAttributeValue"
+           @onclick:stopPropagation="true" @onclick:preventDefault="true"
            @bind="CurrentValue"
            @ref="InputElement"
            class="@CssClass"
@@ -15,6 +16,7 @@ else
 {
     <input type="number"
            step="@_stepAttributeValue"
+           @onclick:stopPropagation="true" @onclick:preventDefault="true"
            @bind="CurrentValue"
            @ref="InputElement"
            class="@CssClass"

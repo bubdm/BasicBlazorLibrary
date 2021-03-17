@@ -5,6 +5,7 @@
         <input @ref="Text"
                style="@GetTextStyle() background-color: @GetTextBackgroundColor; width: 100%;"
                @onkeypress:preventDefault="true"
+               @onclick:stopPropagation="true" @onclick:preventDefault="true"
                type="text"
                id="@TabIndex"
                placeholder="@Placeholder"
@@ -15,6 +16,7 @@
         <input @ref="Text"
                style="@GetTextStyle() background-color: @GetTextBackgroundColor; width: 100%;"
                @onkeypress:preventDefault="true"
+               @onclick:stopPropagation="true" @onclick:preventDefault="true"
                type="text"
                placeholder="@Placeholder"
                class="customtextbox" />

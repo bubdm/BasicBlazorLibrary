@@ -2,6 +2,7 @@
 <input type="text"
        @bind="CurrentValue"
        @ref="InputElement"
+       @onclick:stopPropagation="true" @onclick:preventDefault="true"
        id="@TabIndex"
        class="@CssClass"
        placeholder="@Placeholder"
