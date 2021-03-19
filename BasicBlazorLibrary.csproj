@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.0.53</Version>
+    <Version>1.0.54</Version>
   </PropertyGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />

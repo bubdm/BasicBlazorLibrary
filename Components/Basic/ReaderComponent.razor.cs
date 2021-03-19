@@ -118,7 +118,7 @@ namespace BasicBlazorLibrary.Components.Basic
             ResetValues();
         }
 
-        private ScrollState GetRecord => new ScrollState(RenderList, GetScrollTo);
+        private ScrollState GetRecord => new (RenderList, GetScrollTo);
 
         private int GetScrollTo
         {

@@ -1,0 +1,17 @@
+﻿@typeparam TValue
+@{
+    int x = 0;
+}
+@if (ItemList == null || ChildContent == null || ItemList.Count == 0)
+{
+    return;
+}
+@foreach (var item in ItemList)
+{
+    int y;
+    y = x;
+    <div @onclick="() => ElementClicked(y)" class="customdiv" style="@GetColorStyle(y) cursor:pointer">
+        @ChildContent(item)
+    </div>
+    x++;
+}
