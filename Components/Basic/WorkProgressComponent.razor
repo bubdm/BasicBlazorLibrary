@@ -30,4 +30,6 @@
 <div>
     @WorkTitle #: @UpTo   Total @ItemList.Count
 </div>
-@WorkContent!(ItemList[_index])
+<div @key="ItemList[_index]!.GetHashCode()">
+    @WorkContent!(ItemList[_index])
+</div>
