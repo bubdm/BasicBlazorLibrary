@@ -2,9 +2,15 @@
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 export function getcontainerheight(element) {
+    if (element == null) {
+        return 0;
+    }
     return element.clientHeight;
 }
 export function getcontainerwidth(element) {
+    if (element == null) {
+        return 0;
+    }
     return element.clientWidth;
 }
 export function getcontainertop(element) {
