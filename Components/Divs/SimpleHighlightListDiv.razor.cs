@@ -1,4 +1,5 @@
 using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Linq;
@@ -15,12 +16,27 @@ namespace BasicBlazorLibrary.Components.Divs
             {
                 _elementHighlighted = 0; //do this way only.
             }
+            if (PreviouslyHighlighted is not null)
+            {
+                _elementHighlighted = ItemList.IndexOf(PreviouslyHighlighted);
+                if (_elementHighlighted == -1)
+                {
+                    throw new BasicBlankException("You cannot previously hightlight an item that does not exist.");
+                }
+            }
         }
 
         [Parameter]
         public string HighlightColor { get; set; } = "aqua";
         [Parameter]
         public bool HighlightFirstItem { get; set; }
+
+        /// <summary>
+        /// this has to be set at the beginning.  will allow something other than the first item to be highlighted.
+        /// </summary>
+        [Parameter]
+        public TValue? PreviouslyHighlighted { get; set; }
+
         [Parameter]
         public CustomBasicList<TValue> ItemList { get; set; } = new();
         [Parameter]
