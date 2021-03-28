@@ -85,7 +85,7 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
 
         private string GetStyle()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
 
             if (_column > 0)
             {
