@@ -1,6 +1,6 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using BasicBlazorLibrary.Components.Basic;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
@@ -14,7 +14,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         [Inject]
         private IJSRuntime? JS { get; set; }
         [Parameter]
-        public CustomBasicList<string>? ItemList { get; set; }
+        public BasicList<string>? ItemList { get; set; }
         private string _value = "";
         [Parameter]
         public string Value //may have to do this way now.
@@ -31,49 +31,27 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         }
         [Parameter]
         public EventCallback<string> ValueChanged { get; set; } //to support bindings.
-        //if listindex is needed, requires rethinking.
         [Parameter]
         public EventCallback ComboEnterPressed { get; set; }
         [Parameter]
         public bool RequiredFromList { get; set; } = true; //if not required, then if you enter and its not on the list, then listindex would be -1 and you can still keep typing away.
-
         [Parameter]
         public AutoCompleteStyleModel Style { get; set; } = new AutoCompleteStyleModel();
-
-
         /// <summary>
         /// this is only used if virtualize so it knows the line height.  hint.  set to higher than fontsize or would get hosed.  this helps in margins.
         /// </summary>
-
         [Parameter]
         public bool Virtualized { get; set; } = false;
         [Parameter]
         public int TabIndex { get; set; } = -1;
         [Parameter]
         public string Placeholder { get; set; } = "";
-
         [Parameter]
         public bool RequiredTab { get; set; } = false;
-
         private VirtualSimpleComponent<string>? _virtual; //this is used so it can do the autoscroll.
-        //in this case, has to use this one and not the other one.
-
-
-        //private string _displayText = "";
-
-        
-        
-        
         private string _firstText = "";
-
-        //has to rethink now.
         private ManuelTextBoxComponent? _text;
-
         public ElementReference? GetTextBox => _text!.Text;
-
-
-        //decided to make this public.  therefore, the validation version can use it to focus and selectall.
-        //public ElementReference? TextReference;
         private ElementReference? _scrollreference;
         private ElementReference? _firstreference;
         private void PrivateUpdate(string value, bool laternewValue)
@@ -101,14 +79,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             _virtual = null;
             base.OnInitialized();
         }
-
-
-
-        //for now, backspace means you have to start over again for the combo lists
-        //even on the old version, it meant starting over.
         private async void BackspacePressed()
         {
-            //this is a real problem now.
             _firstText = ""; //try to set to blank now.  well see how that goes.
             await _text!.ClearAsync();
             PrivateUpdate(_firstText, false);
@@ -131,36 +103,29 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             await ContinueArrowProcessesAsync();
         }
         private async Task ContinueArrowProcessesAsync()
-        {//no need to set to blank first anymore since it reaches to javascript now.
+        {
             StateHasChanged();
             await Task.Delay(10);
             PrivateUpdate(ItemList![_service!.ElementHighlighted], false);
             _firstText = Value;
         }
-
         private async Task ElementDoubleClicked()
         {
             if (Style.AllowDoubleClick == false)
             {
-                return; //ignore because not even allowed.
+                return;
             }
-            //this means act like you chose item.
-            await ComboEnterPressed.InvokeAsync(); //hopefully this simple.
+            await ComboEnterPressed.InvokeAsync();
         }
         public Action? ElementFocused { get; set; }
-
         private async Task ElementClicked(int x)
         {
             _service!.DoHighlight(x, false);
-            PrivateUpdate(ItemList![_service.ElementHighlighted], false); //might as well do this as well.
+            PrivateUpdate(ItemList![_service.ElementHighlighted], false);
             _firstText = Value;
             await _text!.SetTextValueAloneAsync(Value);
-            //await _text!.set
             await _text.Text!.Value.FocusAsync(); //i think we need this.
             ElementFocused?.Invoke();
-            //needs to let the 
-
-            //await _text!.FocusAsync(); //needs to focus on the control as well obviously.
         }
         private string GetTextStyle()
         {
@@ -179,7 +144,6 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             if (id != _service!.ElementHighlighted)
             {
                 return Style.ComboBackgroundColor;
-                //return "white";
             }
             return Style.HighlightColor;
         }
@@ -187,19 +151,14 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         {
             if (id != _service!.ElementHighlighted)
             {
-                return ""; //because its not the correct one.
+                return "";
             }
-            return $"background-color: {Style.HighlightColor};"; //for this, just use aqua.
+            return $"background-color: {Style.HighlightColor};";
         }
-        protected override void OnParametersSet() //refreshes again in this case.
+        protected override void OnParametersSet()
         {
-            _service!.Update(ItemList!.Count); //maybe this will show it needs to scroll (?)
-
-
-
-            //Console.WriteLine("On Parameters Set");
+            _service!.Update(ItemList!.Count);
         }
-
         private async void UpdateValuesAsync()
         {
             if (_didFirst)
@@ -209,35 +168,24 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 {
                     await _text.SetInitValueAsync(Value);
                     var index = ItemList!.IndexOf(Value);
-                    _service!.DoHighlight(index, true); //i think this was missing now.
+                    _service!.DoHighlight(index, true);
                     _firstText = Value;
                 }
                 else if (Value == "" && value != "")
                 {
-                    //this means to reset now.
                     _firstText = "";
                     await _text!.ClearAsync();
-                    _service!.Unhighlight(true); //i think.
-                    //_service!.ElementScrollTo == -1;
-                    PrivateUpdate("", false); //i think.
+                    _service!.Unhighlight(true);
+                    PrivateUpdate("", false);
                 }
-                //else if (Value != value)
-                //{
-                //    await _text.SetInitValueAsync(Value);
-                //    var index = ItemList!.IndexOf(Value);
-                //    _service!.DoHighlight(index, true); //i think this was missing now.
-                //    _firstText = Value;
-                //}
             }
             else if (Value != "")
             {
                 var index = ItemList!.IndexOf(Value);
-                _service!.DoHighlight(index, true); //i think this was missing now.
+                _service!.DoHighlight(index, true);
                 _firstText = Value;
             }
         }
-
-
         private async void OnKeyPress(TextModel model)
         {
             if (model.KeyPressed == "Enter")
@@ -250,10 +198,9 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 {
                     if (_service!.ElementScrollTo == -1 && _service.ElementHighlighted == -1)
                     {
-                        //clear out the text.
                         await _text!.ClearAsync();
-                        _firstText = ""; //i think.
-                        PrivateUpdate("", false); //i think.
+                        _firstText = "";
+                        PrivateUpdate("", false);
                         return;
                     }
                 }
@@ -278,14 +225,14 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
                 {
                     PrivateUpdate(_firstText, false);
                 }
-                _service!.Unhighlight(true); //i think this is better.  even if not required, then has to do anyways.
-                StateHasChanged(); //this is needed
-                return; //try this way.
+                _service!.Unhighlight(true);
+                StateHasChanged();
+                return;
             }
             var index = ItemList!.IndexOf(item);
-            _service!.DoHighlight(index, true); //i think this was missing now.
+            _service!.DoHighlight(index, true);
             await _text!.HighlightTextAsync(item, _firstText.Length);
-            PrivateUpdate(item, false); //try this way just in case (?)
+            PrivateUpdate(item, false);
             StateHasChanged();
         }
         private bool _didFirst = false;
@@ -294,11 +241,11 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             if (firstRender)
             {
                 _didFirst = true;
-                await _text!.SetInitValueAsync(Value); //i think this is fine because its the first time.
+                await _text!.SetInitValueAsync(Value);
                 _text.KeyPress = OnKeyPress;
-                await _service!.InitializeAsync(_text!.Text); //this will start the listener.
+                await _service!.InitializeAsync(_text!.Text);
             }
-            if (_service!.NeedsToScroll && _service.ElementScrollTo == -1) //-1 means needs to scroll to top.
+            if (_service!.NeedsToScroll && _service.ElementScrollTo == -1)
             {
                 if (Virtualized == false)
                 {
@@ -312,7 +259,7 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
             if (Virtualized == false && _service.NeedsToScroll && _scrollreference != null)
             {
                 await _service.ScrollToElementAsync(_scrollreference);
-                _scrollreference = null; //now can set to null for next time.
+                _scrollreference = null;
             }
             else if (Virtualized == true && _service.NeedsToScroll)
             {

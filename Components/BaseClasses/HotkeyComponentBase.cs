@@ -1,7 +1,5 @@
 ﻿using BasicBlazorLibrary.BasicJavascriptClasses;
-using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.BaseClasses
 {
@@ -40,7 +38,7 @@ namespace BasicBlazorLibrary.Components.BaseClasses
                 return;
             }
             MainElement = null;
-            
+
             Key = new KeystrokeClass(JS!);
             base.OnInitialized();
         }
@@ -55,7 +53,6 @@ namespace BasicBlazorLibrary.Components.BaseClasses
             if (_didInit == false)
             {
                 await InitAsync();
-                
             }
         }
     }

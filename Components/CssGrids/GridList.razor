@@ -1,23 +1,8 @@
 ﻿@typeparam T
-
 @if (RenderList == null || ChildContent == null)
 {
     return;
 }
-@*@if (Rows == 0 || Columns == 0)
-{
-    <div>
-        @if (Rows == 0)
-        {
-            <div>You need to specify how many rows</div>
-        }
-        else
-        {
-            <div>You need to specify how many columns</div>
-        }
-    </div>
-    return;
-}*@
 <GridContainer Inline="@Inline"
                ColumnGap="@ColumnGap"
                Columns="@GetColumns">

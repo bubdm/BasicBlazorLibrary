@@ -1,12 +1,11 @@
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Linq;
-using aa = CommonBasicStandardLibraries.MVVMFramework.UIHelpers.ToastPlatform;
+using aa = CommonBasicLibraries.BasicDataSettingsAndProcesses.UIPlatform;
 namespace BasicBlazorLibrary.Components.Toasts
 {
-
     public partial class BlazoredToasts
     {
         [Inject] private NavigationManager? NavigationManager { get; set; }
@@ -30,25 +29,17 @@ namespace BasicBlazorLibrary.Components.Toasts
                 _ => throw new InvalidOperationException(),
             };
         }
-
         protected override void OnInitialized()
-        {
-            //ToastService.OnShow += ShowToast;
-
-            aa.ShowError = (message) => ShowToast(EnumToastLevel.Error, message);
-
-            aa.ShowInfo = (message) => ShowToast(EnumToastLevel.Info, message);
-            aa.ShowSuccess = (message) => ShowToast(EnumToastLevel.Success, message);
-            aa.ShowWarning = (message) => ShowToast(EnumToastLevel.Warning, message);
-
+        { 
+            aa.ShowUserErrorToast = (message) => ShowToast(EnumToastLevel.Error, message);
+            aa.ShowInfoToast = (message) => ShowToast(EnumToastLevel.Info, message);
+            aa.ShowSuccessToast = (message) => ShowToast(EnumToastLevel.Success, message);
+            aa.ShowWarningToast = (message) => ShowToast(EnumToastLevel.Warning, message);
             if (RemoveToastsOnNavigation)
             {
                 NavigationManager!.LocationChanged += ClearToasts;
-            }
-
-            
+            }   
         }
-
         public void RemoveToast(Guid toastId)
         {
             InvokeAsync(() =>
@@ -67,15 +58,11 @@ namespace BasicBlazorLibrary.Components.Toasts
                 StateHasChanged();
             });
         }
-
-        internal CustomBasicList<ToastInstance> ToastList { get; set; } = new CustomBasicList<ToastInstance>();
-
-
+        internal BasicList<ToastInstance> ToastList { get; set; } = new BasicList<ToastInstance>();
         private void ShowToast(EnumToastLevel level, string message)
         {
             ShowToast(level, builder => builder.AddContent(0, message));
         }
-
         private void ShowToast(EnumToastLevel level, RenderFragment message)
         {
             InvokeAsync(() =>
@@ -86,6 +73,5 @@ namespace BasicBlazorLibrary.Components.Toasts
                 StateHasChanged();
             });
         }
-
     }
 }

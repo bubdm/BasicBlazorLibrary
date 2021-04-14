@@ -1,4 +1,4 @@
-﻿namespace BasicBlazorLibrary.Components.Layouts.Simple
+﻿namespace BasicBlazorLibrary.Components.Layouts
 {
     public enum EnumOverflowCategory
     {

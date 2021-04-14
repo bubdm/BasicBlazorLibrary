@@ -1,11 +1,9 @@
 using BasicBlazorLibrary.Components.MediaQueries.ParentClasses;
 using BasicBlazorLibrary.Helpers;
-using CommonBasicStandardLibraries.Exceptions;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-namespace BasicBlazorLibrary.Components.Layouts.Simple
+namespace BasicBlazorLibrary.Components.Layouts
 {
     public partial class LeftOverLayoutComponent
     {
@@ -39,10 +37,8 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         public int TopMargin { get; set; } = 5;
         [Parameter]
         public int RowGap { get; set; } = 5; //can change as needed
-
         [Parameter]
         public bool BuiltInScrollMain { get; set; } = true;
-
         public ElementReference? MainElement { get; private set; }
         private string GetFirstTop => $"{TopMargin}px";
         private string GetFirstLeft => $"{LeftMargin}px";
@@ -69,7 +65,7 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         private ElementReference? _firstElement;
         private ElementReference? _lastElement;
         private bool _did;
-        private int _top; //looks like i need top afterall.
+        private int _top;
         protected override void OnInitialized()
         {
             _firstElement = null;
@@ -89,18 +85,7 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             {
                 return;
             }
-            //int tempHeight = _mainHeight;
             int totalHeight;
-
-            //if (SupportAutoScroll)
-            //{
-            //    _top = await JS!.GetContainerTop(MainElement);
-            //    totalHeight = await JS!.GetParentHeight(MainElement); //hopefully this won't cause a problem (?)
-            //    _mainHeight = totalHeight - _top - BottomMargin;
-
-            //    //_mainHeight = 600; //try this way for now.  can experiment further later.
-            //    return;
-            //}
             _did = true;
             try
             {
@@ -108,24 +93,17 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             }
             catch (Exception)
             {
-                return; //try this way now (?)
+                return;
             }
-
-            
-
             int firstWidth = Media!.BrowserInfo!.Width;
             int firstHeight = Media.BrowserInfo.Height;
-
-           
-
             int totalWidth;
             totalWidth = await JS!.GetParentWidth(MainElement);
-            //throw new BasicBlankException(totalWidth.ToString());
             totalHeight = await JS!.GetParentHeight(MainElement);
             int bottomMargin = BottomMargin;
             if (totalWidth == LeftMargin || totalWidth <= 0 || totalWidth > firstWidth)
             {
-                if (_top > 0 && BottomMargin == 5) //if you set manually, needs to respect that.
+                if (_top > 0 && BottomMargin == 5)
                 {
                     bottomMargin -= 7;
                 }
@@ -145,9 +123,8 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             }
             if (_mainHeight == 0 && SupportAutoScroll || SupportAutoScroll == false)
             {
-                _mainHeight = totalHeight - _top - BottomMargin; //if autoscroll is needed, then do this way.  means after set, will never consider again.
+                _mainHeight = totalHeight - _top - BottomMargin;
             }
-
             _mainWidth = totalWidth - LeftMargin - RightMargin;
             int firstBottom;
             int lastBottom;
@@ -172,18 +149,10 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
                 lastBottom = 0;
             }
             _leftOverHeight = _mainHeight - _firstHeight - firstBottom - _lastHeight - lastBottom - bottomMargin;
-
             if (SupportAutoScroll)
             {
-
-                //this means can be smaller but never larger (try that way).
-                //if (tempHeight > 0 && )
-
-                //Console.WriteLine(_mainHeight); //this part could be a little hosed.
-                //_mainHeight = 600;
                 return;
             }
-
         }
         private bool _seconds;
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -196,7 +165,7 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             }
             else if (_seconds)
             {
-                await CalculateOtherAsync(); //looks like sometimes it needs a second time.
+                await CalculateOtherAsync();
                 StateHasChanged();
                 _seconds = false;
             }
@@ -205,7 +174,6 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
         {
             get
             {
-                //return "1"; //for now even though will have flickering.
                 if (_did == true)
                 {
                     return "1";

@@ -59,7 +59,6 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         {
             AddAction(ConsoleKey.DownArrow, action);
         }
-
         public void RemoveAllActions()
         {
             _simpleActions.Clear();
@@ -67,11 +66,10 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
             _altActions.Clear();
             _controlActions.Clear();
         }
-
-        private readonly Dictionary<ConsoleKey, Action> _simpleActions = new Dictionary<ConsoleKey, Action>();
-        private readonly Dictionary<ConsoleKey, Action> _shiftActions = new Dictionary<ConsoleKey, Action>();
-        private readonly Dictionary<ConsoleKey, Action> _altActions = new Dictionary<ConsoleKey, Action>();
-        private readonly Dictionary<ConsoleKey, Action> _controlActions = new Dictionary<ConsoleKey, Action>();
+        private readonly Dictionary<ConsoleKey, Action> _simpleActions = new ();
+        private readonly Dictionary<ConsoleKey, Action> _shiftActions = new ();
+        private readonly Dictionary<ConsoleKey, Action> _altActions = new ();
+        private readonly Dictionary<ConsoleKey, Action> _controlActions = new ();
         private EnumOtherKeyCategory _oldKey = EnumOtherKeyCategory.None;
         private bool _needsreleased;
         [JSInvokable]

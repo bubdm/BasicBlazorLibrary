@@ -9,7 +9,6 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         public CenterClass(IJSRuntime js) : base(js)
         {
         }
-
         protected override string JavascriptFileName => "center";
         public async Task CenterDiv(ElementReference? element)
         {

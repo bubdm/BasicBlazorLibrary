@@ -1,4 +1,4 @@
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
 namespace BasicBlazorLibrary.Components.Divs
 {

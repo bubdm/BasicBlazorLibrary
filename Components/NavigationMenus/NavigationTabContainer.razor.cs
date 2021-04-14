@@ -1,7 +1,7 @@
 using BasicBlazorLibrary.Components.Tabs;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.NavigationMenus
 {
     public partial class NavigationTabContainer : IBarContainer<NavigationPage>

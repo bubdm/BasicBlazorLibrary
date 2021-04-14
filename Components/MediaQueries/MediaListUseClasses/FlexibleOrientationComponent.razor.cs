@@ -1,7 +1,5 @@
 using BasicBlazorLibrary.Components.MediaQueries.ParentClasses;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Data;
 using aa = BasicBlazorLibrary.Components.CssGrids.Helpers;
 namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
 {
@@ -15,11 +13,6 @@ namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
         public RenderFragment? SideContent { get; set; }
         [Parameter]
         public RenderFragment? HeaderContent { get; set; }
-
-        
-        //i think always the same.
-        //private static string GetColumns => aa.RepeatMaximum(2);
-
         private string GetColumns
         {
             get
@@ -28,31 +21,12 @@ namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
                 {
                     return aa.RepeatMaximum(2);
                 }
-                //return "1fr 1fr"
                 return $"{aa.RepeatMaximum(1)} {aa.RepeatSpreadOut(1)}";
             }
         }
-
-
-        //private static string GetColumns => $"{aa.RepeatMaximum(1)}{aa.RepeatSpreadOut(1)}";
-
-
-        //private string GetColumns()
-        //{
-        //    if (HeaderContent == null)
-        //    {
-        //        return aa.RepeatMaximum(2);
-        //    }
-        //    //this means 3 columns but content will span across 2 of them.
-        //    //return $"{aa.RepeatMinimum(2)}{aa.RepeatSpreadOut(1)}";
-        //    return aa.RepeatMaximum(2);
-        //}
-
-
-
         private string GetRows(bool horizontal)
         {
-            if(horizontal == false)
+            if (horizontal == false)
             {
                 if (HeaderContent == null)
                 {
@@ -60,16 +34,7 @@ namespace BasicBlazorLibrary.Components.MediaQueries.MediaListUseClasses
                 }
                 return aa.RepeatAuto(3);
             }
-
-            return "auto"; //try this way.
-
-            //if (HeaderContent == null)
-            //{
-            //    return "auto"; //i think
-            //}
-            //return aa.RepeatMinimum(2);
-            //return aa.RepeatMaximum(2); //i think
+            return "auto";
         }
-
     }
 }

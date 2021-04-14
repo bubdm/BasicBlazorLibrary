@@ -15,7 +15,6 @@ namespace BasicBlazorLibrary.Components.Forms
         {
             _handleSubmitDelegate = HandleSubmitAsync;
         }
-
         [Parameter]
         public string SubmitKey { get; set; } = ""; //i think it needs to be flexible about placement so that will be manually.
         //hotkey feature only works if there is at least a textbox or something that has keyboard focus on it.

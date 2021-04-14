@@ -13,6 +13,5 @@ namespace BasicBlazorLibrary.Components.BaseClasses
         }
         [Parameter]
         public int ZIndex { get; set; } = 1; //this is the priority.  the higher means more likely this will be on top.
-
     }
 }

@@ -10,7 +10,6 @@ namespace BasicBlazorLibrary.Helpers
         {
             return js.GetLibraryModuleTask("basichelpers");
         }
-
         public static async Task<int> GetContainerTop(this IJSRuntime js, ElementReference? element)
         {
             var moduleTask = js.GetModuleTask();
@@ -18,7 +17,6 @@ namespace BasicBlazorLibrary.Helpers
             int results = (int)firstValue;
             return results;
         }
-
         public static async Task<int> GetContainerLeft(this IJSRuntime js, ElementReference? element)
         {
             var moduleTask = js.GetModuleTask();
@@ -26,7 +24,6 @@ namespace BasicBlazorLibrary.Helpers
             int results = (int)firstValue;
             return results;
         }
-
         public static async Task<int> GetContainerHeight(this IJSRuntime js, ElementReference? element)
         {
             var moduleTask = js.GetModuleTask();
@@ -52,8 +49,6 @@ namespace BasicBlazorLibrary.Helpers
             var moduleTask = js.GetModuleTask();
             return await moduleTask.InvokeDisposeAsync<int>("convertRemToPixels", 1);
         }
-
-        //these 2 was somewhat exceptions.  no problem this time though.
         public static async Task<string> GetOperatingSystemAsync(this IJSRuntime js)
         {
             var module = js.GetLibraryModuleTask("operatingsystemhelpers");

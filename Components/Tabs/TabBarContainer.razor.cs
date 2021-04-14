@@ -1,6 +1,6 @@
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.Tabs
 {
     public partial class TabBarContainer : IBarContainer<TabPage>

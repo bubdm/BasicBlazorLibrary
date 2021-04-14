@@ -1,15 +1,10 @@
-using CommonBasicStandardLibraries.CollectionClasses;
-using CommonBasicStandardLibraries.Exceptions;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Linq;
-using System.Net.Http;
-
 namespace BasicBlazorLibrary.Components.Divs
 {
     public partial class SimpleHighlightListDiv<TValue>
     {
-
         protected override void OnInitialized()
         {
             if (HighlightFirstItem)
@@ -21,33 +16,28 @@ namespace BasicBlazorLibrary.Components.Divs
                 _elementHighlighted = ItemList.IndexOf(PreviouslyHighlighted);
                 if (_elementHighlighted == -1)
                 {
-                    throw new BasicBlankException("You cannot previously hightlight an item that does not exist.");
+                    throw new CustomBasicException("You cannot previously hightlight an item that does not exist.");
                 }
             }
         }
-
         [Parameter]
         public string HighlightColor { get; set; } = "aqua";
         [Parameter]
         public bool HighlightFirstItem { get; set; }
-
         /// <summary>
         /// this has to be set at the beginning.  will allow something other than the first item to be highlighted.
         /// </summary>
         [Parameter]
         public TValue? PreviouslyHighlighted { get; set; }
-
         [Parameter]
-        public CustomBasicList<TValue> ItemList { get; set; } = new();
+        public BasicList<TValue> ItemList { get; set; } = new();
         [Parameter]
         public RenderFragment<TValue>? ChildContent { get; set; }
         //maybe no need for scrolling because something else should handle it anyways.
         //take that risk (may use with my leftover component).
         [Parameter]
         public EventCallback<TValue> OnItemSelected { get; set; }
-
         private int _elementHighlighted = -1; //start out with nothing highlighted.
-
         private string GetColorStyle(int id)
         {
             if (id != _elementHighlighted)
@@ -56,13 +46,11 @@ namespace BasicBlazorLibrary.Components.Divs
             }
             return $"background-color: {HighlightColor};";
         }
-
         private void ElementClicked(int x)
         {
 
             _elementHighlighted = x; //not sure if we need statehaschanged (?)
             OnItemSelected.InvokeAsync(ItemList[x]);
         }
-
     }
 }

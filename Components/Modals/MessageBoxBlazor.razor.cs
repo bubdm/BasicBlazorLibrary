@@ -1,6 +1,6 @@
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-using CommonBasicStandardLibraries.BasicDataSettingsAndProcesses;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 namespace BasicBlazorLibrary.Components.Modals
 {
@@ -10,9 +10,9 @@ namespace BasicBlazorLibrary.Components.Modals
         public string Message { get; set; } = "";
         [Parameter]
         public EventCallback CloseClicked { get; set; }
-        private CustomBasicList<string> Messages()
+        private BasicList<string> Messages()
         {
-            return Message.Split(Constants.vbLf).ToCustomBasicList();
+            return Message.Split(Constants.VBLF).ToBasicList();
         }
     }
 }

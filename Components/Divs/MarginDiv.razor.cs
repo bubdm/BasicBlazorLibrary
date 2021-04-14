@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using System.Text;
-
 namespace BasicBlazorLibrary.Components.Divs
 {
     public partial class MarginDiv
@@ -19,9 +18,6 @@ namespace BasicBlazorLibrary.Components.Divs
         public RenderFragment? ChildContent { get; set; }
         [Parameter]
         public string Style { get; set; } = "";
-
-        //found out there was a workaround to get css isolation to work in this case.
-
         [Parameter]
         public string Class { get; set; } = "";
         private string GetStyle()
@@ -33,10 +29,8 @@ namespace BasicBlazorLibrary.Components.Divs
             }
             if (TopMargin != "" || BottomMargin != "" || LeftMargin != "" || RightMargin != "")
             {
-                //has to do based on any of them.
                 StringBuilder builds = new StringBuilder();
                 builds.Append(temps);
-                //StrCat cats = new StrCat();
                 if (TopMargin != "")
                 {
                     builds.Append($"margin-top: {TopMargin};");

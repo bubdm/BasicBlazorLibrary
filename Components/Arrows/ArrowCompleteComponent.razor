@@ -1,16 +1,13 @@
-﻿@using BasicBlazorLibrary.Components.Layouts.Simple
+﻿@using BasicBlazorLibrary.Components.Layouts
 @using System.Drawing
 @using BasicBlazorLibrary.Components.CssGrids 
 @if (CanStart() == false)
 {
     return;
 }
-
 @if (ArrowCategory == EnumArrowCategory.All)
 {
     <CanvasLayout ViewPort="_containerViewPort" ContainerHeight="@GetContainerHeight" ContainerWidth="@GetContainerWidth">
-
-
         <CanvasItem Location="new PointF(100, 0)">
             <ArrowUpComponent TargetHeight="@TargetHeight"
                                    TargetWidth="@TargetWidth"
@@ -19,7 +16,6 @@
                                    StrokeWidth="@StrokeWidth"
                                    Clicked="UpClicked" />
         </CanvasItem>
-
         <CanvasItem Location="new PointF(100, 200)">
             <ArrowDownComponent TargetHeight="@TargetHeight"
                                      TargetWidth="@TargetWidth"
@@ -116,6 +112,5 @@ else if (ArrowCategory == EnumArrowCategory.LeftDownRight)
                                       StrokeWidth="@StrokeWidth"
                                       Clicked="RightClicked" />
         </GridItem>
-
     </GridContainer>
 }

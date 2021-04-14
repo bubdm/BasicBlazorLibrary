@@ -1,5 +1,5 @@
-﻿using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+﻿using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.AutoCompleteHelpers
 {
     public class AutoCompleteStyleModel

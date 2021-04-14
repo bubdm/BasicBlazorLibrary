@@ -1,5 +1,5 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Globalization;
@@ -12,10 +12,8 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public TValue? Value { get; set; }
         [Parameter]
         public EventCallback<TValue> ValueChanged { get; set; }
-
         [Parameter]
         public EventCallback ComboEnterPressed { get; set; }
-
         [Parameter]
         public AutoCompleteStyleModel Style { get; set; } = new AutoCompleteStyleModel();
         [Parameter]
@@ -23,13 +21,10 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         [Parameter]
         public string Placeholder { get; set; } = "";
         public ElementReference? TextReference => _combo!.GetTextBox;
-
         private ComboBoxStringList? _combo;
-
-
         private string _textDisplay = "";
         private TValue FirstValue { get; set; } = default!;
-        private readonly CustomBasicList<string> _list = new();
+        private readonly BasicList<string> _list = new();
         protected override void OnInitialized()
         {
             _combo = null;

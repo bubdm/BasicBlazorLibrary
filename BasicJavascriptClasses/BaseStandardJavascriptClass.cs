@@ -1,4 +1,4 @@
-﻿using CommonBasicStandardLibraries.Exceptions;
+﻿using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.JSInterop;
 using System;
 using System.Reflection;
@@ -7,17 +7,9 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
 {
     public abstract class BaseStandardJavascriptClass : IAsyncDisposable
     {
-
-
-
-
-
         protected Lazy<Task<IJSObjectReference>> ModuleTask; //i think this is okay.  i have seen many cases where the first part of the name is the same.
         protected abstract bool IsLocal { get; } //this influences how it would create this module.
         protected abstract string JavascriptFileName { get; } //this is the javascript file being used by this class.
-
-        
-
         async ValueTask IAsyncDisposable.DisposeAsync()
         {
             if (ModuleTask.IsValueCreated)
@@ -43,7 +35,7 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
                 Assembly? aa = Assembly.GetAssembly(GetType());
                 if (aa == null)
                 {
-                    throw new BasicBlankException("You need an assmebly for this.  Otherwise, rethink");
+                    throw new CustomBasicException("You need an assmebly for this.  Otherwise, rethink");
                 }
                 string firsts = aa.FullName!;
                 int index = firsts.IndexOf(", ");

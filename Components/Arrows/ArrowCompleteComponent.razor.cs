@@ -1,6 +1,6 @@
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 using BasicBlazorLibrary.Helpers;
 using System.Drawing;
 using aa = BasicBlazorLibrary.Components.CssGrids.Helpers;
@@ -19,38 +19,27 @@ namespace BasicBlazorLibrary.Components.Arrows
         public EventCallback UpClicked { get; set; }
         [Parameter]
         public EventCallback DownClicked { get; set; }
-
         [Parameter]
         public string BackgroundColor { get; set; } = cc.Black.ToWebColor();
         [Parameter]
         public string StrokeColor { get; set; } = cc.Transparent.ToWebColor();
-
         [Parameter]
         public string StrokeWidth { get; set; } = "1px";
-
         [Parameter]
         public string TargetHeight { get; set; } = "";
-
         [Parameter]
         public string TargetWidth { get; set; } = "";
-
         [Parameter]
-        public string RowColumnGap { get; set; } = "10px"; //can be as flexible as needed.
-
-
+        public string RowColumnGap { get; set; } = "10px";
         private readonly int _howManyColumns = 3;
         private readonly int _howManyRows = 3;
-        private readonly SizeF _singleRatio = new SizeF(1, 1); //this is for single size.
-
+        private readonly SizeF _singleRatio = new (1, 1); 
         private SizeF _containerViewPort;
-
         protected override void OnInitialized()
         {
-            _containerViewPort = new SizeF(_howManyColumns * 100, _howManyRows * 100);
+            _containerViewPort = new (_howManyColumns * 100, _howManyRows * 100);
             base.OnInitialized();
         }
-
-
         private bool CanStart()
         {
             if (TargetHeight == "" && TargetWidth == "")
@@ -63,7 +52,6 @@ namespace BasicBlazorLibrary.Components.Arrows
             }
             return true;
         }
-
         private string GetContainerHeight
         {
             get

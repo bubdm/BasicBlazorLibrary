@@ -1,9 +1,9 @@
 using BasicBlazorLibrary.BasicJavascriptClasses;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.AutoCompleteHelpers
 {
     public partial class ManuelTextBoxComponent

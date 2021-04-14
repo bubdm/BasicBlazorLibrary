@@ -4,7 +4,6 @@
     <p>Needs media list in order to use the flexible orientation component</p>
     return;
 }
-
 @if (MediaList.ScreenOrientation == ParentClasses.EnumScreenOrientation.Portrait)
 {
     <GridContainer Rows="@GetRows(false)">
@@ -46,16 +45,6 @@
                 @SideContent
             </div>
         </GridItem>
-        @*<GridItem RowSpan="2">
-            @MainContent
-        </GridItem>
-        <GridItem Column="2" ColumnSpan="2" Row="1">
-            @HeaderContent
-        </GridItem>
-        <GridItem Column="2" Row="2">
-            <div>Help So far</div>
-            @SideContent
-        </GridItem>*@
     }
     else
     {

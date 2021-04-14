@@ -1,12 +1,12 @@
-﻿using CommonBasicStandardLibraries.CollectionClasses;
-using CommonBasicStandardLibraries.Exceptions;
+﻿using CommonBasicLibraries.CollectionClasses;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using System;
 using System.Drawing;
 namespace BasicBlazorLibrary.Helpers
 {
     public static class PositionExtensions
     {
-        private readonly static CustomBasicList<string> _units = new CustomBasicList<string>() { "rem", "em", "px", "vw", "vh", "vmin", "vmax", "%" };
+        private readonly static BasicList<string> _units = new () { "rem", "em", "px", "vw", "vh", "vmin", "vmax", "%" };
 
         public static string UnitOfMeasureString(this string size)
         {
@@ -17,9 +17,8 @@ namespace BasicBlazorLibrary.Helpers
                     return unit;
                 }
             }
-            throw new BasicBlankException("No unit measure found");
+            throw new CustomBasicException("No unit measure found");
         }
-
         public static string GetLocation(this string size, Single percents)
         {
             string unit = size.UnitOfMeasureString();
@@ -27,25 +26,21 @@ namespace BasicBlazorLibrary.Helpers
             var total = subs * percents;
             return $"{total}{unit}";
         }
-
         public static float SizeUsed(this string size)
         {
             string unit = size.UnitOfMeasureString();
             return SizeUsed(unit);
-            
         }
-
         private static float SizeUsed(this string size, string unit)
         {
             string results = size.Replace(unit, "");
             bool rets = float.TryParse(results, out float output);
             if (rets == false)
             {
-                throw new BasicBlankException($"Size {size} incorrect format");
+                throw new CustomBasicException($"Size {size} incorrect format");
             }
             return output;
         }
-
         public static string ContainerSize(this string individualSize, float howMany) //to be more flexible
         {
             string unit = individualSize.UnitOfMeasureString();
@@ -53,13 +48,11 @@ namespace BasicBlazorLibrary.Helpers
             float total = used * howMany;
             return $"{total}{unit}";
         }
-
         public static string ElementLocation(this string individualSize, int proposedLocation)
         {
             string unit = individualSize.UnitOfMeasureString();
             return $"{proposedLocation}{unit}";
         }
-
         private static float GetWidth(this float height, SizeF ratio)
         {
             float output = height * ratio.Width / ratio.Height;
@@ -87,6 +80,5 @@ namespace BasicBlazorLibrary.Helpers
             float totalHeight = singleHeight * rows;
             return $"{totalHeight}{unit}";
         }
-
     }
 }

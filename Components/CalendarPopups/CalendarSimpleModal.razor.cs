@@ -1,20 +1,16 @@
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-using CommonBasicStandardLibraries.CollectionClasses;
-using CommonBasicStandardLibraries.Exceptions;
-using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.CollectionClasses;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 using aa = BasicBlazorLibrary.Components.CssGrids.Helpers;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.CalendarPopups
 {
     public partial class CalendarSimpleModal<TValue>
     {
         //this time, can't inherit from the base popup class because i need hotkey features.
-
-
-
         [Parameter]
         public EventCallback Cancelled { get; set; } //this means that it was cancelled.
         [Parameter]
@@ -38,7 +34,7 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
             return "";
         }
         private string _monthLabel = "";
-        private readonly CustomBasicList<string> _dayList = new CustomBasicList<string>()
+        private readonly BasicList<string> _dayList = new ()
         {
             DayOfWeek.Sunday.DayOfWeekShort(),
             DayOfWeek.Monday.DayOfWeekShort(),
@@ -89,7 +85,7 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
                     DateTime? selectedDate = (DateTime?)temps;
                     if (selectedDate.HasValue == false)
                     {
-                        ToastPlatform.ShowInfo("There was no date.  Rethink"); //needs toasts afterall.
+                        UIPlatform.ShowInfoToast("There was no date.  Rethink"); //needs toasts afterall.
                         return;
                     }
 
@@ -100,11 +96,10 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
                 bool rets = _realValue.IsValidDate(out DateTime? date);
                 if (rets == false)
                 {
-                    ToastPlatform.ShowError("Invalid Date"); //i think.
+                    UIPlatform.ShowUserErrorToast("Invalid Date"); //i think.
                     ClearText(); //clear text in this case.
                     return;
                 }
-                Console.WriteLine("Date Clicked");
                 DayClicked(date!.Value);
             });
         }
@@ -156,7 +151,7 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
         }
         private static DateSpot GetSpot(DateTime date, DateTime start, int howMany)
         {
-            DateSpot output = new DateSpot();
+            DateSpot output = new ();
             output.Column = date.DayOfWeek.DayOfWeekColumn();
             output.Date = date;
             int row = 3; //maybe this is correct now (?)
@@ -167,7 +162,7 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
                 upto++;
                 if (upto > howMany)
                 {
-                    throw new BasicBlankException("To the end for dates.  Rethink");
+                    throw new CustomBasicException("To the end for dates.  Rethink");
                 }
                 if (dateAt.Date == date.Date)
                 {
@@ -188,7 +183,7 @@ namespace BasicBlazorLibrary.Components.CalendarPopups
             DateToDisplayChanged.InvokeAsync((TValue?)ourvalue);
         }
         private bool _ran;
-        private CustomBasicList<DateSpot> _dates = new CustomBasicList<DateSpot>();
+        private BasicList<DateSpot> _dates = new ();
         private bool _needsFocus = true;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {

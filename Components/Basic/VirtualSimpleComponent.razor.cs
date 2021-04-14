@@ -1,35 +1,28 @@
 using BasicBlazorLibrary.BasicJavascriptClasses;
 using BasicBlazorLibrary.Helpers;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-using CommonBasicStandardLibraries.CollectionClasses;
-using CommonBasicStandardLibraries.Exceptions;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.CollectionClasses;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.Basic
 {
-
-    
     public struct VirtualModel<TItem>
     {
         public TItem Element { get; set; }
         public int Index { get; set; }
     }
-
     public partial class VirtualSimpleComponent<TItem> : IAsyncDisposable
     {
         [Parameter]
         public RenderFragment<VirtualModel<TItem>>? ChildContent { get; set; }
-
         //this one is not responsible for highlighting.  anything that uses can highlight though.
         //if methods are needed, needs to use the @ref and run methods on it.
         [Parameter]
-        public CustomBasicList<TItem> Items { get; set; } = new CustomBasicList<TItem>(); //default to new list.  that is easist way to handle this.
-        //public RenderFragment<(int row, int column, int index)>? ChildContent { get; set; }
-        //[Parameter]
-        //public RenderFragment<(TItem Element, int Index, int Experiment)>? ElementContent { get; set; }
+        public BasicList<TItem> Items { get; set; } = new (); //default to new list.  that is easist way to handle this.
         [Parameter]
         public string ContainerHeight { get; set; } = "50vh"; //defaults to 50 percent.  however, you can set as you please for that part.
         [Parameter]
@@ -108,7 +101,7 @@ namespace BasicBlazorLibrary.Components.Basic
 
         private string GetUnitMeasure()
         {
-            CustomBasicList<string> units = new CustomBasicList<string>() { "rem", "em", "px", "vw", "vh", "vmin", "vmax", "%" };
+            BasicList<string> units = new () { "rem", "em", "px", "vw", "vh", "vmin", "vmax", "%" };
             foreach (var unit in units)
             {
                 if (LineHeight.EndsWith(unit))
@@ -116,7 +109,7 @@ namespace BasicBlazorLibrary.Components.Basic
                     return unit;
                 }
             }
-            throw new BasicBlankException("No unit measure found");
+            throw new CustomBasicException("No unit measure found");
         }
         private string GetContainerSize()
         {
@@ -146,7 +139,6 @@ namespace BasicBlazorLibrary.Components.Basic
             {
                 output +=5; //to make for more smooth scrolling.
             }
-            
             return output;
         }
         private string GetPosition(int element)

@@ -11,12 +11,10 @@ namespace BasicBlazorLibrary.Components.Inputs
             KeyStrokeHelper.AddAction(ConsoleKey.LeftArrow, ToggleCheck);
             KeyStrokeHelper.AddAction(ConsoleKey.RightArrow, ToggleCheck);
         }
-
         private void ToggleCheck()
         {
             CurrentValue = !CurrentValue;
             StateHasChanged(); //i think.
         }
-
     }
 }

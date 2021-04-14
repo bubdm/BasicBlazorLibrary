@@ -58,7 +58,5 @@ namespace BasicBlazorLibrary.Helpers
             var output = await module.InvokeAsync<T>(identifier, args);
             return output;
         }
-
-
     }
 }

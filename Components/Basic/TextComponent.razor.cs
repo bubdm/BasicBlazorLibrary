@@ -12,13 +12,10 @@ namespace BasicBlazorLibrary.Components.Basic
         [Parameter]
         public EventCallback<string> ValueChanged { get; set; }
         //this does not tie to any specific form.
-
         [Parameter]
         public string Class { get; set; } = "";
         [Parameter]
         public string Style { get; set; } = "";
-        //this is oninput always though.
-
         private string CurrentValue
         {
             get => Value;
@@ -31,6 +28,5 @@ namespace BasicBlazorLibrary.Components.Basic
                 }
             }
         }
-
     }
 }

@@ -5,13 +5,9 @@ using System;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.AutoCompleteHelpers
 {
-    //has to be public now.
-    //this will allow other experiments to be done.
     public class AutoCompleteService
     {
         private readonly AutoScrollClass _scrollHelper;
-
-        //looks like this can't do anything with the textbox part now.  that now has to be completely separate.
         private readonly KeystrokeClass _keystroke;
         public event Action? ArrowUp;
         public event Action? ArrowDown;
@@ -90,7 +86,6 @@ namespace BasicBlazorLibrary.Components.AutoCompleteHelpers
             ElementScrollTo = ElementHighlighted;
             NeedsToScroll = true;
         }
-        //has to be update now.  because its not just for combos anymore.
         public void Update(int elements)
         {
             TotalElements = elements; //may not need to scroll to begin with (?)

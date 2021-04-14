@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using System;
-
 namespace BasicBlazorLibrary.Components.Basic
 {
     public partial class CheckboxComponent
@@ -11,12 +10,10 @@ namespace BasicBlazorLibrary.Components.Basic
         public bool Value { get; set; }
         [Parameter]
         public EventCallback<bool> ValueChanged { get; set; }
-
         private void OnCheckboxChanged(object wasChecked)
         {
             bool rets = Convert.ToBoolean(wasChecked);
             ValueChanged.InvokeAsync(rets);
         }
-
     }
 }

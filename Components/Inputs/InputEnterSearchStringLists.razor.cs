@@ -1,7 +1,6 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
-using BasicBlazorLibrary.Components.ComboTextboxes;
 using BasicBlazorLibrary.Components.SimpleSearchBoxes;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +11,9 @@ namespace BasicBlazorLibrary.Components.Inputs
         private SearchStringList? _search;
         protected override void OnInitialized()
         {
-            _value = CurrentValue; //try this way.
+            _value = CurrentValue;
             _search = null;
-
-            base.OnInitialized(); //needs this.
+            base.OnInitialized();
         }
         protected override void OnParametersSet()
         {
@@ -25,22 +23,15 @@ namespace BasicBlazorLibrary.Components.Inputs
         {
             _value = CurrentValue;
         }
-
         protected override Task OnFirstRenderAsync()
         {
-            InputElement = _search!.GetTextBox; //try this first before the others.
+            InputElement = _search!.GetTextBox;
             _search.ElementFocused = () =>
             {
                 TabContainer.ResetFocus(this);
             };
             return Task.CompletedTask;
         }
-
-        //public override async Task FocusAsync()
-        //{
-        //    await TabContainer.FocusAndSelectAsync(_combo!.GetTextBox);
-        //}
-
         public override Task LoseFocusAsync()
         {
             if (_value != "" && RequiredFromList && ItemList.Any(xxx => xxx == _value) == false)
@@ -51,7 +42,7 @@ namespace BasicBlazorLibrary.Components.Inputs
             return Task.CompletedTask;
         }
         [Parameter]
-        public CustomBasicList<string> ItemList { get; set; } = new CustomBasicList<string>();
+        public BasicList<string> ItemList { get; set; } = new();
         [Parameter]
         public bool RequiredFromList { get; set; } = true; //if not required, then if you enter and its not on the list, then listindex would be -1 and you can still keep typing away.
         [Parameter]

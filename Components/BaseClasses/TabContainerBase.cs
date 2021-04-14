@@ -1,5 +1,5 @@
 ﻿using BasicBlazorLibrary.Components.Tabs;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 namespace BasicBlazorLibrary.Components.BaseClasses
 {
@@ -7,13 +7,12 @@ namespace BasicBlazorLibrary.Components.BaseClasses
         where T: TabPage
     {
         public T? ActivePage { get; set; }
-        public CustomBasicList<T> Pages { get; set; } = new CustomBasicList<T>(); //has to be public so a helper can use it.
+        public BasicList<T> Pages { get; set; } = new (); //has to be public so a helper can use it.
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
         TabPage? ITabContainer.ActivePage => _page;
         [Parameter]
         public bool CollapsePages { get; set; }
-
         protected void AddPage(T tabPage)
         {
             Pages.Add(tabPage);
@@ -23,16 +22,12 @@ namespace BasicBlazorLibrary.Components.BaseClasses
             }
             StateHasChanged();
         }
-
         TabPage? _page;
-
         public virtual void ActivatePage(T page) //so the navigation class would do basics plus new.
         {
             _page = page;
             ActivePage = page;
         }
-
-
         void ITabContainer.AddPage(TabPage page)
         {
             AddPage((T) page); //unfortunately needs to cast it.  should not be too bad on performance though.

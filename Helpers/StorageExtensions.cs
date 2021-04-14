@@ -1,4 +1,4 @@
-﻿using CommonBasicStandardLibraries.Exceptions;
+﻿using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ namespace BasicBlazorLibrary.Helpers
     {
         public static async Task StorageSetItemAsync(this IJSRuntime js, string key, object value)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
+            JsonSerializerSettings settings = new ()
             {
                 Formatting = Formatting.Indented
             };
@@ -31,7 +31,7 @@ namespace BasicBlazorLibrary.Helpers
             {
                 return default!;
             }
-            return JsonConvert.DeserializeObject<T>(serialisedData);
+            return JsonConvert.DeserializeObject<T>(serialisedData)!;
         }
         public static async Task StorageClearAsync(this IJSRuntime js)
         {
@@ -45,7 +45,7 @@ namespace BasicBlazorLibrary.Helpers
         {
             if (js is not IJSInProcessRuntime exts)
             {
-                throw new BasicBlankException("js runtime not available.  if server side blazor is being used, then must use async version of javascript functions.");
+                throw new CustomBasicException("js runtime not available.  if server side blazor is being used, then must use async version of javascript functions.");
             }
             return exts.Invoke<bool> ("localStorage.hasOwnProperty", key);
         }

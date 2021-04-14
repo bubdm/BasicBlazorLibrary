@@ -1,4 +1,4 @@
-using CommonBasicStandardLibraries.Exceptions;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.AspNetCore.Components;
 using System.Globalization;
 namespace BasicBlazorLibrary.Components.Basic
@@ -23,7 +23,7 @@ namespace BasicBlazorLibrary.Components.Basic
             bool rets = BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var outs);
             if (rets == false)
             {
-                throw new BasicBlankException("Unable to convert to expected variable type.  Rethink");
+                throw new CustomBasicException("Unable to convert to expected variable type.  Rethink");
             }
             ValueChanged.InvokeAsync(outs);
         }

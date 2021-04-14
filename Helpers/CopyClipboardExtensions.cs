@@ -8,7 +8,6 @@ namespace BasicBlazorLibrary.Helpers
         {
             var moduleTask = js.GetLibraryModuleTask("clipboard");
             await moduleTask.InvokeVoidFromClassAsync("clipboardCopy", text);
-
         }
     }
 }

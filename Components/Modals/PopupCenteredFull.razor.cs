@@ -7,7 +7,7 @@ namespace BasicBlazorLibrary.Components.Modals
     public partial class PopupCenteredFull
     {
         [Parameter]
-        public string Width { get; set; } = "40vmin"; //default to 40 percent minimum.  however, you can set whatever you want.
+        public string Width { get; set; } = "40vmin";
         [CascadingParameter]
         private MediaQueryListComponent? Media { get; set; }
         protected override bool ProtectedHiddenFull
@@ -34,9 +34,6 @@ namespace BasicBlazorLibrary.Components.Modals
             _center = new CenterClass(JS!);
             base.OnInitialized();
         }
-
-        //private bool IsAnyPhone => Media!.DeviceSize == EnumDeviceSize.LargePhone || Media.DeviceSize == EnumDeviceSize.SmallPhone;
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (Media is not null && Media.DeviceCategory == EnumDeviceCategory.Phone)

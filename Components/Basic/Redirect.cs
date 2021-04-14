@@ -11,6 +11,5 @@ namespace BasicBlazorLibrary.Components.Basic
         {
             Navigates!.NavigateTo(Url);
         }
-
     }
 }

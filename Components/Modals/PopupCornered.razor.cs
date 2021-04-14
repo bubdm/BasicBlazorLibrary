@@ -4,14 +4,12 @@ namespace BasicBlazorLibrary.Components.Modals
     public partial class PopupCornered
     {
         [Parameter]
-        public string Width { get; set; } = "40vmin"; //default to 40 percent minimum.  however, you can set whatever you want.
-
+        public string Width { get; set; } = "40vmin";
         [Parameter]
-        public string Margins { get; set; } = "32px"; //looks like i need to allow the possibility of setting margins different.
-
+        public string Margins { get; set; } = "32px";
         protected override string GetWidth => Width;
         [Parameter]
-        public EnumCornerPosition CornerPosition { get; set; } = EnumCornerPosition.TopRight; //default to top right.  however, you can change if you want.
+        public EnumCornerPosition CornerPosition { get; set; } = EnumCornerPosition.TopRight;
         private string GetPositionStyle()
         {
             string output = CornerPosition switch

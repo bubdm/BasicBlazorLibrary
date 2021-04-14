@@ -1,6 +1,6 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using BasicBlazorLibrary.Components.ComboTextboxes;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Globalization;
@@ -10,14 +10,13 @@ namespace BasicBlazorLibrary.Components.Inputs
     public partial class InputEnterComboEnum<TValue>
         where TValue : Enum
     {
-        private readonly CustomBasicList<string> _list = new();
+        private readonly BasicList<string> _list = new();
         private TValue FirstValue { get; set; } = default!;
         private string _textDisplay = "";
         private ComboBoxStringList? _combo;
         protected override void OnInitialized()
         {
             _combo = null;
-            //attempt to do this way. and use the string one.  would be better performance.
             var firsts = Enum.GetValues(typeof(TValue));
             foreach (var item in firsts)
             {
@@ -57,18 +56,15 @@ namespace BasicBlazorLibrary.Components.Inputs
             if (success == false)
             {
                 _textDisplay = "";
-                return; //don't even change our stuff.
+                return;
             }
             if (parsedValue!.Equals(FirstValue))
             {
                 _textDisplay = "";
-                return; //because this means you chose the default or even none.  later can do something else (?).
-                //not ready to use forms yet
+                return;
             }
-            ValueChanged.InvokeAsync(parsedValue); //let the child recall this again.
+            ValueChanged.InvokeAsync(parsedValue); 
         }
-
-        //maybe no need for losefocus this time (?)
         protected override Task OnFirstRenderAsync()
         {
             InputElement = _combo!.GetTextBox;
@@ -78,6 +74,5 @@ namespace BasicBlazorLibrary.Components.Inputs
             };
             return base.OnFirstRenderAsync();
         }
-       
     }
 }

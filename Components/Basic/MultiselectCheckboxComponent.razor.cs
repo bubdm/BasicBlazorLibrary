@@ -1,10 +1,9 @@
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Linq;
 using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
 using aa = BasicBlazorLibrary.Components.CssGrids.Helpers;
 namespace BasicBlazorLibrary.Components.Basic
 {
@@ -17,18 +16,15 @@ namespace BasicBlazorLibrary.Components.Basic
         [Parameter]
         public string UncheckedImage { get; set; } = "";
         //if they are specified, then use image instead of 
-
         private static string GetColumns => aa.RepeatMaximum(2);
         [Parameter]
-        public CustomBasicList<TValue> Data { get; set; } = new();
+        public BasicList<TValue> Data { get; set; } = new();
         [Parameter]
-        public CustomBasicList<TValue> Values { get; set; } = new();
+        public BasicList<TValue> Values { get; set; } = new();
         [Parameter]
         public Func<TValue, string>? RetrieveValue { get; set; }
         [Parameter]
-        public EventCallback<CustomBasicList<TValue>> ValuesChanged { get; set; } //this is for data binding.
-
-
+        public EventCallback<BasicList<TValue>> ValuesChanged { get; set; } //this is for data binding.
         private enum EnumState
         {
             Old,
@@ -36,10 +32,8 @@ namespace BasicBlazorLibrary.Components.Basic
             NotValid
         }
         private EnumState _state;
-        //private bool _valid;
-
         protected override void OnParametersSet()
-        { 
+        {
             if (string.IsNullOrWhiteSpace(CheckBoxedImage) && string.IsNullOrWhiteSpace(UncheckedImage))
             {
                 _state = EnumState.Old;
@@ -56,9 +50,7 @@ namespace BasicBlazorLibrary.Components.Basic
                 return;
             }
             _state = EnumState.Images;
-
         }
-
         private bool IsSelected(TValue info)
         {
             return Values.Any(xxx => xxx!.Equals(info));
@@ -82,7 +74,7 @@ namespace BasicBlazorLibrary.Components.Basic
                     return; //because already added.  can't have duplicates.
                 }
             }
-            CustomBasicList<TValue> temps = Values.ToCustomBasicList();
+            BasicList<TValue> temps = Values.ToBasicList();
             temps.Add(item);
             ValuesChanged.InvokeAsync(temps); //they will send back again because of bindings.
         }
@@ -95,7 +87,7 @@ namespace BasicBlazorLibrary.Components.Basic
                     return; //because already not there
                 }
             }
-            CustomBasicList<TValue> temps = Values.ToCustomBasicList();
+            BasicList<TValue> temps = Values.ToBasicList();
             temps.RemoveSpecificItem(item);
             ValuesChanged.InvokeAsync(temps);
         }

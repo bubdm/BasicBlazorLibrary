@@ -1,12 +1,12 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 namespace BasicBlazorLibrary.Components.ComboTextboxes
 {
     public partial class ComboBoxNumberList
     {
         [Parameter]
-        public CustomBasicList<int>? ItemList { get; set; }
+        public BasicList<int>? ItemList { get; set; }
         [Parameter]
         public int Value { get; set; }
         [Parameter]
@@ -21,14 +21,10 @@ namespace BasicBlazorLibrary.Components.ComboTextboxes
         public bool Virtualized { get; set; } = false;
         [Parameter]
         public string Placeholder { get; set; } = "";
-        
-
         public ElementReference? TextReference => _combo!.GetTextBox;
-
         private ComboBoxStringList? _combo;
-
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new();
+        private readonly BasicList<string> _list = new();
         protected override void OnInitialized()
         {
             _combo = null;

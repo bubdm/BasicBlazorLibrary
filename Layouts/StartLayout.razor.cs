@@ -1,13 +1,7 @@
-using System;
-using System.Dynamic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using CommonBasicStandardLibraries.Exceptions;
-using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.AspNetCore.Components;
-using aa = CommonBasicStandardLibraries.MVVMFramework.UIHelpers.ToastPlatform;
-using Microsoft.JSInterop;
+using System.Threading.Tasks;
+using aa = CommonBasicLibraries.BasicDataSettingsAndProcesses.UIPlatform;
 namespace BasicBlazorLibrary.Layouts
 {
     public partial class StartLayout
@@ -50,43 +44,27 @@ namespace BasicBlazorLibrary.Layouts
                 } while (true);
             });
         }
-
-
-        //attempt to not have this inherit from layoutbase (?)
-        //in this case, needs childcontent (?)
-
         protected override void OnInitialized()
         {
-
-            //if you are doing messages for lots of people, doing it this way does not work well.
-
-            //i liked the way it was done for the game package.  attempt it here.
-            UIPlatform.ShowMessageAsync = ShowMessageAsync;
-            UIPlatform.ShowError = (message =>
+            aa.ShowMessageAsync = ShowMessageAsync;
+            aa.ShowSystemError = (message =>
             {
                 if (ShowFriendlyError)
                 {
-                    aa.ShowError($"System Error: {message}");
-                    //ErrorMessage = message;
-                    //StateHasChanged();
+                    aa.ShowUserErrorToast($"System Error: {message}");
                 }
                 else
                 {
-                    throw new BasicBlankException(message);
+                    throw new CustomBasicException(message);
                 }
             });
-            //in .net 6 or maybe even with photino, if the method is already implemented, then can ignore this part.
-
-            UIPlatform.ExitApp = () =>
+            //for now, keep this in.  can rethink later if necessary.  for now, desktop can't even do startlayout anyways.
+            aa.ExitApp = () =>
             {
                 Exited = true;
-                aa.ShowSuccess("Should close out because you are finished with everything.  Please close out manually");
-                //try this way.
+                aa.ShowSuccessToast("Should close out because you are finished with everything.  Please close out manually");
                 StateHasChanged();
             };
-
         }
-
-
     }
 }

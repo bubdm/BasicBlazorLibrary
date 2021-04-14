@@ -2,16 +2,11 @@
 {
     public enum EnumDeviceSize
     {
-
         SmallPhone,
         LargePhone,
         SmallTablet,
         LargeTablet,
         Desktop
-
-        //Phone,
-        //Tablet,
-        //Desktop
     }
     public enum EnumDeviceCategory
     {

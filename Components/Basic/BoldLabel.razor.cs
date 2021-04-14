@@ -44,8 +44,5 @@ namespace BasicBlazorLibrary.Components.Basic
                 return starts;
             }
         }
-
-        //private string GetStyle => $"font-weight: bold; {Style};"; 
-
     }
 }

@@ -1,5 +1,5 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System;
 namespace BasicBlazorLibrary.Components.SimpleSearchBoxes
@@ -7,29 +7,23 @@ namespace BasicBlazorLibrary.Components.SimpleSearchBoxes
     public partial class SearchGenericList<TValue>
     {
         [Parameter]
-        public CustomBasicList<TValue>? ItemList { get; set; }
+        public BasicList<TValue>? ItemList { get; set; }
         [Parameter]
         public TValue? Value { get; set; }
-
         [Parameter]
         public EventCallback<TValue> ValueChanged { get; set; }
-
         [Parameter]
         public Func<TValue, string>? RetrieveValue { get; set; }
-
         [Parameter]
         public EventCallback SearchEnterPressed { get; set; }
-
         [Parameter]
         public AutoCompleteStyleModel Style { get; set; } = new AutoCompleteStyleModel();
         [Parameter]
         public string Placeholder { get; set; } = "";
-
         public ElementReference? TextReference => _search!.GetTextBox;
-
         private SearchStringList? _search;
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new();
+        private readonly BasicList<string> _list = new();
         protected override void OnInitialized()
         {
             _search = null;
@@ -58,9 +52,9 @@ namespace BasicBlazorLibrary.Components.SimpleSearchBoxes
             if (index == -1)
             {
                 _textDisplay = "";
-                return; //because not there.
+                return;
             }
-            ValueChanged.InvokeAsync(ItemList![index]); //hopefully this simple (?)
+            ValueChanged.InvokeAsync(ItemList![index]);
         }
     }
 }

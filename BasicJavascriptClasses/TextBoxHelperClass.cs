@@ -11,8 +11,6 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         {
         }
         protected override string JavascriptFileName => "text";
-
-
         [JSInvokable]
         public void KeyPress(string key)
         {
@@ -24,7 +22,6 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         }
 
         public event Action<string>? OnKeyPress;
-
         public async Task SetInitTextAsync(ElementReference? element, string value)
         {
             await ModuleTask.InvokeVoidFromClassAsync("setInitialText", element, value);

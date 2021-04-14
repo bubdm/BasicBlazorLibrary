@@ -1,11 +1,10 @@
 using BasicBlazorLibrary.BasicJavascriptClasses;
 using BasicBlazorLibrary.Components.MediaQueries.ResizeHelpers;
 using BasicBlazorLibrary.Helpers;
-using CommonBasicStandardLibraries.Exceptions;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
 {
@@ -13,20 +12,11 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
     {
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
-        //this will also show other data that any component can use like screenorientation, etc.
-
         [Inject]
         private IJSRuntime? JS { get; set; }
-
         private ResizeListenerClass? _resize;
-
-        //private ResizeListener? _resize;
-
-        //[Inject]
-        //private IResizeListener? ResizeListener { get; set; }
-        public EnumScreenOrientation ScreenOrientation { get; private set; } //only this can set it though.  others is read only.
+        public EnumScreenOrientation ScreenOrientation { get; private set; }
         public EnumDeviceSize DeviceSize { get; private set; }
-
         public EnumDeviceCategory DeviceCategory
         {
             get
@@ -38,7 +28,7 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
                     EnumDeviceSize.SmallTablet => EnumDeviceCategory.Tablet,
                     EnumDeviceSize.LargeTablet => EnumDeviceCategory.Tablet,
                     EnumDeviceSize.Desktop => EnumDeviceCategory.Desktop,
-                    _ => throw new BasicBlankException("Nothing found"),
+                    _ => throw new CustomBasicException("Nothing found"),
                 };
             }
         }
@@ -64,13 +54,11 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
                     return false;
             }
         }
-
         private bool _loading = true;
         protected override void OnInitialized()
         {
             _resize = new ResizeListenerClass(JS!);
             _resize.Onresized = MediaQueryListComponent_OnResized;
-            //_resize!.OnResized += MediaQueryListComponent_OnResized;
         }
         protected override async Task OnInitializedAsync()
         {
@@ -81,11 +69,9 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
             }
             catch (Exception)
             {
-
                 return;
             }
         }
-
         private void MediaQueryListComponent_OnResized(BrowserSize obj)
         {
             BrowserInfo = obj;
@@ -102,26 +88,17 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
             }
             DeviceSize = largest switch
             {
-
-                //can change allocations.  however, for now, decided to have in 5 categories.
-
-
                 >= 1500 => EnumDeviceSize.Desktop,
-                >= 1100 => EnumDeviceSize.LargeTablet, //otherwise, portrait for my tablet thinks its 
+                >= 1100 => EnumDeviceSize.LargeTablet,
                 >= 900 => EnumDeviceSize.SmallTablet,
                 >= 600 => EnumDeviceSize.LargePhone,
                 _ => EnumDeviceSize.SmallPhone
-                //>= 1500 => EnumDeviceCategory.Desktop,
-                //>= 900 => EnumDeviceCategory.Tablet,
-                //_ => EnumDeviceCategory.Phone
             };
             _loading = false;
             StateHasChanged();
         }
         public ValueTask DisposeAsync()
         {
-            //hopefully not needed (?)
-            //_resize!.OnResized -= MediaQueryListComponent_OnResized;
             return ValueTask.CompletedTask;
         }
     }

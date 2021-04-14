@@ -1,9 +1,9 @@
 using BasicBlazorLibrary.Helpers;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System.Drawing;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.NavigationMenus
 {
     public partial class NavigationBarContainer
@@ -13,25 +13,18 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         private bool _showBar = false; //anything can access it to change when necessary.
         [Parameter]
         public RenderFragment? MainContent { get; set; }
-
         [Parameter]
         public RenderFragment? BarContent { get; set; }
-
         [Parameter]
         public EventCallback BackClicked { get; set; }
         [Parameter]
         public bool ShowBack { get; set; } = true; //there can be cases where even though there is a backclick, there is a situation where it would not show it anyways.
-
         [Parameter]
         public EventCallback CloseClicked { get; set; }
-
         [Parameter]
         public string ArrowHeight { get; set; } = "70px"; //can see what makes sense for defaults.
-
-        //i think the color of the text should be the color of the arrows and even x.
         [Parameter]
         public string CloseHeight { get; set; } = "2rem";
-
         [Parameter]
         public string MainBackgroundColor { get; set; } = cc.Blue.ToWebColor();
         [Parameter]
@@ -55,18 +48,9 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         [Parameter]
         public string MenuWidth { get; set; } = "50vmin";
         [Parameter]
-        public CustomBasicList<MenuItem> MenuList { get; set; } = new (); //can still show the list even with no items.
-
+        public BasicList<MenuItem> MenuList { get; set; } = new (); //can still show the list even with no items.
         [Parameter]
         public bool AlwaysShowBar { get; set; } = false;
-
-      
-
-        //for now, no more fullpage.   did not work as expected anyways.  until further notice, has to manually specify the sizes if scrolling is needed.
-
-
-
-
         private SizeF _viewPort = new (40, 40);
         private string GetContainer
         {
@@ -93,8 +77,6 @@ namespace BasicBlazorLibrary.Components.NavigationMenus
         public void ChangeBar(bool display)
         {
             _showBar = display;
-            //was able to get to the root of the problem
-            //lesson.  if one is using it, then can't use bind second time.  otherwise, causes problems.
             StateHasChanged();
         }
     }

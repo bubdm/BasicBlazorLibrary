@@ -17,14 +17,11 @@ namespace BasicBlazorLibrary.BasicJavascriptClasses
         {
             await ModuleTask.InvokeVoidFromClassAsync("start", DotNetObjectReference.Create(this));
         }
-
-
         [JSInvokable]
         public void JsOtherClicked()
         {
             OtherClicked?.Invoke();
         }
-
         [JSInvokable]
         public void JsMainClicked(string id)
         {

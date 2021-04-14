@@ -1,0 +1,6 @@
+﻿@if (IsEnabled == false)
+{
+    <button style="background-color: @BackColor; color: @DisabledColor" disabled>@ChildContent</button>
+    return;
+}
+<button @onclick="OnClick" style="background-color: @BackColor; color: @TextColor">@ChildContent</button>

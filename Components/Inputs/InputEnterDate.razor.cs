@@ -1,6 +1,6 @@
 using BasicBlazorLibrary.BasicJavascriptClasses;
-using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
-using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
+using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using System;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.Inputs
@@ -8,13 +8,8 @@ namespace BasicBlazorLibrary.Components.Inputs
     public partial class InputEnterDate<TValue>
     {
         private string _value = "";
-        private DateTime? _dateChosen; //needs full control of when it puts to value (i prefer just doing the event notifications).
-        //try to do without external component this time.
-
+        private DateTime? _dateChosen; 
         private TextBoxHelperClass? _helps;
-
-
-
         public override async Task LoseFocusAsync()
         {
             _value = await _helps!.GetValueAsync(InputElement);
@@ -27,7 +22,7 @@ namespace BasicBlazorLibrary.Components.Inputs
             bool rets = _value.IsValidDate(out DateTime? date);
             if (rets == false)
             {
-                ToastPlatform.ShowError("Invalid Date");
+                UIPlatform.ShowUserErrorToast("Invalid Date");
                 CurrentValue = default;
                 await ClearTextAsync();
                 return;
@@ -35,34 +30,8 @@ namespace BasicBlazorLibrary.Components.Inputs
             _dateChosen = date;
             object temps = _dateChosen!;
             CurrentValue = (TValue)temps;
-            _previousValue = CurrentValue; //try this too.
-            //probably no need to do the update.
+            _previousValue = CurrentValue;
         }
-
-        //public override void LoseFocus()
-        //{
-        //    if (_value == "")
-        //    {
-        //        ToastPlatform.ShowError("Problem");
-        //    }
-        //    if (_value == "")
-        //    {
-        //        CurrentValue = default;
-        //        SetText("");
-        //        return;
-        //    }
-        //    bool rets = _value.IsValidDate(out DateTime? date);
-        //    if (rets == false)
-        //    {
-        //        ToastPlatform.ShowError("Invalid Date");
-        //        CurrentValue = default;
-        //        SetText("");
-        //        return;
-        //    }
-        //    _dateChosen = date;
-        //    object temps = _dateChosen!;
-        //    CurrentValue = (TValue)temps; //hopefully this simple.
-        //}
         private bool _invalid;
         private static string GetFormattedDate(DateTime date)
         {
@@ -73,19 +42,17 @@ namespace BasicBlazorLibrary.Components.Inputs
         }
         protected override void OnInitialized()
         {
-            base.OnInitialized(); //has to do this first.
+            base.OnInitialized();
             _helps = new TextBoxHelperClass(TabContainer.JS!);
-
-
             KeyStrokeHelper.AddAction(ConsoleKey.C, () =>
             {
                 if (_dateChosen.HasValue == false)
                 {
-                    _dateChosen = DateTime.Now; //has to be set.  otherwise, no popup because no date found.
+                    _dateChosen = DateTime.Now;
                 }
                 _value = "";
                 TabContainer.OtherScreen = true;
-                StateHasChanged(); //i think.
+                StateHasChanged();
             });
         }
         private async Task Cancelled()
@@ -93,7 +60,7 @@ namespace BasicBlazorLibrary.Components.Inputs
             _dateChosen = null;
             await ClearTextAsync();
             TabContainer.OtherScreen = false;
-            await TabContainer.FocusSpecificInputAsync(this); //so tab orders are proper.
+            await TabContainer.FocusSpecificInputAsync(this);
         }
         private async Task ChoseDate()
         {

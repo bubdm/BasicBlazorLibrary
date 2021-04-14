@@ -4,7 +4,6 @@ using Microsoft.JSInterop;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.BasicJavascriptClasses
 {
-
     public class HighlightTextBoxClass : BaseLibraryJavascriptClass
     {
         public HighlightTextBoxClass(IJSRuntime js) : base(js) { }

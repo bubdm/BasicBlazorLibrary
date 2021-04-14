@@ -1,6 +1,6 @@
 using BasicBlazorLibrary.Components.AutoCompleteHelpers;
 using BasicBlazorLibrary.Components.ComboTextboxes;
-using CommonBasicStandardLibraries.CollectionClasses;
+using CommonBasicLibraries.CollectionClasses;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 namespace BasicBlazorLibrary.Components.Inputs
@@ -9,7 +9,7 @@ namespace BasicBlazorLibrary.Components.Inputs
     {
         private ComboBoxStringList? _combo;
         private string _textDisplay = "";
-        private readonly CustomBasicList<string> _list = new ();
+        private readonly BasicList<string> _list = new ();
         protected override void OnInitialized()
         {
             _combo = null;
@@ -30,11 +30,11 @@ namespace BasicBlazorLibrary.Components.Inputs
             }
             else if (index == -1 && Value == 0)
             {
-                _textDisplay = ""; //i think it should not diplay 0.
+                _textDisplay = "";
             }
             else if (index == -1)
             {
-                _textDisplay = Value.ToString(); //maybe this is it now.
+                _textDisplay = Value.ToString();
             }
             else
             {
@@ -42,7 +42,7 @@ namespace BasicBlazorLibrary.Components.Inputs
             }
         }
         [Parameter]
-        public CustomBasicList<int>? ItemList { get; set; }
+        public BasicList<int>? ItemList { get; set; }
         [Parameter]
         public bool RequiredFromList { get; set; } = true; //if not required, then if you enter and its not on the list, then listindex would be -1 and you can still keep typing away.
         [Parameter]
@@ -59,7 +59,7 @@ namespace BasicBlazorLibrary.Components.Inputs
                 if (RequiredFromList)
                 {
                     _textDisplay = "";
-                    return; //because not there.
+                    return;
                 }
                 bool rets = int.TryParse(value, out int aa);
                 if (rets == false)
@@ -67,7 +67,7 @@ namespace BasicBlazorLibrary.Components.Inputs
                     _textDisplay = "";
                     return;
                 }
-                ValueChanged.InvokeAsync(aa); //i think.
+                ValueChanged.InvokeAsync(aa);
                 return;
             }
             ValueChanged.InvokeAsync(ItemList![index]);

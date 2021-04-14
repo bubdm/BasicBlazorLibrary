@@ -1,13 +1,12 @@
 using BasicBlazorLibrary.Helpers;
 using Microsoft.AspNetCore.Components;
 using System.Drawing;
-namespace BasicBlazorLibrary.Components.Layouts.Simple
+namespace BasicBlazorLibrary.Components.Layouts
 {
     public partial class CanvasItem
     {
         [CascadingParameter]
         public CanvasLayout? Container { get; set; }
-
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
 
@@ -20,7 +19,7 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
             {
                 if (value.X == _location.X && value.Y == _location.Y)
                 {
-                    return; //because it did not really change.  this will help with performance.
+                    return;
                 }
                 if (Container != null)
                 {
@@ -29,53 +28,29 @@ namespace BasicBlazorLibrary.Components.Layouts.Simple
                 _location = value;
             }
         }
-
-
         private string _topText = "";
         private string _leftText = "";
-
         protected override void OnInitialized()
         {
             SetText();
             base.OnInitialized();
         }
-
         private void SetText()
         {
             _topText = GetTop();
             _leftText = GetLeft();
-
         }
-
-        //hopefully no need for sizeused since that should have been given anyways.
-
-
-        //[Parameter]
-        //public SizeF SizeUsed { get; set; } //hopefully this simple.
-
-        //[Parameter]
-        //public float Top { get; set; }
-        //[Parameter]
-        //public float Left { get; set; }
-
         private string GetTop()
         {
-            //needs to know the viewport.
-
             var percents = Location.Y / Container!.ViewPort.Height;
             string tops = Container.ContainerHeight.GetLocation(percents);
             return tops;
-            //string units = Container.
         }
-
         private string GetLeft()
         {
             var percents = Location.X / Container!.ViewPort.Width;
             string lefts = Container.ContainerWidth.GetLocation(percents);
             return lefts;
-
         }
-
-
     }
 }

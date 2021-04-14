@@ -15,12 +15,9 @@ namespace BasicBlazorLibrary.Components.Basic
         public string FillColor { get; set; } = "white"; //i think default to white but can be anything you want.
         [Parameter]
         public string TargetHeight { get; set; } = "";
-
         [Parameter]
         public string TargetWidth { get; set; } = "";
-
         [Parameter]
         public EventCallback SaveClicked { get; set; }
-
     }
 }

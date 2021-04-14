@@ -1,5 +1,5 @@
-using CommonBasicStandardLibraries.CollectionClasses;
-using CommonBasicStandardLibraries.MVVMFramework.UIHelpers;
+using CommonBasicLibraries.CollectionClasses;
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,9 +35,9 @@ namespace BasicBlazorLibrary.Components.Basic
         private bool _loading = true;
         private int _index;
         private EnumStatus _status = EnumStatus.NoneToBegin; //start here.
-        private CustomBasicList<TValue> _itemList = new();
+        private BasicList<TValue> _itemList = new();
         [Parameter]
-        public CustomBasicList<TValue> ItemList
+        public BasicList<TValue> ItemList
         {
             get => _itemList;
             set
@@ -110,7 +110,7 @@ namespace BasicBlazorLibrary.Components.Basic
         {
             if (_index < 1)
             {
-                ToastPlatform.ShowError("Cannot go to previous one because you are already at the beginning");
+                UIPlatform.ShowUserErrorToast("Cannot go to previous one because you are already at the beginning");
                 return;
             }
             _index--;

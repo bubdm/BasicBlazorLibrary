@@ -1,6 +1,6 @@
-﻿using CommonBasicStandardLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+﻿using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 using Microsoft.AspNetCore.Components;
-using cc = CommonBasicStandardLibraries.BasicDataSettingsAndProcesses.SColorString;
+using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 namespace BasicBlazorLibrary.Components.Arrows
 {
     public class ArrowBase : ComponentBase
@@ -9,19 +9,14 @@ namespace BasicBlazorLibrary.Components.Arrows
         public EventCallback Clicked { get; set; }
         [Parameter]
         public string BackgroundColor { get; set; } = cc.Black.ToWebColor();
-
         [Parameter]
         public string TargetHeight { get; set; } = "";
-
         [Parameter]
         public string StrokeWidth { get; set; } = "1px";
-
         [Parameter]
         public string StrokeColor { get; set; } = cc.Transparent.ToWebColor();
-
         [Parameter]
         public string TargetWidth { get; set; } = "";
-
         protected string GetSvgStyle()
         {
             if (TargetHeight == "" && TargetWidth == "")
@@ -38,7 +33,6 @@ namespace BasicBlazorLibrary.Components.Arrows
                 return $"height: {TargetHeight}";
             }
             return $"width: {TargetWidth}";
-
         }
     }
 }

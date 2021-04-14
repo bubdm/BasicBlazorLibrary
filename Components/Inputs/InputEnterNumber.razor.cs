@@ -10,12 +10,9 @@ namespace BasicBlazorLibrary.Components.Inputs
     /// </summary>
     public partial class InputEnterNumber<TValue>
     {
-        private readonly static string _stepAttributeValue; // Null by default, so only allows whole numbers as per HTML spec
-
+        private readonly static string _stepAttributeValue;
         static InputEnterNumber()
         {
-            // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
-            // of it for us. We will only get asked to parse the T for nonempty inputs.
             var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
             if (targetType == typeof(int) ||
                 targetType == typeof(long) ||
@@ -31,34 +28,20 @@ namespace BasicBlazorLibrary.Components.Inputs
                 throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
             }
         }
-
         /// <summary>
         /// Gets or sets the error message used when displaying an a parsing error.
         /// </summary>
         [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
-
-
-        //this can be a reference and can use this for focus on specific control as well.
-        //[Parameter]
-        //public int TabIndex { get; set; } = -1000;
-        //this will not have the javascript part.  that will come later.
-
         /// <summary>
         /// Gets or sets the display name for this field.
         /// <para>This value is used when generating error messages when the input value fails to parse correctly.</para>
         /// </summary>
         [Parameter] public string? DisplayName { get; set; }
-
         /// <summary>
         /// if you specify true, then you cannot enter a minus number because since - is not valid, then that is the trdeoff.
         /// </summary>
         [Parameter]
         public bool ValidateOnInput { get; set; }
-
-
-
-
-        /// <inheritdoc />
         protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
         {
             if (BindConverter.TryConvertTo(value, CultureInfo.InvariantCulture, out result))
@@ -72,7 +55,6 @@ namespace BasicBlazorLibrary.Components.Inputs
                 return false;
             }
         }
-
         /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
         /// </summary>
