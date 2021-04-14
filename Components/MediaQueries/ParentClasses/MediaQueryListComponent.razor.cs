@@ -1,3 +1,4 @@
+using BasicBlazorLibrary.BasicJavascriptClasses;
 using BasicBlazorLibrary.Components.MediaQueries.ResizeHelpers;
 using BasicBlazorLibrary.Helpers;
 using CommonBasicStandardLibraries.Exceptions;
@@ -17,7 +18,9 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
         [Inject]
         private IJSRuntime? JS { get; set; }
 
-        private ResizeListener? _resize;
+        private ResizeListenerClass? _resize;
+
+        //private ResizeListener? _resize;
 
         //[Inject]
         //private IResizeListener? ResizeListener { get; set; }
@@ -65,13 +68,22 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
         private bool _loading = true;
         protected override void OnInitialized()
         {
-            _resize = new ResizeListener(JS!);
-            _resize!.OnResized += MediaQueryListComponent_OnResized;
+            _resize = new ResizeListenerClass(JS!);
+            _resize.Onresized = MediaQueryListComponent_OnResized;
+            //_resize!.OnResized += MediaQueryListComponent_OnResized;
         }
-
         protected override async Task OnInitializedAsync()
         {
-            OperatingSystemContainsKeyboard = await JS!.HasKeyboard();
+            try
+            {
+                OperatingSystemContainsKeyboard = await JS!.HasKeyboard();
+                await _resize!.InitAsync();
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
         }
 
         private void MediaQueryListComponent_OnResized(BrowserSize obj)
@@ -108,7 +120,8 @@ namespace BasicBlazorLibrary.Components.MediaQueries.ParentClasses
         }
         public ValueTask DisposeAsync()
         {
-            _resize!.OnResized -= MediaQueryListComponent_OnResized;
+            //hopefully not needed (?)
+            //_resize!.OnResized -= MediaQueryListComponent_OnResized;
             return ValueTask.CompletedTask;
         }
     }
